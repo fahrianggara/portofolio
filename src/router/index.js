@@ -20,4 +20,11 @@ const router = createRouter({
   ],
 })
 
+router.beforeEach((to, from, next) => {
+  let title = to.name.charAt(0).toUpperCase() + to.name.slice(1)
+  let appName = 'Fahri Anggara'
+  document.title = `${title} - ${appName}`
+  next()
+})
+
 export default router
