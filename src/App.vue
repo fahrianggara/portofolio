@@ -1,11 +1,10 @@
 <script setup>
-  import { RouterLink, RouterView } from 'vue-router'
   import Navbar from './components/Navbar.vue'
 </script>
 
 <template>
-  <Navbar />
-  <RouterView />
+  <Navbar :class="'font-inter dark:bg-black'" />
+  <router-view :class="'font-inter dark:bg-black'" />
 </template>
 
 <style scoped>
