@@ -8,11 +8,11 @@
 }
 
 main {
-    @apply h-screen  flex flex-col px-4 w-full;
+    @apply h-screen flex flex-col px-4 w-full;
 }
 
 .container {
-    @apply max-w-4xl mx-auto md:px-4;
+    @apply max-w-4xl mx-auto px-4 pb-8 pt-[6.5rem];
 }
 
 .hero {

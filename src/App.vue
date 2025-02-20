@@ -3,8 +3,8 @@
 </script>
 
 <template>
-  <Navbar :class="'font-inter dark:bg-black'" />
-  <router-view :class="'font-inter dark:bg-black'" />
+  <Navbar :class="'font-inter'" />
+  <router-view :class="'font-inter'" />
 </template>
 
 <style scoped>

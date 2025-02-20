@@ -2,6 +2,7 @@
   import { useDark, useToggle } from '@vueuse/core';
   import SunIcon from './icon/SunIcon.vue';
   import MoonIcon from './icon/MoonIcon.vue';
+  import { onMounted } from 'vue';
 
   const isDark = useDark({
     selector: 'html',
@@ -10,6 +11,10 @@
     valueLight: 'light',
   });
   const toggleDark = useToggle(isDark);
+
+  onMounted(() => { // Add dark:bg-black class to body element
+    document.body.classList.add('dark:bg-black');
+  });
 </script>
 
 <template>
