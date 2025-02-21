@@ -9,11 +9,13 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
+      meta: { showNavbarAndFooter: false }
     },
     {
       path: '/about',
       name: 'about',
       component: AboutView,
+      meta: { showNavbarAndFooter: true }
     },
   ],
 })

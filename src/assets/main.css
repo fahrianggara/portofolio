@@ -1,20 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @theme {
-    --font-inter: 'Inter', sans-serif;
+	--font-inter: "Inter", sans-serif;
 }
 
-main {
-    @apply h-screen flex flex-col px-4 w-full;
+/* Home Section */
+.home {
+	@apply min-h-screen flex flex-col justify-center pt-[20px];
 }
 
+/* Container */
 .container {
-    @apply max-w-4xl mx-auto px-4 pb-8 pt-[6.5rem];
+	@apply max-w-4xl mx-auto px-4 pb-8 pt-20 h-fit;
 }
 
-.hero {
-    @apply flex flex-col justify-center h-full;
+.container-center {
+    @apply max-w-4xl mx-auto px-4 pb-8 pt-[6.5rem] md:pt-0;
 }

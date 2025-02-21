@@ -1,25 +1,17 @@
 <script setup>
-  import { useDark, useToggle } from '@vueuse/core';
   import SunIcon from './icon/SunIcon.vue';
-  import MoonIcon from './icon/MoonIcon.vue';
-  import { onMounted } from 'vue';
+  import MoonIcon from './icon/MoonIcon.vue';  
 
-  const isDark = useDark({
-    selector: 'html',
-    attribute: 'data-theme',
-    valueDark: 'dark',
-    valueLight: 'light',
-  });
-  const toggleDark = useToggle(isDark);
-
-  onMounted(() => { // Add dark:bg-black class to body element
-    document.body.classList.add('dark:bg-black');
+  // props to be passed to the Navbar component
+  const props = defineProps({
+    isDark: Boolean,
+    toggleDark: Function,
   });
 </script>
 
 <template>
-  <header id="header" class="">
-    <nav class="bg-white dark:bg-black">
+  <header id="header" class="border-b border-solid border-gray-300 dark:border-zinc-900">
+    <nav class="bg-white/30 dark:bg-black/60 ">
       <router-link to="/" class="nav-brand">
         <img src="@/assets/img/logo.png" alt="Logo" />
       </router-link>
@@ -40,7 +32,7 @@
   }
 
   nav {
-    @apply flex items-center justify-between h-[60px] max-w-4xl mx-auto px-4;
+    @apply flex items-center justify-between h-[60px] max-w-4xl mx-auto px-4 backdrop-blur-lg ;
   }
 
   .nav-brand {
