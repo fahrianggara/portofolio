@@ -10,8 +10,8 @@
 </script>
 
 <template>
-  <header id="header" class="border-b border-solid border-gray-300 dark:border-zinc-900">
-    <nav class="bg-white/30 dark:bg-black/60 ">
+  <header id="header" class="border-b border-solid border-gray-300 dark:border-zinc-900 bg-surface/30 dark:bg-dark-surface/60">
+    <nav class="">
       <router-link to="/" class="nav-brand">
         <img src="@/assets/img/logo.png" alt="Logo" />
       </router-link>
@@ -28,11 +28,11 @@
   @reference "tailwindcss";
 
   header {
-    @apply fixed top-0 left-0 w-full z-[1000];
+    @apply fixed top-0 left-0 w-full z-[1000] backdrop-blur-lg ;
   }
 
   nav {
-    @apply flex items-center justify-between h-[60px] max-w-4xl mx-auto px-4 backdrop-blur-lg ;
+    @apply flex items-center justify-between h-[60px] max-w-5xl mx-auto px-4;
   }
 
   .nav-brand {
