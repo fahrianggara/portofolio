@@ -14,7 +14,7 @@ const year = new Date().getFullYear()
           <li><a href="#" class="dark:text-gray-300 ease-in hover:text-blue-500 footer-link">Contact</a></li>
           <li><a href="#" class="dark:text-gray-300 ease-in hover:text-blue-500 footer-link">Activity</a></li>
         </ul>
-        <p class="dark:text-white pt-[10px] sm:pt-0 text-[14px] sm:text-[16px]">&copy; {{ year }} Fahri Anggara. Made with ❤️</p>
+        <p class="dark:text-white pt-[10px] sm:pt-0 text-[14px] sm:text-[15px]">&copy; {{ year }} Fahri Anggara. Made with ❤️</p>
       </div>
     </div>
   </footer>
@@ -34,14 +34,16 @@ const year = new Date().getFullYear()
   }
 
   .footer-box {
-    @apply flex flex-col gap-5 sm:flex-row sm:gap-0 items-center sm:items-start justify-between max-w-7xl mx-auto pt-[40px] pb-[30px] px-[20px];
+    @apply flex flex-col gap-5 sm:flex-row sm:gap-0 items-center 
+    sm:items-start justify-between max-w-7xl mx-auto pt-[30px] md:pt-[40px] pb-[30px] px-[20px];
   }
 
   .footer-links {
-    @apply flex flex-wrap items-center justify-center sm:grid grid-flow-col sm:grid-rows-2 sm:grid-cols-2 sm:auto-rows-max gap-y-4 gap-x-6 sm:pr-[30px];
+    @apply flex flex-wrap items-center justify-center sm:grid grid-flow-col 
+    sm:grid-rows-2 sm:grid-cols-2 sm:auto-rows-max sm:gap-y-4 sm:gap-x-6 gap-x-4 gap-y-2 sm:pr-[30px];
   }
 
   .footer-link {
-    @apply text-[13.5px] sm:text-[15px] hover:underline;
+    @apply text-[14px] sm:text-[15px] hover:underline text-gray-500 ease-in;
   }
 </style>

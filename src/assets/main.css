@@ -54,7 +54,7 @@
 
 /* Container */
 .container {
-	@apply max-w-5xl mx-auto px-6 pb-9 lg:px-0 pt-[7.3rem] h-fit;
+	@apply max-w-5xl mx-auto px-4 pb-5 lg:px-0 pt-[6.5rem] h-fit;
 }
 
 .container-center {
@@ -119,23 +119,23 @@
 }
 
 .mobile-menu ul i {
-	@apply text-[17px] mt-[2px];
+	@apply text-[17px] mt-[3.5px];
 }
 
-.mobile-menu ul a:not(.active):hover {
+.mobile-menu ul a:not(.active):not(.cv):hover {
 	@apply bg-surface dark:bg-dark-surface;
 }
 
 /* Animation bottom fade */
 .fade-bottom-enter-active,
 .fade-bottom-leave-active {
-	transition: opacity 0.3s ease, transform 0.3s ease;
+	transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .fade-bottom-enter-from,
 .fade-bottom-leave-to {
 	opacity: 0;
-	transform: translateY(20px);
+	transform: translateY(10px);
 }
 
 .fade-bottom-enter-to,

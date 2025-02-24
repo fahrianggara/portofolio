@@ -15,28 +15,22 @@
         <div class="dark:text-white col-span-2">
           <h1 class="text-2xl mb-3">Ini halaman About Me</h1>
           <p class="mb-3">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit quas numquam modi quos magni beatae eaque enim maxime delectus corrupti molestiae quisquam asperiores ad, dicta labore perspiciatis. Beatae, incidunt explicabo.
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur velit facere corporis, voluptas omnis ut, laudantium repellendus tempora explicabo in dolorum labore culpa, est esse molestiae quia voluptates vero cupiditate.
           </p>
           <p class="mb-3">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit quas numquam modi quos magni beatae eaque enim maxime delectus corrupti molestiae quisquam asperiores ad, dicta labore perspiciatis. Beatae, incidunt explicabo.
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur velit facere corporis, voluptas omnis ut, laudantium repellendus tempora explicabo in dolorum labore culpa, est esse molestiae quia voluptates vero cupiditate.
           </p>
           <p class="mb-3">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit quas numquam modi quos magni beatae eaque enim maxime delectus corrupti molestiae quisquam asperiores ad, dicta labore perspiciatis. Beatae, incidunt explicabo.
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur velit facere corporis, voluptas omnis ut, laudantium repellendus tempora explicabo in dolorum labore culpa, est esse molestiae quia voluptates vero cupiditate.
           </p>
           <p class="mb-3">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit quas numquam modi quos magni beatae eaque enim maxime delectus corrupti molestiae quisquam asperiores ad, dicta labore perspiciatis. Beatae, incidunt explicabo.
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur velit facere corporis, voluptas omnis ut, laudantium repellendus tempora explicabo in dolorum labore culpa, est esse molestiae quia voluptates vero cupiditate.
           </p>
           <p class="mb-3">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit quas numquam modi quos magni beatae eaque enim maxime delectus corrupti molestiae quisquam asperiores ad, dicta labore perspiciatis. Beatae, incidunt explicabo.
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur velit facere corporis, voluptas omnis ut, laudantium repellendus tempora explicabo in dolorum labore culpa, est esse molestiae quia voluptates vero cupiditate.
           </p>
           <p class="mb-3">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit quas numquam modi quos magni beatae eaque enim maxime delectus corrupti molestiae quisquam asperiores ad, dicta labore perspiciatis. Beatae, incidunt explicabo.
-          </p>
-          <p class="mb-3">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit quas numquam modi quos magni beatae eaque enim maxime delectus corrupti molestiae quisquam asperiores ad, dicta labore perspiciatis. Beatae, incidunt explicabo.
-          </p>
-          <p class="mb-3">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit quas numquam modi quos magni beatae eaque enim maxime delectus corrupti molestiae quisquam asperiores ad, dicta labore perspiciatis. Beatae, incidunt explicabo.
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequatur velit facere corporis, voluptas omnis ut, laudantium repellendus tempora explicabo in dolorum labore culpa, est esse molestiae quia voluptates vero cupiditate.
           </p>
         </div>
       </div>

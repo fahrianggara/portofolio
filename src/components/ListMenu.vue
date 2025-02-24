@@ -5,6 +5,9 @@
       default: 'font-inter',
     },
   });
+
+  import { useScreenSize } from "@/composables/screenResize.js";
+  const { resizeScreen } = useScreenSize();
 </script>
 
 <template>
@@ -49,6 +52,12 @@
       <router-link to="/activity" exact-active-class="active" @click="$emit('close-menu')">
         <i class="fi fi-rr-chart-pie-alt"></i>
         <span>My Activity</span>
+      </router-link>
+    </li>
+    <li v-if="resizeScreen">
+      <router-link to="/activity" exact-active-class="active" @click="$emit('close-menu')" >
+        <i class="fi fi-rr-file"></i>
+        <span>Resume CV</span>
       </router-link>
     </li>
   </ul>

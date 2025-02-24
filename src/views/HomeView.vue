@@ -15,7 +15,7 @@
             Web/Mobile Developer, UI/UX Designer &amp; Entrepreneur
           </h1>
 
-          <p class="text-lg text-base/8 dark:text-gray-400 text-gray-600">
+          <p class="text-lg text-base/7 dark:text-gray-400 text-gray-600">
             I’m Fahri Anggara, a web developer, designer, and entrepreneur from Jakarta. 
             A fresh graduate passionate about web development and design, specializing in PHP, Laravel, 
             Flutter, and Vue, with hands-on project experience.
