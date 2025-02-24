@@ -22,10 +22,9 @@
 
 <template>
   <main class="flex flex-col min-h-screen">
-    <Navbar v-if="route.meta.showNavbarAndFooter" 
-      :class="'font-inter'" :isDark="isDark" :toggleDark="toggleDark" />
-    <router-view :class="'font-inter'" />
-    <Footer v-if="route.meta.showNavbarAndFooter" :class="'font-inter'" />
+    <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark" :toggleDark="toggleDark" />
+    <router-view />
+    <Footer v-if="route.meta.showNavbarAndFooter" />
   </main>
 </template>
 

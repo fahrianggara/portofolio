@@ -25,7 +25,7 @@ const year = new Date().getFullYear()
   @import "@/assets/main.css";
 
   footer {
-    @apply mt-auto z-[999] relative h-auto;
+    @apply mt-auto z-[998] relative h-auto;
   }
 
   .footer-body {
