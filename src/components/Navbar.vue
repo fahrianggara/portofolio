@@ -10,13 +10,16 @@
 </script>
 
 <template>
-  <header id="header" class="border-b border-solid border-gray-300 dark:border-zinc-900 bg-surface/30 dark:bg-dark-surface/60">
+  <header id="header" class="">
     <nav class="">
       <router-link to="/" class="nav-brand">
         <img src="@/assets/img/logo.png" alt="Logo" />
       </router-link>
       <div class="nav-menu">
-        <button @click="toggleDark()" class="p-[10px] flex items-center justify-center rounded-full cursor-pointer dark:fill-white ">
+        <button class="cv">
+          Resume
+        </button>
+        <button @click="toggleDark()" class="btn-theme ">
           <component :class="'w-[23px] h-[23px]'" :is="isDark ? SunIcon : MoonIcon" />
         </button>
       </div>
@@ -26,13 +29,15 @@
 
 <style scoped>
   @reference "tailwindcss";
+  @import "@/assets/main.css";
 
   header {
-    @apply fixed top-0 left-0 w-full z-[1000] backdrop-blur-lg ;
+    @apply fixed top-0 left-0 right-0 w-[95%] lg:w-full z-[1000] mt-4 mx-auto;
   }
 
   nav {
-    @apply flex items-center justify-between h-[60px] max-w-5xl mx-auto px-4;
+    @apply flex items-center justify-between h-[60px] max-w-5xl mx-auto px-3 backdrop-blur-lg 
+      border border-solid rounded-4xl border-gray-300 dark:border-zinc-900 bg-surface/50 dark:bg-dark-surface/60;
   }
 
   .nav-brand {
@@ -40,10 +45,22 @@
   }
 
   .nav-brand img {
-    @apply w-[35px] h-[35px];
+    @apply w-[35px] h-[35px] rounded-[50%];
+  }
+
+  .btn-theme {
+    @apply w-[45px] h-[45px] bg-background dark:bg-dark-surface p-[12px] flex items-center justify-center cursor-pointer dark:fill-white;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+  }
+
+  .cv {
+    @apply bg-background dark:bg-dark-surface px-4 py-2 dark:text-white h-[45px] text-[14px] font-semibold cursor-pointer;
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
   }
 
   .nav-menu {
-    @apply flex items-center space-x-3;
+    @apply flex items-center ;
   }
 </style>

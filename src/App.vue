@@ -16,7 +16,7 @@
   const toggleDark = useToggle(isDark);
 
   onMounted(() => { // Add dark:bg-dark-background class to body element
-    document.body.classList.add('dark:bg-dark-background');
+    document.body.classList.add('dark:bg-dark-background', 'bg-background');
   });
 </script>
 

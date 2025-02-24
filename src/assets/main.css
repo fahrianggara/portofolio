@@ -54,7 +54,7 @@
 
 /* Container */
 .container {
-	@apply max-w-5xl mx-auto px-4 pb-8 pt-20 h-fit;
+	@apply max-w-5xl mx-auto px-4 pb-9 lg:px-0 pt-[7.3rem] h-fit;
 }
 
 .container-center {
