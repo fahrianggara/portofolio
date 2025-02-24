@@ -3,7 +3,7 @@ const year = new Date().getFullYear()
 </script>
 
 <template>
-  <footer class="">
+  <footer class="font-inter">
     <div class="footer-body max-w-5xl mx-auto px-4 pb-4">
       <div class="footer-box">
         <ul class="footer-links">

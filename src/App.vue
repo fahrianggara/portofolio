@@ -21,8 +21,8 @@
 </script>
 
 <template>
-  <main class="flex flex-col min-h-screen">
-    <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark" :toggleDark="toggleDark" />
+  <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark" :toggleDark="toggleDark" />
+  <main class="flex flex-col min-h-screen font-inter">
     <router-view />
     <Footer v-if="route.meta.showNavbarAndFooter" />
   </main>

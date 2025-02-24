@@ -50,15 +50,15 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header id="header">
+  <header id="header" class="font-inter">
     <nav>
       <router-link to="/" class="nav-brand">
         <img src="@/assets/img/logo.png" alt="Logo" />
       </router-link>
       <div class="nav-menu">
         <button class="btn-cv">Resume CV</button>
-        <button class="btn-menu" @click="toggleMenu">
-          Menu <i class="fi fi-rr-angle-small-down"></i>
+        <button @click="toggleMenu" :aria-expanded="isMenuOpen" class="btn-menu">
+          Menu <i :class="['fi', isMenuOpen ? 'fi-rr-angle-small-up' : 'fi-rr-angle-small-down']"></i>
         </button>
         <button @click="toggleDark()" class="btn-theme">
           <component :is="isDark ? SunIcon : MoonIcon" class="w-[23px] h-[23px]" />
@@ -113,6 +113,10 @@ onUnmounted(() => {
       hover:text-primary ease-in-out duration-75 block md:hidden flex items-center gap-1;
     border-top-left-radius: 2rem;
     border-bottom-left-radius: 2rem;
+  }
+
+  .btn-menu[aria-expanded="true"] {
+    @apply text-primary;
   }
 
   .btn-menu i {

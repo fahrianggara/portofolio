@@ -10,7 +10,7 @@
           <img src="https://fahrianggara.my.id/storage/photos/shares/web/angga.jpg" 
             class="w-[90px] h-[90px] md:w-[100px] md:h-[100px] mb-[30px] rounded-2xl" />
 
-          <h1 class="text-3xl md:text-[48px] sm:text-4xl leading-10 
+          <h1 class="text-[26px] md:text-[48px] sm:text-4xl leading-10 
             md:leading-15 sm:leading-12 font-bold dark:text-white mb-4">
             Web/Mobile Developer, UI/UX Designer &amp; Entrepreneur
           </h1>

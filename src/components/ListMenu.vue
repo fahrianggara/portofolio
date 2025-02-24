@@ -2,7 +2,7 @@
   defineProps({
     extraClass: {
       type: String,
-      default: '',
+      default: 'font-inter',
     },
   });
 </script>
