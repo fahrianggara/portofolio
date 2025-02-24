@@ -17,7 +17,10 @@
       </router-link>
       <div class="nav-menu">
         <button class="cv">
-          Resume
+          Resume CV
+        </button>
+        <button class="menu">
+          Menu <i class="fi fi-rr-angle-small-down"></i>
         </button>
         <button @click="toggleDark()" class="btn-theme ">
           <component :class="'w-[23px] h-[23px]'" :is="isDark ? SunIcon : MoonIcon" />
@@ -32,7 +35,7 @@
   @import "@/assets/main.css";
 
   header {
-    @apply fixed top-0 left-0 right-0 w-[95%] lg:w-full z-[1000] mt-4 mx-auto;
+    @apply fixed top-0 left-0 right-0 w-[93%] lg:w-full z-[1000] mt-4 mx-auto;
   }
 
   nav {
@@ -55,9 +58,21 @@
   }
 
   .cv {
-    @apply bg-background dark:bg-dark-surface px-4 py-2 dark:text-white h-[45px] text-[14px] font-semibold cursor-pointer;
+    @apply bg-background dark:bg-dark-surface px-4 py-2 dark:text-white h-[45px] text-[14px] font-semibold cursor-pointer
+    hover:text-primary ease-in-out duration-75 hidden lg:block;
     border-top-left-radius: 2rem;
     border-bottom-left-radius: 2rem;
+  }
+
+  .menu {
+    @apply bg-background dark:bg-dark-surface px-4 py-2 dark:text-white h-[45px] text-[14px] font-semibold cursor-pointer
+    hover:text-primary ease-in-out duration-75 block lg:hidden flex items-center gap-1;
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+  }
+
+  .menu i {
+    @apply relative top-0.5;
   }
 
   .nav-menu {

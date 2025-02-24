@@ -1,16 +1,43 @@
 <script setup>
   import Sidebar from "@/components/Sidebar.vue";
+  import { useScreenSize } from "@/composables/screenResize.js";
+
+  const { resizeScreen } = useScreenSize();
 </script>
 
 <template>
   <section>
     <div class="container">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="dark:text-white mb-3">
-          <Sidebar />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8 relative">
+        <div class="dark:text-white mb-3 hidden md:block relative" v-if="!resizeScreen">
+          <Sidebar :class="'sticky top-26'" />
         </div>
-        <div class="dark:text-white mb-3 col-span-2">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis voluptates voluptate placeat doloremque pariatur excepturi, neque assumenda impedit laboriosam! Velit molestias, odit mollitia natus dolorem ullam officiis laudantium est veritatis!</p>
+        <div class="dark:text-white col-span-2">
+          <h1 class="text-2xl mb-3">Ini halaman About Me</h1>
+          <p class="mb-3">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit quas numquam modi quos magni beatae eaque enim maxime delectus corrupti molestiae quisquam asperiores ad, dicta labore perspiciatis. Beatae, incidunt explicabo.
+          </p>
+          <p class="mb-3">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit quas numquam modi quos magni beatae eaque enim maxime delectus corrupti molestiae quisquam asperiores ad, dicta labore perspiciatis. Beatae, incidunt explicabo.
+          </p>
+          <p class="mb-3">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit quas numquam modi quos magni beatae eaque enim maxime delectus corrupti molestiae quisquam asperiores ad, dicta labore perspiciatis. Beatae, incidunt explicabo.
+          </p>
+          <p class="mb-3">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit quas numquam modi quos magni beatae eaque enim maxime delectus corrupti molestiae quisquam asperiores ad, dicta labore perspiciatis. Beatae, incidunt explicabo.
+          </p>
+          <p class="mb-3">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit quas numquam modi quos magni beatae eaque enim maxime delectus corrupti molestiae quisquam asperiores ad, dicta labore perspiciatis. Beatae, incidunt explicabo.
+          </p>
+          <p class="mb-3">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit quas numquam modi quos magni beatae eaque enim maxime delectus corrupti molestiae quisquam asperiores ad, dicta labore perspiciatis. Beatae, incidunt explicabo.
+          </p>
+          <p class="mb-3">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit quas numquam modi quos magni beatae eaque enim maxime delectus corrupti molestiae quisquam asperiores ad, dicta labore perspiciatis. Beatae, incidunt explicabo.
+          </p>
+          <p class="mb-3">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit quas numquam modi quos magni beatae eaque enim maxime delectus corrupti molestiae quisquam asperiores ad, dicta labore perspiciatis. Beatae, incidunt explicabo.
+          </p>
         </div>
       </div>
     </div>

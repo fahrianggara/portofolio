@@ -75,7 +75,6 @@
   }
 
   li a:not(.active):hover {
-    transform: translateX(-5px);
     @apply hover:bg-bg-primary hover:text-primary border-bg-primary dark:hover:bg-dark-bg-primary 
       dark:hover:text-dark-primary dark:border-dark-bg-primary;
   }
