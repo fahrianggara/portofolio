@@ -1,6 +1,6 @@
 import { ref, onMounted, onUnmounted } from "vue";
 
-export function useScreenSize(breakpoint = 768) {
+export function useScreenSize(breakpoint = 767.99) {
     const resizeScreen = ref(window.innerWidth <= breakpoint);
 
     const checkScreenSize = () => {

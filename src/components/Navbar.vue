@@ -19,7 +19,8 @@ const closeMenu = () => isMenuOpen.value = false;
 const handleOutsideInteraction = (event) => {
   const clickedOutside = 
     !event.target.closest('.mobile-menu') && 
-    !event.target.closest('.btn-menu');
+    !event.target.closest('.btn-menu') &&
+    !event.target.closest('.btn-theme');
     
   if (clickedOutside) closeMenu();
 };
@@ -47,7 +48,6 @@ onUnmounted(() => {
         <button class="btn-cv">Resume CV</button>
         <button @click="toggleMenu" :aria-expanded="isMenuOpen" class="btn-menu">
           Menu <i :class="['fi', isMenuOpen ? 'fi-rr-angle-small-up' : 'fi-rr-angle-small-down']"></i>
-
         </button>
         <button @click="toggleDark()" class="btn-theme">
           <component :is="isDark ? SunIcon : MoonIcon" class="w-[23px] h-[23px]" />
@@ -68,7 +68,7 @@ onUnmounted(() => {
   @import "@/assets/main.css";
 
   header {
-    @apply fixed top-0 left-0 right-0 lg:w-full z-[1000] mt-4 mx-auto w-[calc(100%-30px)]
+    @apply fixed top-0 left-0 right-0 w-[calc(100%-30px)] max-w-5xl z-[1000] mt-4 mx-auto;
   }
 
   nav {
