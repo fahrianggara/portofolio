@@ -77,9 +77,9 @@
 }
 
 .sidebar-menu li a {
-	@apply flex items-center px-[15px] py-[12px] gap-4 bg-surface/50 
+	@apply flex items-center px-[15px] py-[8px] lg:py-[12px] gap-4 bg-surface/50 
 	dark:bg-dark-background2/50 backdrop-blur-lg rounded-[4px]
-    border border-gray-300 dark:border-zinc-900 font-medium text-[15px];
+    border border-gray-300 dark:border-zinc-900 font-[14px] lg:font-medium text-[14px] md:text-[15px];
 	transform: translateX(0);
 	transition: ease-in-out 0.1s;
 }
@@ -90,7 +90,7 @@
 }
 
 .sidebar-menu li i {
-	@apply text-[20px] mt-[4px];
+	@apply text-[20px] mt-[4px] md:text-[18px];
 }
 
 .sidebar-menu .active {
@@ -99,8 +99,8 @@
 
 /* Mobile Menu */
 .mobile-menu {
-	@apply fixed top-[85px] left-0 right-[0px] w-[94%] mx-auto h-auto max-h-dvh z-[999] 
-	bg-surface/60 dark:bg-dark-surface/60 backdrop-blur-lg border border-solid 
+	@apply fixed top-[85px] left-0 right-[0px] w-[calc(100%-30px)] mx-auto h-auto max-h-dvh z-[999] 
+	bg-surface/60 dark:bg-dark-surface/70 backdrop-blur-xl border border-solid 
 	border-gray-300 dark:border-zinc-900 rounded-2xl dark:text-white;
 }
 
