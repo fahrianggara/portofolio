@@ -86,6 +86,6 @@ const year = new Date().getFullYear()
   }
 
   .copyright {
-    @apply dark:text-white text-[14px] sm:text-[15px] text-nowrap;
+    @apply dark:text-white text-[15px] md:text-[15px] text-nowrap;
   }
 </style>

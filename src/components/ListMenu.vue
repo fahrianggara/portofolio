@@ -50,7 +50,7 @@
     </li>
     <li>
       <router-link to="/activity" exact-active-class="active" @click="$emit('close-menu')">
-        <i class="fi fi-rr-chart-pie-alt"></i>
+        <i class="fi fi-rr-chart-histogram"></i>
         <span>My Activity</span>
       </router-link>
     </li>
