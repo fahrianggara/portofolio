@@ -32,6 +32,42 @@ const router = createRouter({
         showNavbarAndFooter: true,
         title: 'Education'
       }
+    },
+    {
+      path: '/experience',
+      name: 'experience',
+      component: () => import('../views/ExperienceView.vue'),
+      meta: { 
+        showNavbarAndFooter: true,
+        title: 'Experience'
+      }
+    },
+    {
+      path: '/projects',
+      name: 'projects',
+      component: () => import('../views/ProjectsView.vue'),
+      meta: { 
+        showNavbarAndFooter: true,
+        title: 'Projects'
+      }
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: () => import('../views/ContactView.vue'),
+      meta: { 
+        showNavbarAndFooter: true,
+        title: 'Contact'
+      }
+    },
+    {
+      path: '/activity',
+      name: 'activity',
+      component: () => import('../views/ActivityView.vue'),
+      meta: { 
+        showNavbarAndFooter: true,
+        title: 'Activity'
+      }
     }
   ],
 })

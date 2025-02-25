@@ -55,7 +55,7 @@
       </router-link>
     </li>
     <li v-if="resizeScreen">
-      <router-link to="/activity" exact-active-class="active" @click="$emit('close-menu')" >
+      <router-link to="/" exact-active-class="active" @click="$emit('close-menu')" >
         <i class="fi fi-rr-file"></i>
         <span>Resume CV</span>
       </router-link>
