@@ -67,24 +67,48 @@
 </template>
 
 <script setup>
-  import { ref, onMounted, onUnmounted } from 'vue';
-  import gsap from 'gsap';
+  import { ref, onMounted, onUnmounted } from "vue";
+  import gsap from "gsap";
 
-  const handleMouseMove = (event) => {
-    const { clientX, clientY } = event;
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
+  const mouseX = ref(0);
+  const mouseY = ref(0);
+  const autoX = ref(0);
+  const autoY = ref(0);
+  const scrollX = ref(0);
+  const scrollY = ref(0);
 
+  const updateParallax = () => {
     gsap.to(".parallax-item", {
-      x: (i, target) => (clientX - centerX) * (target.dataset.speed / 40),
-      y: (i, target) => (clientY - centerY) * (target.dataset.speed / 40),
-      ease: "power5.out",
-      duration: 0.5,
+      x: (i, target) =>
+        ((window.innerWidth - mouseX.value * target.dataset.speed) / 100) +
+        autoX.value -
+        scrollX.value,
+      y: (i, target) =>
+        ((window.innerHeight - mouseY.value * target.dataset.speed) / 100) +
+        autoY.value -
+        scrollY.value,
+      ease: "power2.out",
+      duration: 0.3,
     });
+
+    requestAnimationFrame(updateParallax);
+  };
+
+  const handleMouseMove = (e) => {
+    mouseX.value = e.clientX;
+    mouseY.value = e.clientY;
+  };
+
+  const autoAnimate = () => {
+    autoX.value = Math.sin(Date.now() / 500) * 10;
+    autoY.value = Math.cos(Date.now() / 1000) * 10;
+    requestAnimationFrame(autoAnimate);
   };
 
   onMounted(() => {
     window.addEventListener("mousemove", handleMouseMove);
+    updateParallax();
+    autoAnimate();
   });
 
   onUnmounted(() => {
