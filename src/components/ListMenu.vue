@@ -1,6 +1,6 @@
 <script setup>
   import { useRoute } from "vue-router";
-  import { useScreenSize } from "@/composables/screenResize.js";
+  import { useScreenSize } from "@/utils/screenResize.js";
   import { computed } from "vue";
 
   const { resizeScreen } = useScreenSize();
