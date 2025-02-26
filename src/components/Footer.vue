@@ -36,7 +36,7 @@
 
   .footer-body {
     @apply bg-surface/50 dark:bg-dark-surface/60 dark:text-white border-gray-300 
-    dark:border-zinc-900 border-solid border-t lg:border rounded-t-none lg:rounded-t-4xl;
+    dark:border-zinc-900 border-solid border-t lg:border rounded-t-none lg:rounded-t-4xl backdrop-blur-lg;
   }
 
   .footer-box {

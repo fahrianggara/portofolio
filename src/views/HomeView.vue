@@ -4,10 +4,10 @@ import ListSocial from '@/components/ListSocial.vue';
 </script>
 
 <template>
-  <section class="home dark:bg-dark-background">
-    <div class="container-center flex flex-col dark:bg-dark-background w-full mx-auto">
+  <section class="home relative">
+    <div class="container-center">
       <div class="relative px-2 sm:px-4 lg:px-0">
-        <div class="max-w-3xl lg:mx-0 md:mx-auto mx-0 home-box">
+        <div class="max-w-3xl lg:mx-0 md:mx-auto mx-0 home-box relative">
           <div class="img-container">
             <img src="@/assets/img/logo.png" alt="logo" />
           </div>

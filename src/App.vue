@@ -4,6 +4,7 @@ import Footer from './components/Footer.vue';
 import { useRoute } from 'vue-router';
 import { onMounted, ref } from 'vue';
 import { useDark, useToggle } from '@vueuse/core';
+import Parallax from './components/Parallax.vue';
 
 const route = useRoute();
 
@@ -24,9 +25,10 @@ onMounted(() => {
 
 <template>
   <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark" :toggleDark="toggleDark" />
-  <main class="flex flex-col min-h-screen font-inter">
+  <main class="flex flex-col min-h-screen font-inter relative">
     <router-view />
     <Footer v-if="route.meta.showNavbarAndFooter" />
+    <Parallax />
   </main>
 </template>
 
