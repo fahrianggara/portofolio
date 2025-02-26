@@ -150,7 +150,7 @@
 
 .parallax-item:nth-child(8) {
   top: 50%;
-  left: 30%;
+  left: 26%;
 }
 
 .parallax-item:nth-child(9) {
@@ -164,7 +164,7 @@
 }
 
 .parallax .in {
-  @apply dark:fill-dark-parallax fill-parallax;
+  @apply dark:fill-primary fill-primary;
   transition: all .2s ease;
 }
 
@@ -197,8 +197,8 @@
   }
 
   .parallax-item:nth-child(2) {
-    top: 20%;
-    left: 80%;
+    top: 10%;
+    left: 72%;
   }
 
   .parallax-item:nth-child(3) {

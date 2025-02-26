@@ -19,17 +19,33 @@ const toggleDark = useToggle(isDark);
 
 onMounted(() => {
   // Tambahkan dark:bg-dark-background saat pertama kali dimuat
-  document.body.classList.add('dark:bg-dark-background', 'bg-background');
+  const bodyClasses = [
+    'dark:bg-dark-background',
+    'bg-background',
+    'min-h-screen',
+    'relative', // Tambahkan relative agar before muncul
+    'before:content-[""]',
+    'before:absolute',
+    'before:inset-0',
+    'before:backdrop-blur-2xl',
+    'before:z-[1]', // Pastikan before ada di belakang konten
+  ];
+
+  document.body.classList.add(...bodyClasses);
+
+  // before body
 });
 </script>
 
 <template>
   <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark" :toggleDark="toggleDark" />
-  <main class="flex flex-col min-h-screen font-inter relative">
+  
+  <main class="flex flex-col font-inter relative z-10">
     <router-view />
     <Footer v-if="route.meta.showNavbarAndFooter" />
-    <Parallax />
   </main>
+  
+  <Parallax />
 </template>
 
 <style scoped>

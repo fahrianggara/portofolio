@@ -70,6 +70,13 @@ const router = createRouter({
       }
     }
   ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition; // Jika ada posisi yang tersimpan, gunakan itu (misalnya saat tombol back/forward browser)
+    } else {
+      return { top: 0, behavior: 'smooth' }; // Scroll ke atas dengan efek smooth
+    }
+  }
 })
 
 router.beforeEach((to, from, next) => {

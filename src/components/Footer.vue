@@ -31,7 +31,7 @@
   @import "@/assets/main.css";
 
   footer {
-    @apply mt-auto z-[998] relative h-auto;
+    @apply w-full relative z-10;
   }
 
   .footer-body {
