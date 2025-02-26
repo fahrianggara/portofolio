@@ -5,10 +5,8 @@ import MoonIcon from './icon/MoonIcon.vue';
 import ListMenu from './ListMenu.vue';
 
 // Props
-const { isDark, toggleDark } = defineProps({
-  isDark: Boolean,
-  toggleDark: Function,
-});
+defineProps({ isDark: Boolean });
+const emit = defineEmits(['toggleDark']);
 
 // State for menu visibility
 const isMenuOpen = ref(false);
@@ -48,8 +46,8 @@ onUnmounted(() => {
         <button class="btn-cv">Resume CV</button>
         <button @click="toggleMenu" :aria-expanded="isMenuOpen" class="btn-menu">
           Menu <i :class="['fi', isMenuOpen ? 'fi-rr-angle-small-up' : 'fi-rr-angle-small-down']"></i>
-        </button>
-        <button @click="toggleDark()" class="btn-theme">
+        </button> 
+        <button @click="emit('toggleDark')" class="btn-theme">
           <component :is="isDark ? SunIcon : MoonIcon" class="w-[23px] h-[23px]" />
         </button>
       </div>

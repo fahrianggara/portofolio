@@ -3,14 +3,7 @@
   import { useScreenSize } from "@/utils/screenResize.js";
   import { computed } from "vue";
 
-  const { resizeScreen } = useScreenSize();
-  const route = useRoute();
-
-  const showResume = computed(() => {
-    return route.path !== "/" ? resizeScreen.value : false;
-  });
-
-  defineProps({
+  const props = defineProps({
     extraClass: {
       type: String,
       default: 'font-inter',
@@ -19,6 +12,26 @@
       type: Boolean,
       default: true,
     },
+    hideResume: {
+      type: Boolean,
+      default: false,
+    },
+  });
+
+  const { resizeScreen } = useScreenSize();
+  const route = useRoute();
+
+  const showResume = computed(() => {
+    // return route.path !== "/" ? resizeScreen.value : false;
+    if (route.path !== "/") {
+      if (props.hideResume) {
+        return false;
+      } else {
+        return resizeScreen.value;
+      }
+    } else {
+      return false;
+    }
   });
 </script>
 

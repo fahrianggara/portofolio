@@ -2,9 +2,10 @@
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
 import { useRoute } from 'vue-router';
-import { onMounted, ref } from 'vue';
-import { useDark, useToggle } from '@vueuse/core';
+import { onMounted, onUnmounted, ref, watchEffect } from 'vue';
+import { useToggle } from '@vueuse/shared';
 import Parallax from './components/Parallax.vue';
+import { useDark } from '@vueuse/core';
 
 const route = useRoute();
 
@@ -32,13 +33,11 @@ onMounted(() => {
   ];
 
   document.body.classList.add(...bodyClasses);
-
-  // before body
 });
 </script>
 
 <template>
-  <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark" :toggleDark="toggleDark" />
+  <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark"  @toggleDark="toggleDark" />
   
   <main class="flex flex-col font-inter relative z-10">
     <router-view />
