@@ -49,17 +49,16 @@ import ListSocial from '@/components/ListSocial.vue';
   }
 
   .img-container::before {
+    @apply blur-[70px] opacity-[1];
     content: "";
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 150%;
-    height: 150%;
+    width: 190%;
+    height: 190%;
     background-color: #2a86ff;
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    filter: blur(90px);
-    opacity: .9;
     z-index: -1;
     transition: 0.3s ease-in-out;
   }
