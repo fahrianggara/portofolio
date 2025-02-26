@@ -58,7 +58,7 @@
 }
 
 .container-center {
-	@apply max-w-5xl mx-auto px-4 md:pt-0;
+	@apply max-w-5xl mx-auto px-4 lg:w-[calc(100%-100px)] md:w-full md:pt-0;
 }
 
 /* Home Menu */
