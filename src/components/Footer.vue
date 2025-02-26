@@ -1,5 +1,6 @@
 <script setup>
-const year = new Date().getFullYear()
+  import ListSocial from './ListSocial.vue';
+  const year = new Date().getFullYear();
 </script>
 
 <template>
@@ -15,28 +16,7 @@ const year = new Date().getFullYear()
           <li><a href="#">Activity</a></li>
         </ul>
         <div class="footer-bottom">
-          <ul class="social-links">
-            <li>
-              <a href="#">
-                <i class="fi fi-brands-linkedin"></i>
-              </a>
-            </li>
-              <li>
-              <a href="#">
-                <i class="fi fi-brands-instagram"></i>
-              </a>
-            </li>
-              <li>
-              <a href="#">
-                <i class="fi fi-brands-github"></i>
-              </a>
-            </li>
-              <li>
-              <a href="#">
-                <i class="fi fi-rr-envelope"></i>
-              </a>
-            </li>
-          </ul>
+          <ListSocial />
           <p class="copyright">
             &copy; {{ year }} Fahri Anggara. Made with ❤️
           </p>
@@ -46,7 +26,7 @@ const year = new Date().getFullYear()
   </footer>
 </template>
 
-<style scoped>
+<style>
   @reference "tailwindcss";
   @import "@/assets/main.css";
 
@@ -77,11 +57,11 @@ const year = new Date().getFullYear()
     @apply pt-[10px] sm:pt-0 gap-3 sm:gap-0 flex flex-col justify-between items-end min-h-[65px] h-full;
   }
 
-  .social-links {
+  .footer-bottom ul {
     @apply flex flex-row gap-4 items-center justify-center sm:justify-end w-full h-full;
   }
 
-  .social-links a {
+  .footer-bottom ul a {
     @apply text-[20px]  ease-in-out duration-75 hover:text-primary;
   }
 

@@ -1,70 +1,35 @@
-<script setup>
-
+<script setup> 
+import ListMenu from '@/components/ListMenu.vue';
+import ListSocial from '@/components/ListSocial.vue';
 </script>
 
 <template>
   <section class="home dark:bg-dark-background">
     <div class="container-center flex flex-col dark:bg-dark-background w-full mx-auto">
-      <div class="relative px-4 sm:px-8 lg:px-0">
-        <div class="max-w-4xl mx-auto">
-          <img src="https://fahrianggara.my.id/storage/photos/shares/web/angga.jpg" 
-            class="w-[90px] h-[90px] md:w-[100px] md:h-[100px] mb-[30px] rounded-2xl" />
+      <div class="relative px-2 sm:px-4 lg:px-0">
+        <div class="max-w-3xl lg:mx-0 md:mx-auto mx-0 home-box">
+          <div class="img-container">
+            <img src="@/assets/img/logo.png" alt="logo" />
+          </div>
 
-          <h1 class="text-[26px] md:text-[48px] sm:text-4xl leading-10 
-            md:leading-15 sm:leading-12 font-bold dark:text-white mb-4">
-            Web/Mobile Developer, UI/UX Designer &amp; Entrepreneur
+          <h1 class="text-[26px] md:text-[40px] sm:text-[33px] leading-10 
+            md:leading-13 sm:leading-12 font-bold dark:text-white mb-3">
+            Web Developer &amp; UI/UX Designer
           </h1>
 
-          <p class="text-lg text-base/7 dark:text-gray-400 text-gray-600">
-            I’m Fahri Anggara, a web developer, designer, and entrepreneur from Jakarta. 
-            A fresh graduate passionate about web development and design, specializing in PHP, Laravel, 
-            Flutter, and Vue, with hands-on project experience.
+          <p class="md:text-base/8 text-base/7 text-[15px] sm:text-[16px] dark:text-gray-400 text-gray-600">
+            Hi, I`m Fahri Anggara.
+            Experienced Web Developer and UI/UX Designer skilled in creating responsive websites and 
+            intuitive interfaces. Strong problem-solving, communication, and adaptability.
           </p>
 
-          <ul class="flex flex-wrap md:gap-2 mt-7 gap-y-6 gap-x-2">
-            <li>
-              <router-link to="/" exact-active-class="active" class="link text-primary bg-bg-primary 
-                dark:bg-dark-bg-primary dark:text-dark-primary">
-                Home
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/about" exact-active-class="active" class="link text-primary bg-bg-primary 
-                dark:bg-dark-bg-primary dark:text-dark-primary hover:bg-primary hover:text-white">
-                About Me
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/edu" exact-active-class="active" class="link text-primary bg-bg-primary 
-                dark:bg-dark-bg-primary dark:text-dark-primary hover:bg-primary hover:text-white">
-                Education
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/experience" exact-active-class="active" class="link text-primary bg-bg-primary 
-                dark:bg-dark-bg-primary dark:text-dark-primary hover:bg-primary hover:text-white">
-                Experience
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/project" exact-active-class="active" class="link text-primary bg-bg-primary 
-                dark:bg-dark-bg-primary dark:text-dark-primary hover:bg-primary hover:text-white">
-                Projects
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/resume" exact-active-class="active" class="link text-primary bg-bg-primary 
-                dark:bg-dark-bg-primary dark:text-dark-primary hover:bg-primary hover:text-white">
-                Resume
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/contact" exact-active-class="active" class="link text-primary bg-bg-primary 
-                dark:bg-dark-bg-primary dark:text-dark-primary hover:bg-primary hover:text-white">
-                Contact
-              </router-link>
-            </li>
-          </ul>
+          <div class="social-links">
+            <list-social />
+          </div>
+
+          <div class="home-menu">
+            <ListMenu :show-icon="false" />
+          </div>
         </div>
       </div>
     </div>
@@ -73,38 +38,33 @@
 
 <style scoped>
   @reference "tailwindcss";
+  @import "@/assets/main.css";
 
   .link {
     @apply ease-in rounded-lg text-[15px] px-[15px] py-[10px];
   }
 
-
-  .active {
-    @apply text-white bg-blue-500;
+  .img-container {
+    @apply mb-[25px] relative inline-block z-10;
   }
 
-  ul {
-    @apply flex flex-wrap md:gap-2 mt-7 gap-y-2 gap-x-2;
+  .img-container::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 150%;
+    background-color: #2a86ff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(90px);
+    opacity: .9;
+    z-index: -1;
+    transition: 0.3s ease-in-out;
   }
 
-  ul li {
-    @apply flex items-center min-w-[50px] transform translate-y-[0px];
-    transition: ease-in 0.1s;
+  .img-container img {
+    @apply w-[85px] h-[85px] rounded-xl;
   }
-
-  li:hover {
-    transform: translateY(-4px);
-  }
-
-  /* .link {
-    @apply ease-in-out rounded-lg text-[16px];
-  }
-
-  .link:not(.active) {
-    @apply hover:text-blue-500 hover:underline italic;
-  }
-
-  .link.active {
-    @apply text-blue-500 before:content-['🚀'] before:mr-[3px];
-  } */
 </style>

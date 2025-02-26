@@ -1,23 +1,25 @@
 <script setup>
-  import Navbar from './components/Navbar.vue';
-  import Footer from './components/Footer.vue';
-  import { useRoute } from 'vue-router';
-  import { onMounted } from 'vue';
-  import { useDark, useToggle } from '@vueuse/core';
+import Navbar from './components/Navbar.vue';
+import Footer from './components/Footer.vue';
+import { useRoute } from 'vue-router';
+import { onMounted, ref } from 'vue';
+import { useDark, useToggle } from '@vueuse/core';
 
-  const route = useRoute();
+const route = useRoute();
 
-  const isDark = useDark({
-    selector: 'html',
-    attribute: 'data-theme',
-    valueDark: 'dark',
-    valueLight: 'light',
-  });
-  const toggleDark = useToggle(isDark);
+// Dark Mode
+const isDark = useDark({
+  selector: 'html',
+  attribute: 'data-theme',
+  valueDark: 'dark',
+  valueLight: 'light',
+});
+const toggleDark = useToggle(isDark);
 
-  onMounted(() => { // Add dark:bg-dark-background class to body element
-    document.body.classList.add('dark:bg-dark-background', 'bg-background');
-  });
+onMounted(() => {
+  // Tambahkan dark:bg-dark-background saat pertama kali dimuat
+  document.body.classList.add('dark:bg-dark-background', 'bg-background');
+});
 </script>
 
 <template>
