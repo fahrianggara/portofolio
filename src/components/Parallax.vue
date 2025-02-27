@@ -121,7 +121,7 @@
 @import "@/assets/main.css";
 
 .parallax {
-  position: fixed;
+  @apply relative sm:fixed;
   top: 0;
   left: 0;
   width: 100%;

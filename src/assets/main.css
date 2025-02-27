@@ -60,7 +60,7 @@ footer {
 
 /* Container */
 .container {
-	@apply max-w-5xl w-[calc(100%-20px)] mx-auto px-2 pb-5 md:px-0 pt-[6.5rem] h-fit;
+	@apply max-w-5xl w-[calc(100%-30px)] mx-auto px-2 pb-5 md:px-0 pt-[6.5rem] h-fit;
 }
 
 .container-center {

@@ -2,10 +2,12 @@
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
 import { useRoute } from 'vue-router';
-import { onMounted, onUnmounted, ref, watchEffect } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useToggle } from '@vueuse/shared';
 import Parallax from './components/Parallax.vue';
 import { useDark } from '@vueuse/core';
+import FsLightbox from "fslightbox-vue";
+import { eventBus } from './eventBus'; // Import event bus
 
 const route = useRoute();
 
@@ -23,7 +25,6 @@ onMounted(() => {
   const bodyClasses = [
     'dark:bg-dark-background',
     'bg-background',
-    'min-h-screen',
     'relative', // Tambahkan relative agar before muncul
     'before:content-[""]',
     'before:absolute',
@@ -34,16 +35,23 @@ onMounted(() => {
 
   document.body.classList.add(...bodyClasses);
 });
+
+watch(route, () => {
+  eventBus.isOpen = false;
+})
 </script>
 
 <template>
   <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark"  @toggleDark="toggleDark" />
   
-  <main class="flex flex-col font-inter relative z-10">
+  <main class="flex flex-col min-h-screen font-inter relative z-9">
     <router-view />
     <Footer v-if="route.meta.showNavbarAndFooter" />
   </main>
-  
+
+  <!-- FsLightbox untuk menampilkan gambar dari mana saja -->
+  <FsLightbox :toggler="eventBus.isOpen" :sources="[eventBus.imageSrc]" />
+
   <Parallax />
 </template>
 
