@@ -2,7 +2,6 @@
   import Sidebar from "@/components/Sidebar.vue";
   import { useScreenSize } from "@/utils/screenResize.js";
   import testImg from "@/assets/img/test.jpg";
-  import { eventBus } from "@/eventBus"; // Import event bus
   const { resizeScreen } = useScreenSize();
 </script>
 
@@ -14,15 +13,16 @@
           <Sidebar :class="'sticky top-26'" />
         </div>
         <div class="dark:text-white col-span-2 w-full">
-          <div class="about">
+          <div class="about" v-glightbox>
             <!-- Gambar dengan float -->
-            <img
-              :src="testImg" 
-              class="float-right w-1/3 ml-4 mb-4 rounded-2xl cursor-zoom-in" 
-              alt="test" 
-              loading="lazy"
-              @click="eventBus.openLightbox(testImg)"
-            />
+            <a data-gallery="certificates" data-type="image" :href="testImg" class="glightbox">
+              <img
+                :src="testImg" 
+                class="float-right w-1/3 ml-4 mb-4 rounded-2xl" 
+                alt="test" 
+                loading="lazy"
+              />
+            </a>
             
             <!-- H1 dengan text wrap -->
             <h1 class="text-[22px] sm:text-[32px] font-bold mb-3 text-wrap leading-9 sm:leading-11">

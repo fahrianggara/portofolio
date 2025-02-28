@@ -6,8 +6,6 @@ import { onMounted, ref, watch } from 'vue';
 import { useToggle } from '@vueuse/shared';
 import Parallax from './components/Parallax.vue';
 import { useDark } from '@vueuse/core';
-import FsLightbox from "fslightbox-vue";
-import { eventBus } from './eventBus'; // Import event bus
 
 const route = useRoute();
 
@@ -44,9 +42,6 @@ onMounted(() => {
     <router-view />
     <Footer v-if="route.meta.showNavbarAndFooter" />
   </main>
-
-  <!-- FsLightbox untuk menampilkan gambar dari mana saja -->
-  <FsLightbox :toggler="eventBus.isOpen" :sources="[eventBus.imageSrc]" />
 
   <Parallax />
 </template>

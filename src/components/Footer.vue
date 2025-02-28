@@ -27,7 +27,7 @@
   @import "@/assets/main.css";
 
   footer {
-    @apply w-full relative z-10 h-auto block;
+    @apply w-full relative z-10 h-auto block mt-auto;
   }
 
   .footer-body {
