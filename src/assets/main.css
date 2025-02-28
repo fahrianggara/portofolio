@@ -82,8 +82,8 @@ footer {
 }
 
 .home-menu li a {
-	@apply ease-in rounded-lg text-[15px] px-[15px] py-[10px]
-	text-primary bg-bg-primary dark:bg-dark-bg-primary dark:text-dark-primary 
+	@apply ease-in-out duration-200 rounded-lg text-[15px] px-[15px] py-[10px]
+	text-primary bg-bg-primary/80 dark:bg-dark-bg-primary/60 dark:text-dark-primary 
 	hover:bg-primary hover:text-white;
 }
 

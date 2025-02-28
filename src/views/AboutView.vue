@@ -90,7 +90,7 @@
   }
 
   .skills li a {
-    @apply flex items-center gap-3 bg-surface/70 dark:bg-dark-surface/80 
+    @apply flex items-center gap-3 bg-surface/30 dark:bg-dark-surface/50 
     border-gray-300 dark:border-zinc-900 border py-3 px-4 font-medium
     rounded-xl backdrop-blur-2xl ease-in-out duration-300 hover:dark:bg-dark-surface/40 
     hover:dark:border-dark-surface hover:bg-surface/20

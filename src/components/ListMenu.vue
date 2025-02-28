@@ -45,7 +45,7 @@
     </li>
     <li>
       <router-link to="/about" exact-active-class="active" @click="$emit('close-menu')">
-        <i class="fi fi-rr-info" v-if="showIcon"></i>
+        <i class="fi fi-rr-user" v-if="showIcon"></i>
         <span>About Me</span>
       </router-link>
     </li>
@@ -57,25 +57,25 @@
     </li>
     <li>
       <router-link to="/experience" exact-active-class="active" @click="$emit('close-menu')">
-        <i class="fi fi-rr-flask-potion" v-if="showIcon"></i>
+        <i class="fi fi-rr-briefcase" v-if="showIcon"></i>
         <span>Experience</span>
       </router-link>
     </li>
     <li>
       <router-link to="/projects" exact-active-class="active" @click="$emit('close-menu')">
-        <i class="fi fi-rr-workflow-alt" v-if="showIcon"></i>
+        <i class="fi fi-rr-flask-potion" v-if="showIcon"></i>
         <span>Projects</span>
       </router-link>
     </li>
     <li>
       <router-link to="/contact" exact-active-class="active" @click="$emit('close-menu')">
-        <i class="fi fi-rr-envelope" v-if="showIcon"></i>
+        <i class="fi fi-rr-paper-plane" v-if="showIcon"></i>
         <span>Contact</span>
       </router-link>
     </li>
     <li>
       <router-link to="/activity" exact-active-class="active" @click="$emit('close-menu')">
-        <i class="fi fi-rr-chart-histogram" v-if="showIcon"></i>
+        <i class="fi fi-rr-chart-pie-alt" v-if="showIcon"></i>
         <span>My Activity</span>
       </router-link>
     </li>
