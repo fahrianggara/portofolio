@@ -35,10 +35,6 @@ onMounted(() => {
 
   document.body.classList.add(...bodyClasses);
 });
-
-watch(route, () => {
-  eventBus.isOpen = false;
-})
 </script>
 
 <template>

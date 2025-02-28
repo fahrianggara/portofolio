@@ -4,8 +4,6 @@
   import testImg from "@/assets/img/test.jpg";
   import { eventBus } from "@/eventBus"; // Import event bus
   const { resizeScreen } = useScreenSize();
-
-  defineEmits(["zoomImage"]);
 </script>
 
 <template>
@@ -27,8 +25,8 @@
             />
             
             <!-- H1 dengan text wrap -->
-            <h1 class="text-2xl sm:text-[32px] font-bold mb-3 text-wrap sm:leading-11">
-              I’m Spencer Sharp. I live in New York City, where I design the future.
+            <h1 class="text-[22px] sm:text-[32px] font-bold mb-3 text-wrap leading-9 sm:leading-11">
+              I’m Fahri Anggara. I live in Depok City, where I develope the future.
             </h1>
 
             <p class="mb-4">
@@ -49,7 +47,7 @@
           </div>
 
           <div class="skills">
-            <h1 class="text-2xl font-bold my-4">My Skills</h1>
+            <h1 class="text-[20px] font-bold my-4">My Skills</h1>
             <ul>
               <li>
                 <a href="#">
