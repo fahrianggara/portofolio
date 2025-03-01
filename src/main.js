@@ -13,8 +13,6 @@ app.directive('glightbox', {
     mounted(el) {
         el.lightbox = GLightbox({
             selector: ".glightbox",
-            touchNavigation: true,
-            loop: true,
         });
 
         el.lightbox.on('open', () => {

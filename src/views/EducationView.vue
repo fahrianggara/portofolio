@@ -11,7 +11,8 @@ const { resizeScreen } = useScreenSize();
         <div class="dark:text-white hidden md:block relative" v-if="!resizeScreen">
           <Sidebar :class="'sticky top-26'" />
         </div>
-        <div class="dark:text-white col-span-2">
+        <div class="dark:text-white col-span-2 mb-5">
+          <h1 class="mb-4 font-medium text-lg">My Educations</h1>
           <ol class="edu">
             <li>
               <div class="bullet"></div>
@@ -60,7 +61,7 @@ const { resizeScreen } = useScreenSize();
                 data-gallery="certificates"
                 data-type="image"
               > 
-                <img class="h-auto max-w-full rounded-lg cursor-pointer" :src="src" alt="">
+                <img :src="src" alt="">
               </a>
             </div>
           </div>
@@ -74,12 +75,17 @@ const { resizeScreen } = useScreenSize();
 @reference 'tailwindcss';
 @import '@/assets/main.css';
 
+.glightbox img {
+  @apply h-auto max-w-full rounded-lg cursor-pointer transform ease-in-out duration-300 
+  translate-y-0 hover:-translate-y-1;
+}
+
 .title {
   @apply text-lg font-semibold text-gray-900 dark:text-white mb-1.5;
 }
 
 .edu {
-  @apply relative border-s border-gray-400 dark:border-zinc-800;
+  @apply relative border-s border-gray-300 dark:border-zinc-800;
 }
 
 .edu > li {

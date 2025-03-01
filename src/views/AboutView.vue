@@ -12,14 +12,15 @@
         <div class="dark:text-white hidden md:block relative" v-if="!resizeScreen">
           <Sidebar :class="'sticky top-26'" />
         </div>
-        <div class="dark:text-white col-span-2 w-full">
+        <div class="dark:text-white col-span-2 w-full mb-5">
           <div class="about" v-glightbox>
             <!-- Gambar dengan float -->
             <a data-gallery="certificates" data-type="image" :href="testImg" class="glightbox">
               <img
                 :src="testImg" 
-                class="float-right w-1/3 ml-4 mb-4 rounded-2xl" 
+                class="float-right w-1/3 ml-4 mb-4 rounded-2xl rotate-0 ease-in-out duration-300 hover:rotate-2" 
                 alt="test" 
+                :key="testImg"
                 loading="lazy"
               />
             </a>
