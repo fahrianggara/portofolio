@@ -16,7 +16,7 @@ const { resizeScreen } = useScreenSize();
           <ol class="edu">
             <li>
               <div class="bullet"></div>
-              <time>2019 - 2022</time>
+              <time>2019 - 2022 / Informatics Engineering</time>
               <h3 class="title">SMK Yadika 12 Depok</h3>
               <p class="text-base/relaxed font-normal text-gray-600 dark:text-gray-400">
                 I graduated from SMK Yadika 12 Depok with a major in
@@ -26,7 +26,7 @@ const { resizeScreen } = useScreenSize();
             </li>
             <li>
               <div class="bullet"></div>
-              <time>2022 - Now</time>
+              <time>2022 - Now / Software Engineering</time>
               <h3 class="title">Bina Sarana Informatika University</h3>
               <p class="text-base/relaxed font-normal text-gray-600 dark:text-gray-400">
                 I am currently studying at Bina Sarana Informatika University
@@ -89,7 +89,7 @@ const { resizeScreen } = useScreenSize();
 }
 
 .edu > li {
-  @apply mb-4 ms-4 
+  @apply mb-4 ms-7
   bg-white/40 dark:bg-dark-surface/60 backdrop-blur-2xl 
   relative p-4 px-5 rounded-2xl 
   border border-solid dark:border-zinc-900 border-gray-300;
@@ -100,7 +100,7 @@ time {
 }
 
 .bullet {
-  @apply absolute w-3 h-3 rounded-full mt-1.5 -start-[22.5px] border border-primary bg-primary;
+  @apply absolute w-3 h-3 rounded-full mt-1.5 -start-[35px] border border-primary bg-primary;
 }
 
 .achievement {

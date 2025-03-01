@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import EducationView from '@/views/EducationView.vue'
+import PageNotFound from '@/views/PageNotFoundView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -67,6 +68,15 @@ const router = createRouter({
       meta: { 
         showNavbarAndFooter: true,
         title: 'Activity'
+      }
+    },
+    {
+      path: '/:catchAll(.*)',
+      name: 'not-found',
+      component: PageNotFound,
+      meta: { 
+        showNavbarAndFooter: false,
+        title: '404'
       }
     }
   ],

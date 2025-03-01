@@ -43,7 +43,7 @@ onUnmounted(() => {
         <img src="@/assets/img/logo.png" alt="Logo" />
       </router-link>
       <div class="nav-menu">
-        <button class="btn-cv">Resume CV</button>
+        <button class="btn-cv">Download CV</button>
         <button @click="toggleMenu" :aria-expanded="isMenuOpen" class="btn-menu">
           Menu <i :class="['fi', isMenuOpen ? 'fi-rr-angle-small-up' : 'fi-rr-angle-small-down']"></i>
         </button> 

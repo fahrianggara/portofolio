@@ -82,7 +82,7 @@
     <li v-if="showResume">
       <router-link to="/resume" exact-active-class="active" @click="$emit('close-menu')" >
         <i class="fi fi-rr-file" v-if="showIcon"></i>
-        <span>Resume CV</span>
+        <span>Download CV</span>
       </router-link>
     </li>
   </ul>
