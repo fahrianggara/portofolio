@@ -21,17 +21,17 @@
   const { resizeScreen } = useScreenSize();
   const route = useRoute();
 
+  // Fungsi untuk mengecek apakah menu aktif berdasarkan route path
+  const isActiveMenu = (routePath) => {
+    return route.path.startsWith(routePath);
+  };
+
+  // Menyembunyikan menu resume jika props hideResume bernilai true
   const showResume = computed(() => {
-    // return route.path !== "/" ? resizeScreen.value : false;
     if (route.path !== "/") {
-      if (props.hideResume) {
-        return false;
-      } else {
-        return resizeScreen.value;
-      }
-    } else {
-      return false;
+      return props.hideResume ? false : resizeScreen.value;
     }
+    return false;
   });
 </script>
 
@@ -44,43 +44,43 @@
       </router-link>
     </li>
     <li>
-      <router-link to="/about" exact-active-class="active" @click="$emit('close-menu')">
+      <router-link to="/about" :class="{ active: isActiveMenu('/about') }" @click="$emit('close-menu')">
         <i class="fi fi-rr-user" v-if="showIcon"></i>
         <span>About Me</span>
       </router-link>
     </li>
     <li>
-      <router-link to="/edu" exact-active-class="active" @click="$emit('close-menu')">
+      <router-link to="/edu" :class="{ active: isActiveMenu('/edu') }" @click="$emit('close-menu')">
         <i class="fi fi-rr-graduation-cap" v-if="showIcon"></i>
         <span>Education</span>
       </router-link>
     </li>
     <li>
-      <router-link to="/experience" exact-active-class="active" @click="$emit('close-menu')">
+      <router-link to="/experience" :class="{ active: isActiveMenu('/experience') }" @click="$emit('close-menu')">
         <i class="fi fi-rr-briefcase" v-if="showIcon"></i>
         <span>Experience</span>
       </router-link>
     </li>
     <li>
-      <router-link to="/projects" exact-active-class="active" @click="$emit('close-menu')">
+      <router-link to="/projects" :class="{ active: isActiveMenu('/projects') }" @click="$emit('close-menu')">
         <i class="fi fi-rr-flask-potion" v-if="showIcon"></i>
         <span>Projects</span>
       </router-link>
     </li>
     <li>
-      <router-link to="/contact" exact-active-class="active" @click="$emit('close-menu')">
+      <router-link to="/contact" :class="{ active: isActiveMenu('/contact') }" @click="$emit('close-menu')">
         <i class="fi fi-rr-paper-plane" v-if="showIcon"></i>
         <span>Contact</span>
       </router-link>
     </li>
     <li>
-      <router-link to="/activity" exact-active-class="active" @click="$emit('close-menu')">
+      <router-link to="/activity" :class="{ active: isActiveMenu('/activity') }" @click="$emit('close-menu')">
         <i class="fi fi-rr-chart-pie-alt" v-if="showIcon"></i>
         <span>My Activity</span>
       </router-link>
     </li>
     <li v-if="showResume">
-      <router-link to="/resume" exact-active-class="active" @click="$emit('close-menu')" >
+      <router-link to="/resume" :class="{ active: isActiveMenu('/resume') }" @click="$emit('close-menu')">
         <i class="fi fi-rr-file" v-if="showIcon"></i>
         <span>Download CV</span>
       </router-link>

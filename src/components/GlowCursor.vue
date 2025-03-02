@@ -3,7 +3,7 @@ import { onMounted, ref } from "vue";
 import gsap from "gsap";
 
 const cursorGlowRef = ref(null);
-const cursorRef = ref(null);
+// const cursorRef = ref(null);
 
 onMounted(() => {
   document.addEventListener("mousemove", (e) => {

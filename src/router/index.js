@@ -50,7 +50,16 @@ const router = createRouter({
       meta: { 
         showNavbarAndFooter: true,
         title: 'Projects'
-      }
+      },
+    },
+    {
+      path: '/projects/:slug',
+      name: 'project-detail',
+      component: () => import('../views/ProjectDetailView.vue'),
+      meta: { 
+        showNavbarAndFooter: true,
+        title: 'Project Detail'
+      },
     },
     {
       path: '/contact',
@@ -71,7 +80,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/:catchAll(.*)',
+      path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: PageNotFound,
       meta: { 
