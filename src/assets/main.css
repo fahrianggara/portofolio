@@ -5,6 +5,7 @@
 
 @theme {
 	--font-inter: "Inter", sans-serif;
+	--display-webkit-box: -webkit-box;
 
 	--color-dark-primary: #2a86ff;
 	--color-dark-hover: #085ac6;
