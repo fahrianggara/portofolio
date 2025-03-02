@@ -58,12 +58,12 @@
 
   /* Membuat thumbnail utama dan thumbnails kecil sejajar */
   .thumbnail-container {
-    @apply flex flex-col md:flex-row items-stretch gap-2 mt-5 md:w-[calc(100%-7rem)] w-full;
+    @apply flex flex-col md:flex-row items-stretch gap-2 mt-5 md:w-[calc(100%-7rem)] w-full md:h-[374px] h-full;
   }
 
   /* Gambar utama */
   .thumbnail {
-    @apply w-full object-cover rounded-xl md:h-[370px] h-full;
+    @apply w-full object-cover rounded-xl w-full;
   }
 
   /* Daftar thumbnails menyesuaikan tinggi gambar utama */
