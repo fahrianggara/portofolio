@@ -109,13 +109,22 @@ footer {
 
 .sidebar-menu li a {
 	@apply flex items-center px-[15px] py-[10px] lg:py-[12px] gap-4 bg-surface/50 dark:bg-dark-background2/80 
-	backdrop-blur-sm rounded-[0px] border border-t border-gray-300 dark:border-zinc-900 font-[14px] lg:font-medium text-[14px] md:text-[15px];
+	backdrop-blur-xl rounded-[0px] border border-t border-gray-300 dark:border-zinc-900 font-[14px] lg:font-medium text-[14px] md:text-[15px];
 	transform: translateX(0);
 	transition: ease-in-out 0.1s;
 }
 
-.sidebar-menu li:not(:last-child) a {
-	@apply border-b-0;
+.sidebar-menu li:not(:last-child) a,
+.sidebar-menu li:not(:first-child) a {
+	@apply border-b-0 border-t-0;
+}
+
+.sidebar-menu li:last-child a {
+	@apply border-b border-t-0;
+}
+
+.sidebar-menu li:first-child a {
+	@apply border-t border-b-0;
 }
 
 .sidebar-menu li a:not(.active):hover {

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@studio-freight/lenis": "^1.0.42",
     "@tailwindcss/vite": "^4.0.7",
     "@vueuse/core": "^12.7.0",
     "glightbox": "^3.3.1",

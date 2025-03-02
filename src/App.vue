@@ -6,6 +6,8 @@ import { onMounted, ref, watch } from 'vue';
 import { useToggle } from '@vueuse/shared';
 import Parallax from './components/Parallax.vue';
 import { useDark } from '@vueuse/core';
+import Lenis from "@studio-freight/lenis";
+import GlowCursor from "./components/GlowCursor.vue";
 
 const route = useRoute();
 
@@ -17,6 +19,9 @@ const isDark = useDark({
   valueLight: 'light',
 });
 const toggleDark = useToggle(isDark);
+
+const lenis = new Lenis();
+
 
 onMounted(() => {
   // Tambahkan dark:bg-dark-background saat pertama kali dimuat
@@ -32,10 +37,23 @@ onMounted(() => {
   ];
 
   document.body.classList.add(...bodyClasses);
+
+  // Smooth Scroll
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+});
+
+// Scroll ke atas saat route berubah
+watch(route, () => {
+  lenis.scrollTo(0, { behavior: "smooth" });
 });
 </script>
 
 <template>
+  <GlowCursor />
   <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark"  @toggleDark="toggleDark" />
   
   <main class="flex flex-col min-h-screen font-inter relative z-9">
