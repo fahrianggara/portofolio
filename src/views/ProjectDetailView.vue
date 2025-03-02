@@ -1,7 +1,20 @@
 <script setup>
   import Sidebar from "@/components/Sidebar.vue";
   import { useScreenSize } from "@/utils/screenResize.js";
+  import { computed, ref } from "vue";
   const { resizeScreen } = useScreenSize();
+
+  // Data thumbnails (ubah ini sesuai kebutuhan)
+  const thumbnails = ref([
+    "https://picsum.photos/1920/1081",
+    "https://picsum.photos/1920/1082",
+    "https://picsum.photos/1920/1083",
+    "https://picsum.photos/1920/1084",
+    "https://picsum.photos/1920/1085",
+  ]);
+
+  // Cek apakah ada thumbnail tambahan
+  const hasThumbnails = computed(() => thumbnails.value.length > 0);
 </script>
 
 <template>
@@ -16,23 +29,15 @@
             <i class="fi fi-rr-angle-small-left"></i> Back to Projects
           </router-link>
 
-          <div class="thumbnail-container">
-            <img src="https://picsum.photos/1080/720" alt="Project Thumbnail" class="thumbnail" />
-            <ul class="thumbnails" data-lenis-prevent>
-              <li class="thumbnail-item">
-                <img src="https://picsum.photos/1080/721" alt="Project Thumbnail" class="thumbnail" />
-              </li>
-              <li class="thumbnail-item">
-                <img src="https://picsum.photos/1080/722" alt="Project Thumbnail" class="thumbnail" />
-              </li>
-              <li class="thumbnail-item">
-                <img src="https://picsum.photos/1080/723" alt="Project Thumbnail" class="thumbnail" />
-              </li>
-              <li class="thumbnail-item">
-                <img src="https://picsum.photos/1080/718" alt="Project Thumbnail" class="thumbnail" />
-              </li>
-              <li class="thumbnail-item">
-                <img src="https://picsum.photos/1080/719" alt="Project Thumbnail" class="thumbnail" />
+          <div class="thumbnail-container" :class="{'w-full': !hasThumbnails, 'md:w-[calc(100%-7rem)]': hasThumbnails}">
+            <img
+              src="https://picsum.photos/1920/1080"
+              alt="Project Thumbnail"
+              class="thumbnail" />
+            
+            <ul v-if="hasThumbnails" class="thumbnails" data-lenis-prevent>
+              <li v-for="(thumb, index) in thumbnails" :key="index" class="thumbnail-item">
+                <img :src="thumb" alt="Project Thumbnail" class="thumbnail" />
               </li>
             </ul>
           </div>
@@ -47,9 +52,9 @@
   @import '@/assets/main.css';
 
   .back {
-    @apply dark:bg-dark-bg-primary bg-bg-primary
+    @apply dark:bg-dark-bg-primary/50 bg-bg-primary/60 backdrop-blur-lg
     inline-flex items-center px-4 py-3 pr-5 rounded-full text-sm font-medium cursor-pointer
-    text-primary hover:bg-primary hover:text-white ease-in-out duration-300;
+    text-primary hover:bg-primary/80 hover:text-white ease-in-out duration-300;
   }
 
   .back i {
@@ -58,12 +63,12 @@
 
   /* Membuat thumbnail utama dan thumbnails kecil sejajar */
   .thumbnail-container {
-    @apply flex flex-col md:flex-row items-stretch gap-2 mt-5 md:w-[calc(100%-7rem)] w-full md:h-[374px] h-full;
+    @apply flex flex-col md:flex-row items-stretch gap-2 mt-5 md:h-[315px] h-full;
   }
 
   /* Gambar utama */
   .thumbnail {
-    @apply w-full object-cover rounded-xl w-full;
+    @apply w-full object-cover rounded-xl;
   }
 
   /* Daftar thumbnails menyesuaikan tinggi gambar utama */
