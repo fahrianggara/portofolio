@@ -85,7 +85,7 @@
   @import '@/assets/main.css';
 
   .parent {
-    @apply relative border-s border-gray-300 dark:border-zinc-900;
+    @apply relative border-s ml-2 border-gray-300 dark:border-zinc-900;
   }
 
   .parent .icon {

@@ -11,7 +11,7 @@ const { resizeScreen } = useScreenSize();
   <section>
     <div class="container">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-6 lg:gap-8 relative">
-        <div class="dark:text-white hidden md:block relative" v-if="!resizeScreen">
+        <div class="dark:text-white hidden md:block relative mb-6" v-if="!resizeScreen">
           <Sidebar :class="'sticky top-26'" />
         </div>
         <div class="dark:text-white col-span-2 mb-[23px]">
@@ -109,6 +109,6 @@ const { resizeScreen } = useScreenSize();
 }
 
 .project-info h1 {
-  @apply text-[16px] font-semibold mb-3;
+  @apply text-[16px] md:text-[18px] font-semibold mb-3;
 }
 </style>

@@ -85,7 +85,7 @@ const { resizeScreen } = useScreenSize();
 }
 
 .edu {
-  @apply relative border-s border-gray-300 dark:border-zinc-800;
+  @apply relative border-s ml-1 border-gray-300 dark:border-zinc-800;
 }
 
 .edu > li {
