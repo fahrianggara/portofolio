@@ -55,7 +55,7 @@ const router = createRouter({
     {
       path: '/projects/:slug',
       name: 'project-detail',
-      component: () => import('../views/ProjectDetailView.vue'),
+      component: () => import('../views/ProjectsDetailView.vue'),
       meta: { 
         showNavbarAndFooter: true,
         title: 'Project Detail'
