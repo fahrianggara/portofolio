@@ -18,6 +18,6 @@ export default defineConfig({
     },
   },
   server: {
-    allowedHosts: ['36c3-2001-448a-2096-951-b815-862f-26d6-87e6.ngrok-free.app'],
+    allowedHosts: ['ee1c-2001-448a-2096-951-ad07-4cf9-9bc4-973a.ngrok-free.app'],
   }
 })

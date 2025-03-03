@@ -66,7 +66,7 @@ onUnmounted(() => {
   <div class="thumbnail-container" :class="{
     'w-full': !filteredThumbnails.length, 
     'md:w-[calc(100%-7rem)]': filteredThumbnails.length 
-  }">
+    }">
     <!-- Gambar utama -->
     <a 
       :href="currentThumbnail" 
@@ -90,6 +90,7 @@ onUnmounted(() => {
         </a>
       </li>
     </ul>
+    <div class="clear-both"></div>
   </div>
 </template>
 
@@ -98,7 +99,7 @@ onUnmounted(() => {
 @import "@/assets/main.css";
 
 .thumbnail-container {
-  @apply flex flex-col md:flex-row items-stretch gap-2 mt-5 md:h-[315px] h-full;
+  @apply flex flex-col md:flex-row md:items-stretch gap-2 mt-5 md:h-[320px] sm:h-fit;
 }
 
 .thumbnail {
@@ -106,9 +107,9 @@ onUnmounted(() => {
 }
 
 .thumbnails {
-  @apply flex flex-row md:flex-col gap-2 flex-shrink-0 
+  @apply flex flex-row-reverse md:flex-col gap-2 flex-shrink-0 
   overflow-x-auto md:overflow-y-auto md:overflow-x-hidden 
-  md:max-h-[370px];
+  md:max-h-[370px] mr-auto;
 }
 
 .thumbnails::-webkit-scrollbar {
