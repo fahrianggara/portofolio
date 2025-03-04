@@ -53,7 +53,7 @@
                 <div class="flex flex-row flex-wrap gap-x-1 gap-y-0 mt-1">
                   <a href="https://www.linkedin.com/in/fahrianggara" target="_blank" class="text-primary">LinkedIn</a>
                   <a href="https://www.github.com/fahrianggara" target="_blank" class="text-primary">GitHub</a>
-                  <a href="https://www.instagram.com/fahrianggara" target="_blank" class="text-primary">Instagram</a>
+                  <a href="https://www.instagram.com/fahrianqqara" target="_blank" class="text-primary">Instagram</a>
                 </div>
               </div>
             </div>
