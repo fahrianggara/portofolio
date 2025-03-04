@@ -34,7 +34,9 @@
                     <textarea id="message" name="message" placeholder="Enter your message" rows="3"></textarea>
                   </div>
                   <div>
-                    <button type="submit" class="w-full px-4 py-3 bg-primary text-white rounded-lg">Submit</button>
+                    <button type="submit" >
+                      Send Message
+                    </button>
                   </div>
                 </div>
               </form>
@@ -96,6 +98,13 @@
 
   .contact-form input.is-invalid, .contact-form textarea.is-invalid {
     @apply border-red-500 ring-2 ring-red-500/50 text-red-600 placeholder-red-500;
+  }
+
+  .contact-form [type="submit"] {
+    @apply w-full px-4 py-3 
+    dark:bg-dark-bg-primary text-primary bg-bg-primary 
+    rounded-lg text-[14px] font-medium cursor-pointer ease-in-out transition-all duration-300
+    hover:bg-primary hover:text-bg-primary;
   }
 
   .contact-info {
