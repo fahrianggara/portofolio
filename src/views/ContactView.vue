@@ -18,7 +18,7 @@
               <h1>What's Next?</h1>
               <p>Fill out the form below and we'll get back to you as soon as possible.</p>
               <form class="contact-form" autocomplete="off">
-                <div class="grid grid-cols-1 gap-5">
+                <div class="grid grid-cols-1 gap-3 ">
                   <div>
                     <input type="text" id="name" name="name" placeholder="Enter your full name"
                     class="is-invalid" />
@@ -93,7 +93,8 @@
   .contact-form input, .contact-form textarea {
     @apply w-full px-4 py-2.5 border border-solid dark:border-zinc-900 border-gray-300 rounded-lg
     text-[15px] dark:text-white text-gray-900 dark:bg-dark-surface/90 backdrop-blur-2xl bg-white
-    focus:outline-none focus:border-primary focus:ring-3 focus:ring-primary/30 focus:shadow-md placeholder:text-[14px] placeholder:font-normal placeholder:text-gray-600 dark:placeholder-gray-500;
+    focus:outline-none focus:border-primary focus:ring-3 focus:ring-primary/30 focus:shadow-md placeholder:text-[14px] 
+    placeholder:font-normal placeholder:text-gray-600 dark:placeholder-gray-500;
   }
 
   .contact-form input.is-invalid, .contact-form textarea.is-invalid {
@@ -129,5 +130,42 @@
 
   .contact-info .contact-box a {
     @apply text-primary hover:underline p-0 m-0;
+  }
+
+  @media (max-width: 499.99px) {
+    .contact-box {
+      @apply bg-transparent border-none backdrop-blur-none p-0;
+    }
+
+    .contact-form input, .contact-form textarea {
+      @apply dark:bg-dark-surface/50 backdrop-blur-2xl bg-white/70 py-[13px] placeholder:text-gray-950 dark:placeholder-white;
+    }
+
+    .contact-form [type="submit"] {
+      @apply py-[14px] text-[13px];
+    }
+
+    .contact-info {
+      @apply gap-0 overflow-hidden;
+    }
+
+    .contact-wrapper {
+      @apply flex flex-col-reverse;
+    }
+
+    .contact-info .contact-box {
+      @apply rounded-none;
+    }
+
+    .contact-info .contact-box:first-child {
+      border-bottom: none;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+    }
+
+    .contact-info .contact-box:last-child {
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+    }
   }
 </style>
