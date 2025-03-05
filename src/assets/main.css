@@ -48,7 +48,6 @@
 	--color-line: #9c9c9c;
 }
 
-
 /* Home Section */
 .home {
 	@apply min-h-screen flex flex-col justify-center pt-[20px];

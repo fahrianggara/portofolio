@@ -1,39 +1,11 @@
 <script setup>
-import { ref, onMounted } from "vue";
 import Sidebar from "@/components/Sidebar.vue";
 import { useScreenSize } from "@/utils/screenResize.js";
-import axios from "axios";
+import CodingActivity from "@/components/activity/Coding.vue";
 
 const { resizeScreen } = useScreenSize();
-const codingStats = ref(null);
-const loading = ref(true);
-const errorMessage = ref("");
 
-const getActivity = async () => {
-  try {
-    const apiKey = import.meta.env.VITE_WAKATIME_API_KEY;
-    const response = await axios.get("/wakatime-api", { // from proxy in vite.config.js
-      headers: {
-        Authorization: `Basic ${btoa(apiKey)}`,
-        "Content-Type": "application/json"
-      }
-    });
-
-    codingStats.value = response.data.data;
-    console.log(codingStats.value);
-  } catch (error) {
-    errorMessage.value = "Failed fetching data";
-    console.error("Error fetching data:", error);
-  } finally {
-    loading.value = false;
-  }
-};
-
-onMounted(() => {
-  getActivity();
-});
 </script>
-
 
 <template>
   <section>
@@ -42,7 +14,7 @@ onMounted(() => {
         <div class="dark:text-white mb-3 hidden md:block relative" v-if="!resizeScreen">
           <Sidebar :class="'sticky top-26'" />
         </div>
-        <div class="dark:text-white col-span-2">
+        <div class="dark:text-white col-span-2 mb-5">
           <h1 class="font-semibold md:text-[18px]">Current Activity</h1>
           <p class="dark:text-gray-500 text-gray-600 mt-1.5">
             This is my current activity on Discord.
@@ -53,12 +25,9 @@ onMounted(() => {
               Hmm.. It seems that Angga has not performed any activities yet.
             </span>
           </div>
-          <h1 class="font-semibold md:text-[18px] mt-6">
-            Coding Activity
-          </h1>
-          <p class="dark:text-gray-500 text-gray-600 mt-1.5">
-            This is my coding activity on WakaTime.
-          </p>
+
+          <!-- Coding Activity -->
+          <CodingActivity />
 
         </div>
       </div>

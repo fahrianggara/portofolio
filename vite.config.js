@@ -22,7 +22,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/wakatime-api' : {
-        target: 'https://wakatime.com/api/v1/users/current/stats/last_year',
+        target: 'https://wakatime.com/api/v1/users/current/stats',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/wakatime-api/, '')
       }
