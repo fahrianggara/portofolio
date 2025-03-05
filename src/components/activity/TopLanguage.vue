@@ -31,11 +31,11 @@ const formatDigitalTime = (digitalTime) => {
   return `${hours} hrs ${minutes} mins`;
 };
 
-// **Render Chart**
+// Render Chart
 const renderChart = () => {
   if (!chartCanvas.value || !props.codingStats?.languages) return;
 
-  // Ambil **10 bahasa teratas** dan ubah "Blade Template" menjadi "Laravel"
+  // Ambil 10 bahasa teratas dan ubah "Blade Template" menjadi "Laravel"
   const languageData = props.codingStats.languages
     .slice(0, 10)
     .map(lang => ({
@@ -83,27 +83,34 @@ const renderChart = () => {
   });
 };
 
-// **Fungsi untuk Mendapatkan Orientasi Chart**
+// Fungsi untuk Mendapatkan Orientasi Chart
 const updateChartOrientation = () => {
   if (chartInstance.value) {
     chartInstance.value.resize();
   }
 };
 
-// **Expose untuk bisa dipanggil dari luar**
+// Expose untuk bisa dipanggil dari luar
 defineExpose({ updateChartOrientation });
 
+// Render chart saat komponen di-mount
 onMounted(() => {
   renderChart();
   window.addEventListener("resize", updateChartOrientation);
 });
 
+// Hapus event listener dan chart saat komponen di-unmount
 onUnmounted(() => {
   window.removeEventListener("resize", updateChartOrientation);
   if (chartInstance.value) {
     chartInstance.value.destroy();
   }
 });
+
+// Watch untuk Perubahan Props
+watch(() => props.codingStats, () => {
+  renderChart();
+}, { deep: true });
 </script>
 
 <template>

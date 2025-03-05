@@ -34,7 +34,7 @@ const getActivity = async () => {
 // Cek cache sebelum fetch data
 onMounted(() => {
   const cachedData = getWithExpiry(CACHE_KEY, SECRET_KEY);
-  
+
   if (cachedData) {
     codingStats.value = cachedData;
     loading.value = false; // Tidak perlu skeleton
@@ -64,7 +64,7 @@ const formattedRange = computed(() => {
       <div v-if="loading" class="animate-pulse bg-border dark:bg-dark-background3 rounded h-4 mt-1"></div>
 
       <!-- Data setelah selesai loading -->
-      <div v-else>
+      <div v-else class="text-[15px]">
         {{ formattedRange }}
         <span class="dark:text-gray-400 text-gray-600">
           ({{ codingStats?.human_readable_total }})
@@ -78,9 +78,9 @@ const formattedRange = computed(() => {
       <div v-if="loading" class="animate-pulse bg-border dark:bg-dark-background3 rounded h-4 mt-1"></div>
 
       <!-- Data setelah selesai loading -->
-      <p v-else>
+      <div v-else class="text-[15px]">
         Visual Studio Code
-      </p>
+      </div>
     </div>
   </div>
 
