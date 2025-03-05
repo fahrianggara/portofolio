@@ -18,6 +18,14 @@ export default defineConfig({
     },
   },
   server: {
-    allowedHosts: ['34ec-2001-448a-2096-951-ad07-4cf9-9bc4-973a.ngrok-free.app'],
+    allowedHosts: ['e81b-2001-448a-2096-951-ad07-4cf9-9bc4-973a.ngrok-free.app'],
+    port: 3000,
+    proxy: {
+      '/wakatime-api' : {
+        target: 'https://wakatime.com/api/v1/users/current/stats/last_year',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/wakatime-api/, '')
+      }
+    }
   }
 })
