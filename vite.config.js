@@ -25,6 +25,11 @@ export default defineConfig({
         target: 'https://wakatime.com/api/v1/users/current/stats',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/wakatime-api/, '')
+      },
+      '/discord-api' : {
+        target: `https://api.lanyard.rest/v1/users/${import.meta.env.VITE_DISCORD_USER_ID}`,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/discord-api/, '')
       }
     }
   }

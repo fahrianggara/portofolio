@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
-import { encryptData, decryptData, setWithExpiry, getWithExpiry } from "@/utils/helpers.js"; // Import helpers
+import { setWithExpiry, getWithExpiry } from "@/utils/helpers.js"; // Import helpers
 import LanguageChart from "./TopLanguage.vue";
 
 const codingStats = ref(null);
