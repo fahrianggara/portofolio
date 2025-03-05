@@ -1,7 +1,7 @@
 <script setup>
 import Sidebar from "@/components/Sidebar.vue";
 import { useScreenSize } from "@/utils/screenResize.js";
-import CodingActivity from "@/components/activity/Coding.vue";
+import CodingActivity from "@/components/activity/CodingActivity.vue";
 
 const { resizeScreen } = useScreenSize();
 

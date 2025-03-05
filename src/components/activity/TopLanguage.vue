@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch, defineProps, defineExpose } from "vue";
+import { ref, onMounted, onUnmounted, watch, defineProps, defineExpose } from "vue";
 import { Chart, registerables } from "chart.js";
 
 Chart.register(...registerables); // Register all chart types
@@ -7,7 +7,6 @@ Chart.register(...registerables); // Register all chart types
 const props = defineProps(["codingStats"]);
 const chartCanvas = ref(null);
 const chartInstance = ref(null);
-const chartType = ref("bar");
 
 // Warna spesifik untuk bahasa pemrograman
 const languageColors = {
@@ -64,6 +63,7 @@ const renderChart = () => {
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false, // Tambahkan ini agar chart menyesuaikan ukuran container
       scales: {
         x: { beginAtZero: true },
         y: { beginAtZero: true }
@@ -85,19 +85,29 @@ const renderChart = () => {
 
 // **Fungsi untuk Mendapatkan Orientasi Chart**
 const updateChartOrientation = () => {
-  chartType.value = window.innerWidth < 768 ? "horizontalBar" : "bar";
-  renderChart();
+  if (chartInstance.value) {
+    chartInstance.value.resize();
+  }
 };
 
 // **Expose untuk bisa dipanggil dari luar**
 defineExpose({ updateChartOrientation });
 
 onMounted(() => {
-  updateChartOrientation();
+  renderChart();
   window.addEventListener("resize", updateChartOrientation);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateChartOrientation);
+  if (chartInstance.value) {
+    chartInstance.value.destroy();
+  }
 });
 </script>
 
 <template>
-  <canvas ref="chartCanvas"></canvas>
+  <div style="position: relative; height: 300px;">
+    <canvas ref="chartCanvas"></canvas>
+  </div>
 </template>

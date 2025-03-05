@@ -1,13 +1,15 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
-import { encryptData, decryptData } from "@/utils/helpers.js"; // Import helpers
-import LanguageChart from "./LanguageChart.vue";
+import { encryptData, decryptData, setWithExpiry, getWithExpiry } from "@/utils/helpers.js"; // Import helpers
+import LanguageChart from "./TopLanguage.vue";
 
 const codingStats = ref(null);
 const loading = ref(true);
 const errorMessage = ref("");
 const SECRET_KEY = import.meta.env.VITE_WAKATIME_API_KEY;
+const CACHE_KEY = "coding-activity";
+const CACHE_EXPIRY = 24 * 60 * 60 * 1000; // 1 hari dalam milidetik
 
 // Ambil data dari API atau cache
 const getActivity = async () => {
@@ -20,7 +22,7 @@ const getActivity = async () => {
     });
 
     codingStats.value = response.data.data;
-    localStorage.setItem("coding-activity", encryptData(codingStats.value, SECRET_KEY)); // Simpan ke cache
+    setWithExpiry(CACHE_KEY, codingStats.value, SECRET_KEY, CACHE_EXPIRY);
   } catch (error) {
     errorMessage.value = "Failed fetching data";
     console.error("Error fetching data:", error);
@@ -31,11 +33,10 @@ const getActivity = async () => {
 
 // Cek cache sebelum fetch data
 onMounted(() => {
-  const cachedData = localStorage.getItem("coding-activity");
-  const decryptedData = cachedData ? decryptData(cachedData, SECRET_KEY) : null;
-
-  if (decryptedData) {
-    codingStats.value = decryptedData;
+  const cachedData = getWithExpiry(CACHE_KEY, SECRET_KEY);
+  
+  if (cachedData) {
+    codingStats.value = cachedData;
     loading.value = false; // Tidak perlu skeleton
   } else {
     getActivity();
@@ -53,10 +54,10 @@ const formattedRange = computed(() => {
     Coding Activity
   </h1>
   <p class="dark:text-gray-500 text-gray-600 mt-1.5">
-    This is my coding activity on WakaTime.
+    This is my coding activity on <a href="https://wakatime.com/" target="_blank" class="text-primary">WakaTime</a>.
   </p>
 
-  <div class="grid lg:grid-cols-2 gap-4 mt-4">
+  <div class="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
     <div class="box">
       <h1>Since</h1>
       <!-- Skeleton Loading hanya muncul pertama kali -->
@@ -70,6 +71,7 @@ const formattedRange = computed(() => {
         </span>
       </div>
     </div>
+    
     <div class="box">
       <h1>Code Editor</h1>
       <!-- Skeleton Loading hanya muncul pertama kali -->
@@ -83,9 +85,13 @@ const formattedRange = computed(() => {
   </div>
 
   <div class="languages">
-    <h1 class="font-medium mb-4">
+    <h1 class="font-medium">
       Top Languages
     </h1>
+
+    <p class="my-4 mt-1 text-[15px] dark:text-gray-400 text-gray-600">
+      This is my top 10 languages based on coding time.
+    </p>
 
     <div v-if="loading" class="animate-pulse bg-border dark:bg-dark-background3 rounded h-7 mt-1"></div>
 
