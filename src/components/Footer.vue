@@ -47,7 +47,11 @@
   }
 
   .footer-links ul a {
-    @apply text-[15px] hover:underline text-gray-600 dark:text-gray-400 ease-in hover:text-primary;
+    @apply text-[15px] hover:underline text-gray-600 dark:text-gray-400 ease-in hover:text-primary hover:underline;
+  }
+
+  .footer-links ul a.active {
+    @apply text-primary;
   }
 
   .footer-bottom {

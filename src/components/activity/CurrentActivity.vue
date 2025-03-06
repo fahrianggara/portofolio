@@ -24,6 +24,7 @@ let songProgressInterval = null;
 const currActivities = computed(() => discordData.value?.activities || null);
 const isListeningToSpotify = computed(() => Boolean(discordData.value?.spotify));
 const spotifyData = computed(() => discordData.value?.spotify);
+const isOffline = computed(() => Boolean(discordData.value?.discord_status === "offline"));
 
 // WebSocket instance
 const lanyardSocket = createLanyardWebSocket(userId, handleDiscordDataUpdate);
@@ -80,6 +81,7 @@ function handleDiscordDataUpdate(data) {
   discordData.value = data;
   loading.value = false;
   updateSongProgress();
+  console.log("Discord data updated:", data);
 }
 
 // Lifecycle hooks
@@ -108,15 +110,19 @@ onUnmounted(() => {
       </li>
 
       <li class="activity" v-if="!currActivities?.length && !loading" key="no-activity">
-        <i class="fi fi-rr-info text-primary inline-block relative top-[2.5px] mr-1.5"></i>
-        <span class="dark:text-gray-300 text-gray-600 italic">
-          Hmm.. It seems that Angga has not performed any activities yet.
+        <i class="fi fi-rr-info inline-block relative top-[2px] mr-2" 
+          :class="{'text-red-500': isOffline, 'text-primary': !isOffline}"
+          ></i>
+        <span class="dark:text-gray-300 text-gray-600">
+          {{ isOffline 
+            ? "I'm offline right now :( ..Check back later yeah?" 
+            : "I'm not currently doing anything :/ ..but i'm online :)" }}
         </span>
       </li>
 
       <li class="activity" v-else v-for="(activity, index) in currActivities" :key="index">
         <div v-if="activity.flags">
-          <p class="dark:text-gray-400 text-gray-600 mb-3.5">Listening to Spotify</p>
+          <p class="dark:text-gray-400 font-medium text-gray-600 mb-3.5">Listening to Spotify</p>
 
           <div class="flex items-start md:gap-2 gap-4">
             <div class="relative inline-block">
@@ -135,9 +141,9 @@ onUnmounted(() => {
               <!-- Progress Bar -->
               <div class="mt-3">
                 <div class="h-1 dark:bg-gray-600 bg-gray-400 rounded-full">
-                  <div class="h-1 bg-green-500 rounded-full" :style="{ width: songProgress.percent + '%' }"></div>
+                  <div class="h-1 bg-primary rounded-full" :style="{ width: songProgress.percent + '%' }"></div>
                 </div>
-                <div class="flex justify-between text-gray-400 text-xs mt-1">
+                <div class="flex justify-between dark:text-gray-400 text-gray-600 text-xs mt-1">
                   <span>{{ songProgress.elapsed }}</span>
                   <span>{{ songProgress.total }}</span>
                 </div>
@@ -147,7 +153,7 @@ onUnmounted(() => {
         </div>
 
         <div v-else>
-          <p class="dark:text-gray-400 text-gray-600 mb-3.5">Playing</p>
+          <p class="dark:text-gray-400 font-medium text-gray-600 mb-3.5">Playing</p>
 
           <div class="flex items-start" :class="{ 'gap-2': activity.assets, 'gap-0': !activity.assets }">
             <div class="relative inline-block">
@@ -169,7 +175,7 @@ onUnmounted(() => {
               <div class="desc">
                 <p class="dark:text-gray-400 text-gray-600 text-sm">{{ activity.details }}</p>
                 <p class="dark:text-gray-400 text-gray-600 text-sm">{{ activity.state }}</p>
-                <p class="dark:text-green-400 text-green-600 text-sm font-semibold mt-2">{{ elapsedTime }}</p>
+                <p class="text-primary text-sm font-semibold mt-2">{{ elapsedTime }}</p>
               </div>
             </div>
           </div>
