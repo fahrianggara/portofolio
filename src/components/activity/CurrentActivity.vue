@@ -24,6 +24,7 @@ function connectWebSocket() {
     if (["INIT_STATE", "PRESENCE_UPDATE"].includes(response.t)) {
       discordData.value = response.d;
       loading.value = false;
+      console.log("WebSocket Data:", discordData.value);
     }
   };
 
@@ -74,7 +75,7 @@ onUnmounted(() => {
 <template>
   <h1 class="font-semibold md:text-[18px]">Current Activity</h1>
   <p class="dark:text-gray-500 text-gray-600 mt-1.5">
-    This is my current activity on Discord.
+    This is my current activity on Discord. Btw I'm using <a href="https://github.com/Phineas/lanyard" target="_blank" class="text-primary">Lanyard API</a> for this feature.
   </p>
 
   <div class="activity">
@@ -82,7 +83,7 @@ onUnmounted(() => {
 
     <div v-else-if="currentActivity">
       <p class="dark:text-gray-400 text-gray-600 uppercase mb-3.5">Playing</p>
-      <div class="flex items-start gap-2">
+      <div class="flex items-start" :class="{ 'gap-2' : currentActivity.assets, 'gap-0' : !currentActivity.assets }">
         <div class="relative inline-block">
           <img
             v-if="currentActivity.assets?.large_image"

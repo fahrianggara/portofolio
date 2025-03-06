@@ -99,7 +99,7 @@
 
   .parent > li {
     @apply
-    bg-white/40 dark:bg-dark-surface/60 backdrop-blur-2xl 
+    bg-white/60 dark:bg-dark-surface/60 backdrop-blur-2xl 
     relative p-4 px-5 rounded-2xl 
     border border-solid dark:border-zinc-900 border-gray-300;
   }

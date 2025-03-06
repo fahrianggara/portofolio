@@ -7,7 +7,3 @@
     <ListMenu />
   </aside>
 </template>
-
-<style scoped>
-
-</style>

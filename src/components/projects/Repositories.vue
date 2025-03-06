@@ -31,8 +31,9 @@
   }
 
   .repos li {
-    @apply relative p-4 rounded-2xl bg-white/40 dark:bg-dark-surface/60 backdrop-blur-2xl border border-solid dark:border-zinc-900 border-gray-300 ease-in-out duration-300 transform hover:-translate-y-[2px]
-    dark:hover:bg-dark-surface/80 hover:bg-white/70 ;
+    @apply relative p-4 rounded-2xl bg-white/60 dark:bg-dark-surface/60 backdrop-blur-2xl 
+    border border-solid dark:border-zinc-900 border-gray-300 ease-in-out duration-300 
+    transform hover:-translate-y-[2px] dark:hover:bg-dark-surface/80 hover:bg-white/70 ;
   }
 
   .repos svg {
