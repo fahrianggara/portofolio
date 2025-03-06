@@ -54,10 +54,10 @@ watch(route, () => {
 
 <template>
   <GlowCursor />
-  <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark"  @toggleDark="toggleDark" />
+  <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark" @toggleDark="toggleDark" />
   
   <main class="flex flex-col min-h-screen font-inter relative z-9">
-    <router-view />
+    <router-view :key="$route.fullPath" />
     <Footer v-if="route.meta.showNavbarAndFooter" />
   </main>
 

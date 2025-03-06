@@ -57,14 +57,14 @@ const formattedRange = computed(() => {
     This is my coding activity on <a href="https://wakatime.com/" target="_blank" class="text-primary">WakaTime</a>.
   </p>
 
-  <div class="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
+  <div class="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
     <div class="box">
       <h1>Since</h1>
       <!-- Skeleton Loading hanya muncul pertama kali -->
       <div v-if="loading" class="animate-pulse bg-border dark:bg-dark-background3 rounded h-4 mt-1"></div>
 
       <!-- Data setelah selesai loading -->
-      <div v-else class="text-[15px]">
+      <div v-else class="text-[15px] md:text-[13.5px] lg:text-[15px]">
         {{ formattedRange }}
         <span class="dark:text-gray-400 text-gray-600">
           ({{ codingStats?.human_readable_total }})
@@ -78,7 +78,7 @@ const formattedRange = computed(() => {
       <div v-if="loading" class="animate-pulse bg-border dark:bg-dark-background3 rounded h-4 mt-1"></div>
 
       <!-- Data setelah selesai loading -->
-      <div v-else class="text-[15px]">
+      <div v-else class="text-[15px] md:text-[13.5px] lg:text-[15px]">
         Visual Studio Code
       </div>
     </div>
@@ -95,7 +95,7 @@ const formattedRange = computed(() => {
 
     <div v-if="loading" class="animate-pulse bg-border dark:bg-dark-background3 rounded h-7 mt-1"></div>
 
-    <LanguageChart v-if="!loading && codingStats" :codingStats="codingStats" />
+    <LanguageChart v-if="!loading && codingStats" :codingStats="codingStats" :key="codingStats" />
   </div>
 </template>
 

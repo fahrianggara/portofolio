@@ -75,8 +75,8 @@
     </li>
     <li>
       <router-link to="/activity" :class="{ active: isActiveMenu('/activity') }" @click="$emit('close-menu')">
-        <i class="fi fi-rr-chart-pie-alt" v-if="showIcon"></i>
-        <span>My Activity</span>
+        <i class="fi fi-rr-time-fast" v-if="showIcon"></i>
+        <span>Activity</span>
       </router-link>
     </li>
     <li v-if="showResume">

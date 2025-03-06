@@ -24,7 +24,7 @@ function connectWebSocket() {
     if (["INIT_STATE", "PRESENCE_UPDATE"].includes(response.t)) {
       discordData.value = response.d;
       loading.value = false;
-      console.log("WebSocket Data:", discordData.value);
+      // console.log("WebSocket Data:", discordData.value);
     }
   };
 
