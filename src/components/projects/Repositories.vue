@@ -1,21 +1,88 @@
 <script setup>
+import axios from 'axios';
+import { ref, onMounted } from 'vue';
 
+const GITHUB_ACCESS_TOKEN = import.meta.env.VITE_GITHUB_ACCESS_TOKEN;
+const repos = ref([]);
+
+async function getPinnedRepos() {
+  const query = `
+    query {
+      viewer {
+        pinnedItems(first: 6, types: REPOSITORY) {
+          nodes {
+            ... on Repository {
+              name
+              description
+              url
+              stargazerCount
+              forkCount
+              primaryLanguage {
+                name
+                color
+              }
+              owner {
+                login
+                avatarUrl
+              }
+              updatedAt
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await axios.post(
+      "https://api.github.com/graphql",
+      { query }, // Perbaiki dari `params` menjadi `data`
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${GITHUB_ACCESS_TOKEN}`,
+        },
+      }
+    );
+
+    repos.value = response.data.data.viewer.pinnedItems.nodes; // Ambil data dengan benar
+  } catch (error) {
+    console.error("Error fetching repositories:", error);
+  }
+}
+
+onMounted(getPinnedRepos);
 </script>
 
 <template>
-  <h1 class="text-lg font-medium mb-4 mt-6">My Repositories</h1>
+  <h1 class="text-lg font-medium mb-1 mt-6">My Repositories</h1>
+  <p class="dark:text-gray-400 text-gray-600 mb-5 text-[15px] md:text-[16px]">
+    These are some of my pinned repositories on GitHub.
+  </p>
+
   <ol class="repos">
-    <li v-for="repo in [1, 2, 3, 4]" :key="repo">
-      <a href="#" class="">
+    <li v-for="(repo, index) in repos" :key="index">
+      <a :href="repo.url" target="_blank">
         <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
           <path d="M19,3H12.472a1.019,1.019,0,0,1-.447-.1L8.869,1.316A3.014,3.014,0,0,0,7.528,1H5A5.006,5.006,0,0,0,0,6V18a5.006,5.006,0,0,0,5,5H19a5.006,5.006,0,0,0,5-5V8A5.006,5.006,0,0,0,19,3ZM5,3H7.528a1.019,1.019,0,0,1,.447.1l3.156,1.579A3.014,3.014,0,0,0,12.472,5H19a3,3,0,0,1,2.779,1.882L2,6.994V6A3,3,0,0,1,5,3ZM19,21H5a3,3,0,0,1-3-3V8.994l20-.113V18A3,3,0,0,1,19,21Z"/>
         </svg>
 
         <div class="content">
-          <h3 class="text-[16px] font-semibold mb-1">Repository Name</h3>
+          <h3 class="text-[16px] font-semibold mb-1">
+            {{ repo.name }}
+          </h3>
           <p class="text-base/relaxed text-[15px] text-gray-600 dark:text-gray-400">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.
+            {{ repo.description }}
           </p>
+        </div>
+
+        <div class="mt-auto">
+          <div class="flex items-center gap-2">
+            <div class="rounded-full w-3 h-3" :style="{ backgroundColor: repo.primaryLanguage.color }"></div>
+            <span class="dark:text-gray-400 text-gray-600 text-[15px]">
+              {{ repo.primaryLanguage.name }}
+            </span>
+          </div>
         </div>
       </a>
     </li>
@@ -36,7 +103,15 @@
     transform hover:-translate-y-[2px] dark:hover:bg-dark-surface/80 hover:bg-white/70 ;
   }
 
+  .repos li a {
+    @apply flex flex-col items-start h-full;
+  }
+
   .repos svg {
     @apply w-6 h-6 fill-primary mb-3;
+  }
+
+  .content {
+    @apply mb-4;
   }
 </style>
