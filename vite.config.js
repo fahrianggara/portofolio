@@ -18,7 +18,7 @@ export default defineConfig({
     },
   },
   server: {
-    allowedHosts: ['e81b-2001-448a-2096-951-ad07-4cf9-9bc4-973a.ngrok-free.app'],
+    allowedHosts: ['4903-2001-448a-2096-23d7-583c-c00c-fbe5-5521.ngrok-free.app'],
     port: 3000,
     proxy: {
       '/wakatime-api' : {
