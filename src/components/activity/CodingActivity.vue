@@ -61,7 +61,7 @@ const formattedRange = computed(() => {
     <div class="box">
       <h1>Since</h1>
       <!-- Skeleton Loading hanya muncul pertama kali -->
-      <div v-if="loading" class="animate-pulse bg-border dark:bg-dark-background3 rounded h-4 mt-1"></div>
+      <div v-if="loading" class="animate-pulse bg-gray-300 dark:bg-zinc-900 rounded h-4 mt-1"></div>
 
       <!-- Data setelah selesai loading -->
       <div v-else class="text-[15px] md:text-[13.5px] lg:text-[15px]">
@@ -75,7 +75,7 @@ const formattedRange = computed(() => {
     <div class="box">
       <h1>Code Editor</h1>
       <!-- Skeleton Loading hanya muncul pertama kali -->
-      <div v-if="loading" class="animate-pulse bg-border dark:bg-dark-background3 rounded h-4 mt-1"></div>
+      <div v-if="loading" class="animate-pulse bg-gray-300 dark:bg-zinc-900 rounded h-4 mt-1"></div>
 
       <!-- Data setelah selesai loading -->
       <div v-else class="text-[15px] md:text-[13.5px] lg:text-[15px]">
@@ -93,7 +93,7 @@ const formattedRange = computed(() => {
       This is my top 10 languages based on coding time.
     </p>
 
-    <div v-if="loading" class="animate-pulse bg-border dark:bg-dark-background3 rounded h-7 mt-1"></div>
+    <div v-if="loading" class="animate-pulse bg-gray-300 dark:bg-zinc-900 rounded h-7 mt-1"></div>
 
     <LanguageChart v-if="!loading && codingStats" :codingStats="codingStats" :key="codingStats" />
   </div>
