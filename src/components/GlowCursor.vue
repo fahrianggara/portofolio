@@ -3,7 +3,6 @@ import { onMounted, ref } from "vue";
 import gsap from "gsap";
 
 const cursorGlowRef = ref(null);
-// const cursorRef = ref(null);
 
 onMounted(() => {
   document.addEventListener("mousemove", (e) => {
@@ -13,20 +12,11 @@ onMounted(() => {
       duration: 0.6, // Glow agak lebih lambat dari cursor
       ease: "power1.out",
     });
-
-    // gsap.to(cursorRef.value, {
-    //   x: e.clientX,
-    //   y: e.clientY,
-    //   duration: .7,
-    //   ease: "power3.out",
-    // });
   });
 });
 </script>
 
 <template>
-  <!-- <div ref="cursorRef" class="cursor-circle"></div> -->
-  <!-- Glow effect -->
   <div class="custom-glow" ref="cursorGlowRef"></div>
 </template>
 
