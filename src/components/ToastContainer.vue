@@ -29,5 +29,10 @@ const handleClose = (id) => {
 
 .toast-container {
   @apply fixed bottom-0 right-4 z-[10000] flex flex-col items-end;
+  pointer-events: none; /* Nonaktifkan pointer events untuk toast */
+}
+
+.toast-container > * {
+  pointer-events: auto; /* Aktifkan kembali pointer events untuk toast */
 }
 </style>

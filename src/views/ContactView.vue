@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import Sidebar from "@/components/Sidebar.vue";
 import { useScreenSize } from "@/utils/screenResize.js";
 import apiService from "@/utils/apiService";
@@ -16,8 +16,7 @@ const submitForm = async () => {
 
   try {
     const response = await apiService.post("/api/contact", contact.value);
-
-    toast.success(response.message || "Message sent successfully!");
+    toast.success("Message sent successfully!");
     contact.value.reset();
   } catch (error) {
     contact.value.setErrors(error.data);

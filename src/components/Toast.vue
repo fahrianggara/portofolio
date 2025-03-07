@@ -19,7 +19,7 @@ const props = defineProps({
   },
   duration: {
     type: Number,
-    default: 3000 // durasi dalam milidetik
+    default: 4000 // durasi dalam milidetik
   },
   autoClose: {
     type: Boolean,
@@ -30,7 +30,9 @@ const props = defineProps({
 const emit = defineEmits(['close']);
 
 const isVisible = ref(true);
+const isLeaving = ref(false);
 let timer = null;
+let autoCloseTimer = null;
 
 const getIcon = () => {
   switch (props.type) {
@@ -48,38 +50,39 @@ const getIcon = () => {
 };
 
 const close = () => {
-  isVisible.value = false;
-  emit('close');
+  if (isLeaving.value) return; // Hindari double trigger
+
+  isLeaving.value = true;
+
+  // Tunggu sampai animasi selesai baru benar-benar hapus toast
+  setTimeout(() => {
+    isVisible.value = false;
+    emit('close');
+  }, 600); // Sesuai dengan durasi animasi keluar
 };
 
 onMounted(() => {
   if (props.autoClose && props.duration > 0) {
     timer = setTimeout(() => {
       close();
-    }, props.duration);
-  }
-});
-
-onUnmounted(() => {
-  if (timer) {
-    clearTimeout(timer);
+    }, props.duration - 600); // Tambahkan delay sebelum animasi keluar dimulai
   }
 });
 </script>
 
 <template>
-  <Transition name="toast-fade">
-    <div v-if="isVisible" :class="['toast', props.type]" role="alert">
-      <div class="icon">
-        <component :is="getIcon()" />
-      </div>
-      <div class="text">{{ props.message }}</div>
-      <button type="button" aria-label="Close" @click="close">
-        <span class="sr-only">Close</span>
-        <CloseIcon />
-      </button>
+  <div v-if="isVisible" 
+    :class="['toast', props.type, isLeaving ? 'toast-leaving' : '']" 
+    role="alert">
+    <div class="icon">
+      <component :is="getIcon()" />
     </div>
-  </Transition>
+    <div class="text">{{ props.message }}</div>
+    <button type="button" aria-label="Close" @click="close">
+      <span class="sr-only">Close</span>
+      <CloseIcon />
+    </button>
+  </div>
 </template>
 
 <style scoped>
@@ -87,13 +90,68 @@ onUnmounted(() => {
 @import '@/assets/main.css';
 
 .toast {
-  @apply flex items-start w-full max-w-[330px] p-4 mb-4 rounded-xl
-  text-gray-600 dark:text-gray-400 bg-white/100 dark:bg-dark-surface/100
-  border border-solid border-gray-300 dark:border-zinc-900;
+  @apply flex items-start w-full max-w-[330px] p-4 mb-4 rounded-xl text-gray-600 dark:text-gray-400 
+  bg-white/100 dark:bg-dark-surface/100 border border-solid border-gray-300 dark:border-zinc-900;
+
+  /* Properti animasi */
+  transform: translateX(0);
+  opacity: 1;
+
+  /* Efek masuk (debounce) */
+  animation: toast-bounce-from-right 0.6s ease forwards;
+}
+
+.toast.toast-leaving {
+  /* Efek keluar dengan debounce */
+  animation: toast-bounce-to-right 0.6s ease forwards;
+}
+
+/* Animasi saat toast muncul */
+@keyframes toast-bounce-from-right {
+  0% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translateX(-5%);
+    opacity: 1;
+  }
+
+  80% {
+    transform: translateX(3%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Animasi saat toast keluar (dengan debounce ke kanan) */
+@keyframes toast-bounce-to-right {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  20% {
+    transform: translateX(-5%);
+    opacity: 1;
+  }
+
+  40% {
+    transform: translateX(3%);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
 }
 
 .toast button {
-  @apply ms-auto -mx-0.5 text-gray-400 rounded-lg p-1.5 inline-flex items-center justify-center h-8 w-8 cursor-pointer;
+  @apply ms-auto -mx-0.5 p-1.5 inline-flex items-center justify-center h-8 w-8 cursor-pointer;
 }
 
 .icon {
@@ -117,18 +175,6 @@ onUnmounted(() => {
 }
 
 .text {
-  @apply ms-3 text-sm font-normal my-auto font-inter mr-2;
-}
-
-/* Animasi saat toast muncul dan hilang */
-.toast-fade-enter-active,
-.toast-fade-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.toast-fade-enter-from,
-.toast-fade-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
+  @apply ms-3 text-sm font-normal my-auto font-inter;
 }
 </style>
