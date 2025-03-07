@@ -15,17 +15,10 @@ async function getPinnedRepos() {
               name
               description
               url
-              stargazerCount
-              forkCount
               primaryLanguage {
                 name
                 color
               }
-              owner {
-                login
-                avatarUrl
-              }
-              updatedAt
             }
           }
         }
@@ -71,7 +64,7 @@ onMounted(getPinnedRepos);
           <h3 class="text-[16px] font-semibold mb-1">
             {{ repo.name }}
           </h3>
-          <p class="text-base/relaxed text-[15px] text-gray-600 dark:text-gray-400">
+          <p class="text-base/relaxed text-[14.5px] text-gray-600 dark:text-gray-400">
             {{ repo.description }}
           </p>
         </div>

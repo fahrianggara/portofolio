@@ -50,7 +50,7 @@
               </div>
               <div class="contact-box">
                 <h1>Social Media</h1>
-                <div class="flex flex-row flex-wrap gap-x-1 gap-y-0 mt-1">
+                <div class="flex flex-row flex-wrap gap-x-1 gap-y-0 mt-1 links">
                   <a href="https://www.linkedin.com/in/fahrianggara" target="_blank" class="text-primary">LinkedIn</a>
                   <a href="https://www.github.com/fahrianggara" target="_blank" class="text-primary">GitHub</a>
                   <a href="https://www.instagram.com/fahrianqqara" target="_blank" class="text-primary">Instagram</a>
@@ -138,7 +138,8 @@
     }
 
     .contact-form input, .contact-form textarea {
-      @apply dark:bg-dark-surface/50 backdrop-blur-2xl bg-white/70 py-[13px] placeholder:text-gray-600 dark:placeholder:text-gray-400;
+      @apply dark:bg-dark-surface/50 backdrop-blur-2xl bg-white/70 py-[13px] 
+      placeholder:text-gray-600 dark:placeholder:text-gray-400;
     }
 
     .contact-form [type="submit"] {
@@ -154,7 +155,15 @@
     }
 
     .contact-info .contact-box {
-      @apply rounded-none;
+      @apply rounded-none bg-transparent border-none backdrop-blur-none p-0;
+    }
+
+    .contact-info .contact-box h1 {
+      @apply text-[18px] mb-1.5;
+    }
+
+    .contact-info .contact-box .links {
+      @apply gap-x-4;
     }
 
     .contact-info .contact-box:first-child {
@@ -166,6 +175,7 @@
     .contact-info .contact-box:last-child {
       border-bottom-left-radius: 24px;
       border-bottom-right-radius: 24px;
+      margin-top: 15px;
     }
   }
 </style>

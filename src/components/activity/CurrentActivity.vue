@@ -81,7 +81,6 @@ function handleDiscordDataUpdate(data) {
   discordData.value = data;
   loading.value = false;
   updateSongProgress();
-  console.log("Discord data updated:", data);
 }
 
 // Lifecycle hooks
