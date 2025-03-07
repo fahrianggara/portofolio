@@ -15,11 +15,17 @@ const submitForm = async () => {
   loading.value = true;
 
   try {
-    const response = await apiService.post("/api/contact", contact.value);
-    toast.success("Message sent successfully!");
+    const response = await apiService.post("/contact", contact.value);
+    toast.success(response.message);
     contact.value.reset();
-  } catch (error) {
-    contact.value.setErrors(error.data);
+  } catch (err) {
+    if (err.response.status === 401) {
+      toast.error(err.response.data.message);
+    } else if (err.response.status === 422) {
+      contact.value.setErrors(err.response.data.data);
+    } else {
+      toast.error("An error occurred. Please try again later.");
+    }
   } finally {
     loading.value = false;
   }

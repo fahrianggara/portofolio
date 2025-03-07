@@ -30,7 +30,7 @@ export default defineConfig({
         target: 'http://portofolio-v5-be.test',
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        rewrite: (path) => path.replace(/^\/api/, 'api')
       },
     },
   }

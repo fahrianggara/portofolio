@@ -1,7 +1,10 @@
 import axios from "axios";
+import { useToast } from "./useToast";
+
+const toast = useToast();
 
 const apiClient = axios.create({
-  baseURL: "/api", // DI AMBIL DI VITE.CONFIG.JS
+  baseURL: "/api",
   headers: {
     "Content-Type": "application/json",
     "Accept": "application/json",
@@ -21,7 +24,15 @@ const apiService = {
       });
       return response.data;
     } catch (error) {
-      throw error.response ? error.response.data : error;
+      throw error;
+      
+      if (error.response.status === 401) {
+        toast.error(error.response.data.message);
+      } else if (error.response.status === 422) {
+        throw error.response ? error.response.data : error;
+      } else {
+        toast.error(error.message);
+      }
     }
   },
 
