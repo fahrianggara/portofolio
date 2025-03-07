@@ -18,7 +18,7 @@ export default defineConfig({
     },
   },
   server: {
-    allowedHosts: ['4903-2001-448a-2096-23d7-583c-c00c-fbe5-5521.ngrok-free.app'],
+    allowedHosts: [''],
     port: 3000,
     proxy: {
       '/wakatime-api' : {
@@ -26,6 +26,12 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/wakatime-api/, '')
       },
-    }
+      '/api' : {
+        target: 'http://portofolio-v5-be.test',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   }
 })
