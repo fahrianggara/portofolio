@@ -8,6 +8,7 @@ import Parallax from './components/Parallax.vue';
 import { useDark } from '@vueuse/core';
 import Lenis from "@studio-freight/lenis";
 import GlowCursor from "./components/GlowCursor.vue";
+import ToastContainer from './components/ToastContainer.vue';
 
 const route = useRoute();
 
@@ -18,10 +19,11 @@ const isDark = useDark({
   valueDark: 'dark',
   valueLight: 'light',
 });
+
+// Dark Mode Toggle
 const toggleDark = useToggle(isDark);
 
 const lenis = new Lenis();
-
 
 onMounted(() => {
   // Tambahkan dark:bg-dark-background saat pertama kali dimuat
@@ -62,6 +64,8 @@ watch(route, () => {
   </main>
 
   <Parallax />
+
+  <ToastContainer />
 </template>
 
 <style scoped>
