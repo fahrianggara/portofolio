@@ -175,6 +175,6 @@ onMounted(() => {
 }
 
 .text {
-  @apply ms-3 text-sm font-normal my-auto font-inter;
+  @apply ms-3 text-sm font-normal my-auto font-inter dark:text-gray-300 text-gray-600;
 }
 </style>

@@ -39,6 +39,7 @@ const submitForm = async () => {
         <div class="dark:text-white mb-3 hidden md:block relative" v-if="!resizeScreen">
           <Sidebar :class="'sticky top-26'" />
         </div>
+        
         <div class="dark:text-white col-span-2 mb-5.5">
           <div class="contact-wrapper">
             <div class="contact-box lg:col-span-2 md:col-span-3 sm:col-span-full col-span-1">
@@ -192,10 +193,6 @@ const submitForm = async () => {
   }
 
   @media (max-width: 499.99px) {
-    .contact-box {
-      @apply bg-transparent border-none backdrop-blur-none p-0;
-    }
-
     .contact-form input, .contact-form textarea {
       @apply dark:bg-dark-surface/50 backdrop-blur-2xl bg-white/70 py-[13px] 
       placeholder:text-gray-600 dark:placeholder:text-gray-400;
@@ -206,15 +203,11 @@ const submitForm = async () => {
     }
 
     .contact-info {
-      @apply gap-0 overflow-hidden;
+      @apply gap-4 overflow-hidden;
     }
 
     .contact-wrapper {
       @apply flex flex-col-reverse;
-    }
-
-    .contact-info .contact-box {
-      @apply rounded-none bg-transparent border-none backdrop-blur-none p-0;
     }
 
     .contact-info .contact-box h1 {
@@ -223,18 +216,6 @@ const submitForm = async () => {
 
     .contact-info .contact-box .links {
       @apply gap-x-4;
-    }
-
-    .contact-info .contact-box:first-child {
-      border-bottom: none;
-      border-top-left-radius: 24px;
-      border-top-right-radius: 24px;
-    }
-
-    .contact-info .contact-box:last-child {
-      border-bottom-left-radius: 24px;
-      border-bottom-right-radius: 24px;
-      margin-top: 15px;
     }
   }
 </style>
