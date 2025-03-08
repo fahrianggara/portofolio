@@ -3,7 +3,43 @@
   import { useScreenSize } from "@/utils/screenResize.js";
   import Repositories from "@/components/projects/Repositories.vue";
   import Pagination from "@/components/projects/Pagination.vue";
+  import apiService from "@/utils/apiService";
+  import { onMounted, ref } from "vue";
+
   const { resizeScreen } = useScreenSize();
+  const projects = ref([]);
+  const loading = ref(true);
+  const currentPage = ref(1);
+  const lastPage = ref(1);
+
+  const fetchProjects = async (page = 1) => {
+    loading.value = true;
+
+    try {
+      const response = await apiService.get(`/projects?page=${page}`);
+      const project = response.data;
+
+      projects.value = project.data;
+      currentPage.value = project.current_page;
+      lastPage.value = project.last_page;
+    } catch (err) {
+      if (err.response.status === 401) {
+        toast.error(err.response.data.message);
+      } else {
+        toast.error("An error occurred. Please try again later.");
+      }
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const changePage = (page) => {
+    if (page >= 1 && page <= lastPage.value) {
+      fetchProjects(page);
+    }
+  }
+
+  onMounted(() => fetchProjects(currentPage.value));
 </script>
 
 <template>
@@ -13,32 +49,49 @@
         <div class="dark:text-white hidden md:block relative" v-if="!resizeScreen">
           <Sidebar :class="'sticky top-26'" />
         </div>
+
         <div class="dark:text-white col-span-2 mb-5">
-          <h1 class="text-lg font-medium mb-4">My Projects</h1>
+          <h1 class="text-lg font-medium mb-1">My Projects</h1>
+          <p class="dark:text-gray-400 text-gray-600 mb-5 text-[15px] md:text-[16px]">
+            These are some of my projects that I've worked on.
+          </p>
           <ol class="projects">
-            <li v-for="project in [1, 2, 3]" :key="project">
-              <router-link to="/projects/1" class="flex items-start gap-4">
-                <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg" alt="" class="" />
+
+            <li v-if="loading" v-for="n in 1" :key="n">
+              <a href="#" class="flex items-start gap-4">
+                <div class="w-20 h-20 md:w-28 md:h-28 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-xl"></div>
+                <div class="w-full h-full flex flex-col justify-between">
+                  <div class="h-2 bg-gray-300 dark:bg-zinc-900 rounded-lg w-[120px]"></div>
+                  <div class="h-4 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
+                  <div class="h-3 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
+                  <div class="h-3 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-2"></div>
+                </div>
+              </a>
+            </li>
+            
+            <li v-else v-for="(project, index) in projects" :key="index">
+              <router-link class="flex items-start gap-4" :to="`/projects/${project.slug}`">
+                <img :src="project.image_link" alt="thumbnail" />
                 <div class="w-full h-full flex flex-col justify-between">
                   <div>
                     <span class="text-[12px] sm:text-[13px] dark:text-gray-600 text-gray-400 font-medium mb-1 block">
-                      UI/UX Design
+                      {{ project.category.name }}
                     </span>
                     <h3 class="text-[15px] sm:text-[16px] md:text-lg font-semibold mb-1 
                       line-clamp-1 duration-300 ease-in-out">
-                      Sistem Aplikasi Penjualan Online Berbasis Web aaaaaaaa
+                      {{ project.title }}
                     </h3>
                   </div>
                   <p class="text-base/relaxed text-[13px] sm:text-[15px] text-gray-600 dark:text-gray-400 
                     line-clamp-2 mt-auto">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit enim blanditiis, eum vel culpa, facere suscipit aliquid quae quos molestiae quod, nostrum quisquam soluta. Laudantium porro in aspernatur aliquid enim.
+                    {{ project.description }}
                   </p>
                 </div>
               </router-link>
             </li>
           </ol>
           
-          <Pagination />
+          <Pagination v-if="lastPage > 1" :loading="loading" :current-page="currentPage" :last-page="lastPage" @page-change="changePage" />
 
           <Repositories />
         </div>
