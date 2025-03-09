@@ -220,11 +220,12 @@ code[class*="language-"],
 pre[class*="language-"] {
 	text-shadow: none !important;
 	color: theme("colors.white") !important; /* Untuk light mode */
+	font-size: 14px !important;
 }
 
 [data-theme="light"] code[class*="language-"],
 [data-theme="light"] pre[class*="language-"] {
-	text-shadow: 0 1px #323232 !important;
+	text-shadow: 0 0.5px #323232 !important;
 	color: theme("colors.black") !important; /* Untuk dark mode */
 }
 

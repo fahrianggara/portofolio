@@ -73,7 +73,7 @@ onMounted(() => {
             <VueMarkdown class="content" :source="project.description" v-prism />
             
             <div class="project-info">
-              <!-- <h1>Project Info</h1> -->
+              <h1>Project Information</h1>
               <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left rounded-2xl overflow-hidden border-collapse">
                 <tbody>
@@ -90,15 +90,19 @@ onMounted(() => {
                       Project Date
                     </th>
                     <td class="px-4 py-4">
-                      : Jan 2021 - Mar 2021
+                      : {{ project.until_date }}
                     </td>
                   </tr>
                   <tr class="last:rounded-b-2xl bg-white/60 dark:bg-dark-surface/60 backdrop-blur-lg border border-solid dark:border-zinc-900 border-gray-300">
                     <th scope="row" class="px-4 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white">
-                      Link
+                      Link to Project
                     </th>
                     <td class="px-4 py-4">
-                      : <a :href="project.links" class="text-primary hover:underline">{{ project.links }}</a>
+                      : <a v-if="project.links" :href="project.links" target="_blank" class="text-primary hover:underline">
+                        Go to Project
+                        </a>
+
+                        <span v-else>Not Available</span>
                     </td>
                   </tr>
                 </tbody>
@@ -134,7 +138,7 @@ onMounted(() => {
 }
 
 .content-wrapper h1 {
-  @apply text-[20px] font-bold;
+  @apply text-[20px] md:text-[25px] font-bold;
 }
 
 .category {
@@ -151,6 +155,6 @@ onMounted(() => {
 }
 
 .project-info h1 {
-  @apply text-[16px] md:text-[18px] font-semibold mb-3;
+  @apply text-[18px] md:text-[20px] font-semibold mb-3 before:content-['#'] before:mr-2;
 }
 </style>

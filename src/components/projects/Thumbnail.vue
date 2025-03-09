@@ -33,7 +33,7 @@ const startCarousel = () => {
 
       updateGLightbox();
     }
-  }, 4000);
+  }, 5000);
 };
 
 const stopCarousel = () => {
