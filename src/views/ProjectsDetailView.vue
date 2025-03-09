@@ -4,7 +4,9 @@ import Sidebar from "@/components/Sidebar.vue";
 import { useScreenSize } from "@/utils/screenResize.js";
 import Thumbnail from "@/components/projects/Thumbnail.vue";
 import apiService from "@/utils/apiService";
-import { computed, onMounted, ref, watch } from "vue";
+import { onMounted, ref } from "vue";
+import NotFoundSvg from "@/components/icon/NotFound.vue";
+
 import { useRoute } from "vue-router";
 import VueMarkdown from "vue-markdown-render";
 const { resizeScreen } = useScreenSize();
@@ -12,22 +14,25 @@ const { resizeScreen } = useScreenSize();
 const route = useRoute();
 const loading = ref(true);
 const project = ref(null);
+const notFound = ref(false);
 
 const getProject = async () => {
   try {
     const res = await apiService.get(`/projects/${route.params.slug}`);
     project.value = res.data;
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    if (err.response.status === 404) {
+      notFound.value = true;
+    }
+    console.log(err);
   } finally {
     loading.value = false;
   }
-}
+};
 
 onMounted(() => {
   getProject();
 });
-
 </script>
 
 <template>
@@ -38,81 +43,97 @@ onMounted(() => {
           <Sidebar :class="'sticky top-26'" />
         </div>
         <div class="dark:text-white col-span-2 mb-[23px]">
-          <router-link to="/projects" class="back">
-            <i class="fi fi-rr-angle-small-left"></i> Back to Projects
-          </router-link>
 
-          <!-- Thumbnail Component -->
-          <div v-if="loading">
-            <div class="h-[200px] md:h-[250px] animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-xl w-full mt-5"></div>
+          <div v-if="notFound" class="flex flex-col gap-3 items-center justify-center mx-auto">
+            <NotFoundSvg class="w-[250px] h-[250px]" />
+
+            <div class="transform -translate-y-5 text-center">
+              <h1 class="dark:text-white text-[17px] font-bold text-center mb-2">Project Not Found</h1>
+              <p class="dark:text-gray-500 text-gray-700 text-center text-base/relaxed text-[15px] sm:text-[16px] mb-2">
+                The project you are looking for is not available or has been removed.
+              </p>
+              <router-link to="/projects" class="text-primary text-[16px] font-medium cursor-pointer hover:underline ease-in-out duration-75">
+                Back to Projects
+              </router-link>
+            </div>
           </div>
 
-          <Thumbnail :project="project" v-else />
+          <div v-else>
+            <router-link to="/projects" class="back" v-if="!loading">
+              <i class="fi fi-rr-angle-small-left"></i> Back to Projects
+            </router-link>
 
-          <div class="content-wrapper" v-if="loading">
-            <div class="h-3 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-[260px]"></div>
-            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-5"></div>
-            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
-            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
-            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
-            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-5"></div>
-            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
-            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
-            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
-            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-5"></div>
-            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
-            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
-            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
-          </div>
-
-          <!-- Content -->
-          <div class="content-wrapper" v-else>
-            <h1>{{ project.title }}</h1>
-
-            <!-- <div class="content" v-html="sanitizedBody"></div> -->
-            <VueMarkdown class="content" :source="project.description" v-prism />
-            
-            <div class="project-info">
-              <h1>Project Information</h1>
-              <div class="relative overflow-x-auto">
-                <table class="w-full text-sm text-left rounded-2xl overflow-hidden border-collapse">
-                <tbody>
-                  <tr class="first:rounded-t-2xl last:rounded-b-2xl bg-white/60 dark:bg-dark-surface/60 backdrop-blur-lg border border-solid dark:border-zinc-900 border-gray-300">
-                    <th scope="row" class="px-4 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white">
-                      Category
-                    </th>
-                    <td class="px-4 py-4">
-                      : {{ project.category.name }}
-                    </td>
-                  </tr>
-                  <tr class="bg-white/60 dark:bg-dark-surface/60 backdrop-blur-lg border border-solid dark:border-zinc-900 border-gray-300">
-                    <th scope="row" class="px-4 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white">
-                      Project Date
-                    </th>
-                    <td class="px-4 py-4">
-                      : {{ project.until_date }}
-                    </td>
-                  </tr>
-                  <tr class="last:rounded-b-2xl bg-white/60 dark:bg-dark-surface/60 backdrop-blur-lg border border-solid dark:border-zinc-900 border-gray-300">
-                    <th scope="row" class="px-4 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white">
-                      Link to Project
-                    </th>
-                    <td class="px-4 py-4">
-                      : <a v-if="project.links" :href="project.links" target="_blank" class="text-primary hover:underline">
-                        Go to Project
-                        </a>
-
-                        <span v-else>Not Available</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-              </div>
+            <!-- Thumbnail Component -->
+            <div v-if="loading">
+              <div class="h-[200px] md:h-[250px] animate-pulse bg-gray-400 
+                dark:bg-zinc-800 rounded-xl w-full" :class="{'mt-0': loading, 'mt-5': !loading}"></div>
             </div>
 
-          </div>
+            <Thumbnail :project="project" v-else />
 
+            <div class="content-wrapper" v-if="loading">
+              <div class="h-3 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-[260px]"></div>
+              <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-5"></div>
+              <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+              <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+              <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+              <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-5"></div>
+              <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+              <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+              <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+              <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-5"></div>
+              <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+              <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+              <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+            </div>
+
+            <!-- Content -->
+            <div class="content-wrapper" v-else>
+              <h1>{{ project.title }}</h1>
+
+              <VueMarkdown class="content" v-if="project" :source="project.description" v-prism />
+              
+              <div class="project-info">
+                <h1>Project Information</h1>
+                <div class="relative overflow-x-auto">
+                  <table class="w-full text-sm text-left rounded-2xl overflow-hidden border-collapse">
+                  <tbody>
+                    <tr class="first:rounded-t-2xl last:rounded-b-2xl bg-white/60 dark:bg-dark-surface/60 backdrop-blur-lg border border-solid dark:border-zinc-900 border-gray-300">
+                      <th scope="row" class="px-4 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white">
+                        Category
+                      </th>
+                      <td class="px-4 py-4">
+                        : {{ project.category.name }}
+                      </td>
+                    </tr>
+                    <tr class="bg-white/60 dark:bg-dark-surface/60 backdrop-blur-lg border border-solid dark:border-zinc-900 border-gray-300">
+                      <th scope="row" class="px-4 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white">
+                        Project Date
+                      </th>
+                      <td class="px-4 py-4">
+                        : {{ project.until_date }}
+                      </td>
+                    </tr>
+                    <tr class="last:rounded-b-2xl bg-white/60 dark:bg-dark-surface/60 backdrop-blur-lg border border-solid dark:border-zinc-900 border-gray-300">
+                      <th scope="row" class="px-4 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white">
+                        Link to Project
+                      </th>
+                      <td class="px-4 py-4">
+                        : <a v-if="project.links" :href="project.links" target="_blank" class="text-primary hover:underline">
+                          Go to Project
+                          </a>
+
+                          <span v-else>Not Available</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
