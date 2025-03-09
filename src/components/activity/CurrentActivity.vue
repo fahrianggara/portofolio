@@ -105,7 +105,16 @@ onUnmounted(() => {
 
     <ul class="activities">
       <li class="activity" v-if="loading" key="loading">
-        <div class="animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg h-10 mt-1"></div>
+        <div class="w-[150px] h-3 bg-gray-300 dark:bg-zinc-900 rounded-lg mb-5"></div>
+        <a href="#" class="flex items-start gap-4">
+          <div class="w-20 h-20 md:w-28 md:h-28 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-xl"></div>
+          <div class="w-full h-full flex flex-col justify-between">
+            <div class="h-4 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-1"></div>
+            <div class="h-3 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
+            <div class="h-3 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-2"></div>
+            <div class="h-3 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-6"></div>
+          </div>
+        </a>
       </li>
 
       <li class="activity" v-if="!currActivities?.length && !loading" key="no-activity">
@@ -125,11 +134,7 @@ onUnmounted(() => {
 
           <div class="flex items-start md:gap-2 gap-4">
             <div class="relative inline-block">
-              <img
-                :src="spotifyData.album_art_url"
-                alt="Album Cover"
-                class="w-20 h-20 rounded-lg mr-4"
-              />
+              <img :src="spotifyData.album_art_url" alt="Album Cover" class="w-20 h-20 rounded-lg mr-4"/>
             </div>
             <div class="flex flex-col w-[calc(100%-5rem)]">
               <h2 class="text-[15.5px] leading-6 font-semibold">{{ spotifyData.song }} - {{ spotifyData.artist }}</h2>
@@ -154,26 +159,24 @@ onUnmounted(() => {
         <div v-else>
           <p class="dark:text-gray-400 font-medium text-gray-600 mb-3.5">Playing</p>
 
-          <div class="flex items-start" :class="{ 'gap-2': activity.assets, 'gap-0': !activity.assets }">
+          <div class="flex items-start" :class="{ 'md:gap-2 gap-4': activity.assets, 'gap-0': !activity.assets }">
             <div class="relative inline-block">
               <img
                 v-if="activity.assets?.large_image"
                 :src="`${DISCORD_CDN_URL}/${activity.application_id}/${activity.assets.large_image}.png`"
-                alt="Large Image"
-                class="w-20 h-20 rounded-lg mr-3"
+                alt="Large Image" class="w-20 h-20 rounded-lg mr-3"
               />
               <img
                 v-if="activity.assets?.small_image"
                 :src="`${DISCORD_CDN_URL}/${activity.application_id}/${activity.assets.small_image}.png`"
-                alt="Small Image"
-                class="absolute w-8 h-8 rounded-full right-1 -bottom-2"
+                alt="Small Image" class="absolute w-8 h-8 rounded-full right-1 -bottom-2"
               />
             </div>
-            <div class="flex flex-col gap-0.5">
+
+            <div class="flex flex-col w-[calc(100%-5rem)]">
               <h2 class="text-[16px] font-semibold">{{ activity.name }}</h2>
               <div class="desc">
-                <p class="dark:text-gray-400 text-gray-600 text-sm">{{ activity.details }}</p>
-                <p class="dark:text-gray-400 text-gray-600 text-sm">{{ activity.state }}</p>
+                <p class="dark:text-gray-400 text-gray-600 text-sm">{{ activity.details }} - {{ activity.state }}</p>
                 <p class="text-primary text-sm font-semibold mt-2">{{ elapsedTime }}</p>
               </div>
             </div>

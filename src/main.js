@@ -1,6 +1,8 @@
 import './assets/main.css'
 import './assets/custom.css'
 import 'glightbox/dist/css/glightbox.min.css'
+import 'prismjs/themes/prism.min.css'
+import Prism from 'prismjs'
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -21,6 +23,15 @@ app.directive('glightbox', {
     },
     unmounted(el) {
         el.lightbox.destroy();
+    }
+})
+
+app.directive('prism', {
+    mounted(el) {
+        Prism.highlightAllUnder(el)
+    },
+    updated(el) {
+        Prism.highlightAllUnder(el)
     }
 })
 

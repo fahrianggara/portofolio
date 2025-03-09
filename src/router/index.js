@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import EducationView from '@/views/EducationView.vue'
 import PageNotFound from '@/views/PageNotFoundView.vue'
+import apiService from '@/utils/apiService'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

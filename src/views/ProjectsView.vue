@@ -23,7 +23,7 @@
       currentPage.value = project.current_page;
       lastPage.value = project.last_page;
     } catch (err) {
-      if (err.response.status === 401) {
+      if (err.response && err.response.status === 401) {
         toast.error(err.response.data.message);
       } else {
         toast.error("An error occurred. Please try again later.");
@@ -61,10 +61,10 @@
               <a href="#" class="flex items-start gap-4">
                 <div class="w-20 h-20 md:w-28 md:h-28 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-xl"></div>
                 <div class="w-full h-full flex flex-col justify-between">
-                  <div class="h-2 bg-gray-300 dark:bg-zinc-900 rounded-lg w-[120px]"></div>
-                  <div class="h-4 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
-                  <div class="h-3 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
-                  <div class="h-3 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-2"></div>
+                  <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[120px]"></div>
+                  <div class="h-4 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
+                  <div class="h-3 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
+                  <div class="h-3 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-2"></div>
                 </div>
               </a>
             </li>
@@ -84,7 +84,7 @@
                   </div>
                   <p class="text-base/relaxed text-[13px] sm:text-[15px] text-gray-600 dark:text-gray-400 
                     line-clamp-2 mt-auto">
-                    {{ project.description }}
+                    {{ project.body }}
                   </p>
                 </div>
               </router-link>

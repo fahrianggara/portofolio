@@ -1,10 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Inter:wght@100..900&display=swap");
 @import "tailwindcss";
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @theme {
 	--font-inter: "Inter", sans-serif;
+	--font-fira: "Fira Code", monospace;
 	--display-webkit-box: -webkit-box;
 
 	--color-dark-primary: #2a86ff;
@@ -194,4 +195,53 @@ footer {
 
 .social-links ul a {
 	@apply text-[20px] ease-in-out duration-75 text-gray-600 dark:text-gray-400;
+}
+
+.content pre {
+	@apply p-4 bg-white/70 dark:bg-dark-surface/70 rounded-xl overflow-x-auto backdrop-blur-xl
+	border border-solid border-gray-300 dark:border-zinc-900 my-4 font-fira text-[15px]
+	text-gray-900 dark:text-white;
+}
+
+.content ul {
+	@apply list-disc list-inside my-3;
+}
+
+.content ol {
+	@apply list-decimal list-inside my-3;
+}
+
+.content blockquote {
+	@apply p-4 bg-surface/70 dark:bg-dark-surface/70 rounded-xl border-l-4 border-primary
+	text-gray-900 dark:text-white my-4;
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+	text-shadow: none !important;
+	color: theme("colors.white") !important; /* Untuk light mode */
+}
+
+[data-theme="light"] code[class*="language-"],
+[data-theme="light"] pre[class*="language-"] {
+	text-shadow: 0 1px #323232 !important;
+	color: theme("colors.black") !important; /* Untuk dark mode */
+}
+
+[data-theme="dark"] .token.operator,
+.language-css .token.string,
+.style .token.string,
+.token.entity,
+.token.operator,
+.token.url {
+	background: transparent !important; /* Untuk dark mode */
+}
+
+::selection,
+code[class*="language-"]::selection,
+pre[class*="language-"]::selection,
+pre[class*="language-"]::selection {
+	text-shadow: none;
+	background: theme("colors.blue.500") !important;
+	color: theme("colors.white") !important;
 }

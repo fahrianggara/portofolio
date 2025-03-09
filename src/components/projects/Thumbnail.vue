@@ -1,14 +1,21 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted, nextTick } from "vue";
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from "vue";
 import GLightbox from "glightbox";
 
-const thumbnails = ref([
-  "/img/thumb.jpg",
-  "/img/thumb-2.jpg",
-  "/img/thumb-3.jpg",
-  "/img/thumb-4.jpg",
-  "/img/thumb-5.jpg",
-]);
+
+const props = defineProps({
+  project: Object,
+});
+
+const thumbnails = ref([]);
+
+watch(() => props.project, (newProject) => {
+  if (newProject) {
+    thumbnails.value = newProject.images_link
+      ? [newProject.image_link, ...newProject.images_link]
+      : [newProject.image_link];
+  }
+}, { immediate: true });
 
 const currentThumbnail = ref(thumbnails.value[0]);
 const filteredThumbnails = computed(() => thumbnails.value.slice(1));
@@ -60,36 +67,28 @@ onUnmounted(() => {
   stopCarousel();
   if (lightbox) lightbox.destroy();
 });
+
 </script>
 
 <template>
   <div class="thumbnail-container" :class="{
-    'w-full': !filteredThumbnails.length, 
-    'md:w-[calc(100%-7rem)]': filteredThumbnails.length 
+      'w-full': !filteredThumbnails.length,
+      'md:w-[calc(100%-7rem)]': filteredThumbnails.length,
     }">
     <!-- Gambar utama -->
-    <a 
-      :href="currentThumbnail" 
-      class="glightbox contents" 
-      data-gallery="gallery" 
-      :key="currentThumbnail" 
-    >
+    <a :href="currentThumbnail" class="glightbox contents" data-gallery="gallery" :key="currentThumbnail">
       <img :src="currentThumbnail" alt="Project Thumbnail" class="thumbnail" />
     </a>
 
     <!-- Thumbnail kecil -->
     <ul v-if="filteredThumbnails.length" class="thumbnails" data-lenis-prevent>
       <li v-for="(thumb, index) in filteredThumbnails" :key="index" class="thumbnail-item">
-        <a 
-          :href="thumb" 
-          class="glightbox" 
-          data-gallery="gallery" 
-          :key="thumb"
-        >
+        <a :href="thumb" class="glightbox" data-gallery="gallery" :key="thumb">
           <img :src="thumb" alt="Project Thumbnail" class="thumbnail" />
         </a>
       </li>
     </ul>
+
     <div class="clear-both"></div>
   </div>
 </template>

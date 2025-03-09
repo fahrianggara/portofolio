@@ -3,9 +3,32 @@
 import Sidebar from "@/components/Sidebar.vue";
 import { useScreenSize } from "@/utils/screenResize.js";
 import Thumbnail from "@/components/projects/Thumbnail.vue";
+import apiService from "@/utils/apiService";
+import { computed, onMounted, ref, watch } from "vue";
+import { useRoute } from "vue-router";
+import VueMarkdown from "vue-markdown-render";
 const { resizeScreen } = useScreenSize();
-</script>
 
+const route = useRoute();
+const loading = ref(true);
+const project = ref(null);
+
+const getProject = async () => {
+  try {
+    const res = await apiService.get(`/projects/${route.params.slug}`);
+    project.value = res.data;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    loading.value = false;
+  }
+}
+
+onMounted(() => {
+  getProject();
+});
+
+</script>
 
 <template>
   <section>
@@ -19,19 +42,38 @@ const { resizeScreen } = useScreenSize();
             <i class="fi fi-rr-angle-small-left"></i> Back to Projects
           </router-link>
 
-          <Thumbnail />
+          <!-- Thumbnail Component -->
+          <div v-if="loading">
+            <div class="h-[200px] md:h-[250px] animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-xl w-full mt-5"></div>
+          </div>
+
+          <Thumbnail :project="project" v-else />
+
+          <div class="content-wrapper" v-if="loading">
+            <div class="h-3 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-[260px]"></div>
+            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-5"></div>
+            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-5"></div>
+            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-5"></div>
+            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+            <div class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-full mt-3"></div>
+          </div>
 
           <!-- Content -->
-          <div class="content-wrapper">
-            <h1>Lorem ipsum dolor, sit amet</h1>
-            <div class="content">
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam adipisci quia fugit facilis ducimus itaque velit ad quidem. Ut dolorem labore eum est, aliquid aperiam rem animi id impedit ex?
-              </p>
-            </div>
+          <div class="content-wrapper" v-else>
+            <h1>{{ project.title }}</h1>
+
+            <!-- <div class="content" v-html="sanitizedBody"></div> -->
+            <VueMarkdown class="content" :source="project.description" v-prism />
             
             <div class="project-info">
-              <h1>Project Info</h1>
+              <!-- <h1>Project Info</h1> -->
               <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left rounded-2xl overflow-hidden border-collapse">
                 <tbody>
@@ -40,7 +82,7 @@ const { resizeScreen } = useScreenSize();
                       Category
                     </th>
                     <td class="px-4 py-4">
-                      : UI/UX Design
+                      : {{ project.category.name }}
                     </td>
                   </tr>
                   <tr class="bg-white/60 dark:bg-dark-surface/60 backdrop-blur-lg border border-solid dark:border-zinc-900 border-gray-300">
@@ -56,7 +98,7 @@ const { resizeScreen } = useScreenSize();
                       Link
                     </th>
                     <td class="px-4 py-4">
-                      : <a href="#" class="text-primary hover:underline">www.example.com</a>
+                      : <a :href="project.links" class="text-primary hover:underline">{{ project.links }}</a>
                     </td>
                   </tr>
                 </tbody>
@@ -100,12 +142,12 @@ const { resizeScreen } = useScreenSize();
 }
 
 .content {
-  @apply mt-2 text-[15px] text-gray-600 dark:text-gray-300 leading-6
+  @apply mt-2 text-[15px] text-gray-800 dark:text-gray-200 leading-6
   md:leading-7 md:text-[16px];
 }
 
 .project-info {
-  @apply mt-5 md:mt-8;
+  @apply mt-5 md:mt-7;
 }
 
 .project-info h1 {
