@@ -5,12 +5,14 @@
   import Pagination from "@/components/projects/Pagination.vue";
   import apiService from "@/utils/apiService";
   import { onMounted, ref } from "vue";
+  import { useToast } from "@/utils/useToast";
 
   const { resizeScreen } = useScreenSize();
   const projects = ref([]);
   const loading = ref(true);
   const currentPage = ref(1);
   const lastPage = ref(1);
+  const toast = useToast();
 
   const fetchProjects = async (page = 1) => {
     loading.value = true;
@@ -23,10 +25,12 @@
       currentPage.value = project.current_page;
       lastPage.value = project.last_page;
     } catch (err) {
+      console.log(err);
+
       if (err.response && err.response.status === 401) {
         toast.error(err.response.data.message);
       } else {
-        toast.error("An error occurred. Please try again later.");
+        toast.warning("Please refresh the page to fetch the projects");
       }
     } finally {
       loading.value = false;

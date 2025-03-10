@@ -36,5 +36,4 @@ app.directive('prism', {
 })
 
 app.use(router)
-
 app.mount('#app')

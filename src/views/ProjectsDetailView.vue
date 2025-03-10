@@ -4,7 +4,7 @@ import Sidebar from "@/components/Sidebar.vue";
 import { useScreenSize } from "@/utils/screenResize.js";
 import Thumbnail from "@/components/projects/Thumbnail.vue";
 import apiService from "@/utils/apiService";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import NotFoundSvg from "@/components/icon/NotFound.vue";
 
 import { useRoute } from "vue-router";
@@ -33,6 +33,15 @@ const getProject = async () => {
 onMounted(() => {
   getProject();
 });
+
+// Change the page title
+const pageTitle = computed(() => {
+  return `Project - ${project.value?.title || "Loading..."}`;
+});
+
+watch(pageTitle, (newTitle) => {
+  document.title = newTitle;
+}, { immediate: true });
 </script>
 
 <template>

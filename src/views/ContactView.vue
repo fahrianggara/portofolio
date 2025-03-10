@@ -199,7 +199,7 @@ const submitForm = async () => {
     }
 
     .contact-form [type="submit"] {
-      @apply py-[15px] text-[13px] bg-primary text-white;
+      @apply py-[15px] text-[13px];
     }
 
     .contact-info {
