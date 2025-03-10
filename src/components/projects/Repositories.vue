@@ -29,7 +29,7 @@ async function getPinnedRepos() {
 
   try {
     const response = await axios.post(
-      "https://api.github.com/graphql",
+      "/github-api/graphql",
       { query }, // Perbaiki dari `params` menjadi `data`
       {
         headers: {

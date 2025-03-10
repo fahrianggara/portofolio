@@ -10,7 +10,7 @@ const apiClient = axios.create({
     "Accept": "application/json",
     "X-API-KEY": import.meta.env.VITE_API_KEY,
   },
-  timeout: 5000,
+  timeout: 10000,
 });
 
 const apiService = {

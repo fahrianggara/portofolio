@@ -4,7 +4,7 @@
   import Repositories from "@/components/projects/Repositories.vue";
   import Pagination from "@/components/projects/Pagination.vue";
   import apiService from "@/utils/apiService";
-  import { onMounted, ref } from "vue";
+  import { onMounted, ref, watchEffect } from "vue";
   import { useToast } from "@/utils/useToast";
 
   const { resizeScreen } = useScreenSize();
