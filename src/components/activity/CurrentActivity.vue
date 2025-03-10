@@ -134,7 +134,7 @@ onUnmounted(() => {
 
           <div class="flex items-start md:gap-2 gap-4">
             <div class="relative inline-block">
-              <img :src="spotifyData.album_art_url" alt="Album Cover" class="w-20 h-20 rounded-lg mr-4"/>
+              <img :src="spotifyData.album_art_url" alt="Album Cover" class="w-20 h-20 rounded-lg mr-4 object-cover"/>
             </div>
             <div class="flex flex-col w-[calc(100%-5rem)]">
               <h2 class="text-[15.5px] leading-6 font-semibold">{{ spotifyData.song }} - {{ spotifyData.artist }}</h2>
@@ -164,12 +164,12 @@ onUnmounted(() => {
               <img
                 v-if="activity.assets?.large_image"
                 :src="`${DISCORD_CDN_URL}/${activity.application_id}/${activity.assets.large_image}.png`"
-                alt="Large Image" class="w-20 h-20 rounded-lg mr-3"
+                alt="Large Image" class="w-20 h-20 rounded-lg mr-3 object-cover"
               />
               <img
                 v-if="activity.assets?.small_image"
                 :src="`${DISCORD_CDN_URL}/${activity.application_id}/${activity.assets.small_image}.png`"
-                alt="Small Image" class="absolute w-8 h-8 rounded-full right-1 -bottom-2"
+                alt="Small Image" class="absolute w-8 h-8 rounded-full right-1 -bottom-2 object-cover"
               />
             </div>
 

@@ -1,8 +1,28 @@
 <script setup>
   import Sidebar from "@/components/Sidebar.vue";
   import { useScreenSize } from "@/utils/screenResize.js";
+  import apiService from "@/utils/apiService";
+  import { ref, onMounted } from "vue";
+  import VueMarkdown from "vue-markdown-render";
 
+  const loading = ref(true);
+  const experiences = ref([]);
   const { resizeScreen } = useScreenSize();
+
+  const fetchExperiences = async () => {
+    try {
+      const { data } = await apiService.get("/experiences");
+      experiences.value = data;
+    } catch (error) {
+      console.error(error);
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  onMounted(() => {
+    fetchExperiences();
+  });
 </script>
 
 <template>
@@ -13,66 +33,50 @@
           <Sidebar :class="'sticky top-26'" />
         </div>
         <div class="dark:text-white col-span-2">
-          <h1 class="mb-4 font-medium text-lg">Work Experience</h1>
-          <ol class="parent">                  
-            <li class="mb-5 ms-7">            
+          <h1 class="mb-1 font-medium text-lg">Work Experience</h1>
+          <p class="mb-5 text-gray-600 dark:text-gray-400 text-[15px] md:text-[16px]">
+            These are some of the work experiences that I've had.
+          </p>
+
+          <ol class="parent" :class="{ ' not-loading': !loading }">
+            <li v-if="loading" v-for="n in 1" :key="n">
+              <div class="flex gap-2">
+                <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[100px]"></div>
+                <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[100px]"></div>
+              </div>
+              <div class="h-4 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4 w-[200px]"></div>
+              <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4 w-[120px]"></div>
+              <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
+              <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-3"></div>
+              <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-3"></div>
+              <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-3"></div>
+            </li>
+            
+            <li v-else class="mb-5 ms-7" v-for="(experience, index) in experiences" :key="index">         
               <span class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M19 4h-1.1A5.009 5.009 0 0 0 13 0h-2a5.009 5.009 0 0 0-4.9 4H5a5.006 5.006 0 0 0-5 5v3h24V9a5.006 5.006 0 0 0-5-5ZM8.184 4A3 3 0 0 1 11 2h2a3 3 0 0 1 2.816 2ZM13 15a1 1 0 0 1-2 0v-1H0v5a5.006 5.006 0 0 0 5 5h14a5.006 5.006 0 0 0 5-5v-5H13Z" fill="currentColor"></path></g></svg>
               </span>
 
               <div>
                 <div class="flex flex-wrap gap-2 mb-1">
-                  <span class="text-sm text-primary"># Backend Developer</span>
-                  <span class="text-sm text-primary"># Full-time</span>
+                  <span class="text-sm text-primary"># {{ experience.position }}</span>
+                  <span class="text-sm text-primary"># {{ experience.format_type }}</span>
                 </div>
 
-                <h3>
-                  <span class="font-semibold text-lg">PT Labsco Arena</span>
-                </h3>
+                <a href="#" class="font-semibold text-lg block">
+                  {{ experience.title }}
+                </a>
 
                 <time class="mb-2 text-[14px] font-normal leading-none text-gray-500 dark:text-gray-600">
-                  <span class="">Sep 2024 - Nov 2024</span> 
+                  {{ experience.until_date }}
                 </time>
               </div>
 
-              <div class=" mt-3 text-base/relaxed font-normal text-gray-700 dark:text-gray-400">
-                <ol class="list-disc list-outside pl-4">
-                  <li>Developed and maintained the backend of the website.</li>
-                  <li>Collaborated with the front-end developer to integrate user-facing elements with server side logic.</li>
-                  <li>Implemented security and data protection.</li>
-                  <li>Optimized the application for maximum speed and scalability.</li>
-                </ol>
-              </div>
+              <VueMarkdown class="content mt-3 text-base/relaxed font-normal text-gray-700 dark:text-gray-400"
+                :source="experience.description" v-if="experience.description">
+              </VueMarkdown>
             </li>
-            <li class="mb-5 ms-7">            
-              <span class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M19 4h-1.1A5.009 5.009 0 0 0 13 0h-2a5.009 5.009 0 0 0-4.9 4H5a5.006 5.006 0 0 0-5 5v3h24V9a5.006 5.006 0 0 0-5-5ZM8.184 4A3 3 0 0 1 11 2h2a3 3 0 0 1 2.816 2ZM13 15a1 1 0 0 1-2 0v-1H0v5a5.006 5.006 0 0 0 5 5h14a5.006 5.006 0 0 0 5-5v-5H13Z" fill="currentColor"></path></g></svg>
-              </span>
 
-              <div>
-                <div class="flex flex-wrap gap-2 mb-1">
-                  <span class="text-sm text-primary"># Backend Developer</span>
-                  <span class="text-sm text-primary"># Full-time</span>
-                </div>
-
-                <h3>
-                  <span class="font-semibold text-lg">PT Labsco Arena</span>
-                </h3>
-
-                <time class="mb-2 text-[14px] font-normal leading-none text-gray-500 dark:text-gray-600">
-                  <span class="">Sep 2024 - Nov 2024</span> 
-                </time>
-              </div>
-
-              <div class=" mt-3 text-base/relaxed font-normal text-gray-700 dark:text-gray-400">
-                <ol class="list-disc list-outside pl-4">
-                  <li>Developed and maintained the backend of the website.</li>
-                  <li>Collaborated with the front-end developer to integrate user-facing elements with server side logic.</li>
-                  <li>Implemented security and data protection.</li>
-                  <li>Optimized the application for maximum speed and scalability.</li>
-                </ol>
-              </div>
-            </li>
           </ol>
         </div>
       </div>
@@ -84,7 +88,7 @@
   @reference 'tailwindcss';
   @import '@/assets/main.css';
 
-  .parent {
+  .parent.not-loading {
     @apply relative border-s ml-2 border-gray-300 dark:border-zinc-900;
   }
 
