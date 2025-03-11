@@ -53,7 +53,7 @@ const formattedRange = computed(() => {
   <h1 class="font-semibold md:text-[18px] mt-6">
     Coding Activity
   </h1>
-  <p class="dark:text-gray-500 text-gray-600 mt-1.5 text-[15px]">
+  <p class="dark:text-gray-400 text-gray-700 mt-1.5 text-[15px]">
     This is my coding activity on <a href="https://wakatime.com/" target="_blank" class="text-primary">WakaTime</a>.
   </p>
 

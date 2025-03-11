@@ -13,7 +13,8 @@ const userId = import.meta.env.VITE_DISCORD_USER_ID;
 // State
 const discordData = ref(null);
 const loading = ref(true);
-const elapsedTime = ref("00:00:00");
+const elapsedTimeCode = ref("00:00:00");
+const elapsedTimeGame = ref("00:00:00");
 const songProgress = ref({ elapsed: "00:00", total: "00:00", percent: 0 });
 
 // Intervals
@@ -31,10 +32,15 @@ const lanyardSocket = createLanyardWebSocket(userId, handleDiscordDataUpdate);
 
 // Activity time tracking
 function updateActivityElapsedTime() {
-  const activeActivity = currActivities.value?.filter(a => !a.flags).find(a => a.timestamps?.start);
+  const activityCode = currActivities.value?.filter(a => !a.flags && a.state).find(a => a.timestamps?.start);
+  const activityGame = currActivities.value?.filter(a => !a.state && !a.flags).find(a => a.timestamps?.start);
 
-  if (activeActivity) {
-    elapsedTime.value = calculateActivityElapsedTime(activeActivity);
+  if (activityCode) {
+    elapsedTimeCode.value = calculateActivityElapsedTime(activityCode);
+  }
+
+  if (activityGame) {
+    elapsedTimeGame.value = calculateActivityElapsedTime(activityGame);
   }
 }
 
@@ -50,11 +56,18 @@ function updateSongProgress() {
 // Watch for activity changes and manage timers
 watch(currActivities, (newActivities) => {
   clearActivityTimers();
-  const activeActivity = newActivities?.filter(a => !a.flags).find(a => a.timestamps?.start);
+
+  const activityCode = newActivities?.filter(a => !a.flags && a.state).find(a => a.timestamps?.start);
+  const activityGame = newActivities?.filter(a => !a.flags && !a.state).find(a => a.timestamps?.start);
   
-  if (activeActivity) {
-    updateActivityElapsedTime(activeActivity);
-    activityInterval = setInterval(() => updateActivityElapsedTime(activeActivity), UPDATE_INTERVAL_MS);
+  if (activityCode) {
+    updateActivityElapsedTime(activityCode);
+    activityInterval = setInterval(() => updateActivityElapsedTime(activityCode), UPDATE_INTERVAL_MS);
+  }
+
+  if (activityGame) {
+    updateActivityElapsedTime(activityGame);
+    activityInterval = setInterval(() => updateActivityElapsedTime(activityGame), UPDATE_INTERVAL_MS);
   }
 
   if (isListeningToSpotify.value) {
@@ -99,20 +112,20 @@ onUnmounted(() => {
 <template>
   <section class="discord-activity">
     <h1 class="font-semibold md:text-[18px]">Current Activity</h1>
-    <p class="dark:text-gray-500 text-gray-600 mt-1.5 text-[15px]">
+    <p class="dark:text-gray-400 text-gray-700 mt-1.5 text-[15px]">
       This is my current activity on Discord. Btw I'm using <a href="https://github.com/Phineas/lanyard" target="_blank" class="text-primary">Lanyard API</a> for this feature.
     </p>
 
     <ul class="activities">
       <li class="activity" v-if="loading" key="loading">
-        <div class="w-[150px] h-3 bg-gray-300 dark:bg-zinc-900 rounded-lg mb-5"></div>
+        <div class="w-[150px] h-2.5 bg-gray-300 dark:bg-zinc-900 rounded-lg mb-5"></div>
         <a href="#" class="flex items-start gap-4">
           <div class="w-20 h-20 md:w-28 md:h-28 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-xl"></div>
           <div class="w-full h-full flex flex-col justify-between">
             <div class="h-4 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-1"></div>
-            <div class="h-3 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
-            <div class="h-3 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-2"></div>
-            <div class="h-3 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-6"></div>
+            <div class="h-2 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
+            <div class="h-2 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-2"></div>
+            <div class="h-2 bg-gray-300 dark:bg-zinc-900 rounded-lg mt-6"></div>
           </div>
         </a>
       </li>
@@ -156,10 +169,12 @@ onUnmounted(() => {
           </div>
         </div>
 
-        <div v-else>
-          <p class="dark:text-gray-400 font-medium text-gray-600 mb-3.5">Playing</p>
+        <div v-else-if="activity.state">
+          <p class="dark:text-gray-400 font-medium text-gray-600 mb-3.5">
+            Developing Code
+          </p>
 
-          <div class="flex items-start" :class="{ 'md:gap-2 gap-4': activity.assets, 'gap-0': !activity.assets }">
+          <div class="flex items-start md:gap-2 gap-4">
             <div class="relative inline-block">
               <img
                 v-if="activity.assets?.large_image"
@@ -177,7 +192,29 @@ onUnmounted(() => {
               <h2 class="text-[16px] font-semibold">{{ activity.name }}</h2>
               <div class="desc">
                 <p class="dark:text-gray-400 text-gray-600 text-sm">{{ activity.details }} - {{ activity.state }}</p>
-                <p class="text-primary text-sm font-semibold mt-2">{{ elapsedTime }}</p>
+                <p class="text-primary text-sm font-semibold mt-2">{{ elapsedTimeCode }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div v-else>
+          <p class="dark:text-gray-400 font-medium text-gray-600 mb-3.5">
+            Playing Game
+          </p>
+
+          <div class="flex items-start md:gap-2 gap-4">
+            <div class="relative inline-block">
+              <img
+                :src="`https://dcdn.dstn.to/app-icons/${activity.application_id}.webp?size=512`"
+                alt="Large Image" class="w-20 h-20 rounded-lg mr-3 object-cover"
+              />
+            </div>
+
+            <div class="flex flex-col w-[calc(100%-5rem)]">
+              <h2 class="text-[16px] font-semibold">{{ activity.name }}</h2>
+              <div class="desc">
+                <p class="text-primary text-sm font-semibold mt-2">{{ elapsedTimeGame }}</p>
               </div>
             </div>
           </div>
