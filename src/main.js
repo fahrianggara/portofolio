@@ -5,10 +5,12 @@ import 'prismjs/themes/prism.min.css'
 import Prism from 'prismjs'
 
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import GLightbox from 'glightbox'
 
+const pinia = createPinia()
 const app = createApp(App)
 
 app.directive('glightbox', {
@@ -36,4 +38,5 @@ app.directive('prism', {
 })
 
 app.use(router)
+app.use(pinia)
 app.mount('#app')
