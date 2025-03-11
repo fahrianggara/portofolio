@@ -1,53 +1,12 @@
 <script setup>
-import axios from 'axios';
-import { ref, onMounted } from 'vue';
+import { onMounted } from "vue";
+import { useRepoStore } from "@/stores/repositories";
 
-const GITHUB_ACCESS_TOKEN = import.meta.env.VITE_GITHUB_ACCESS_TOKEN;
-const repos = ref([]);
-const loading = ref(true);
+const repoStore = useRepoStore();
 
-async function getPinnedRepos() {
-  const query = `
-    query {
-      viewer {
-        pinnedItems(first: 6, types: REPOSITORY) {
-          nodes {
-            ... on Repository {
-              name
-              description
-              url
-              primaryLanguage {
-                name
-                color
-              }
-            }
-          }
-        }
-      }
-    }
-  `;
-
-  try {
-    const response = await axios.post(
-      "/github-api/graphql",
-      { query }, // Perbaiki dari `params` menjadi `data`
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${GITHUB_ACCESS_TOKEN}`,
-        },
-      }
-    );
-
-    repos.value = response.data.data.viewer.pinnedItems.nodes; // Ambil data dengan benar
-  } catch (error) {
-    console.error("Error fetching repositories:", error);
-  } finally {
-    loading.value = false;
-  }
-}
-
-onMounted(getPinnedRepos);
+onMounted(() => {
+  repoStore.fetchPinnedRepos();
+});
 </script>
 
 <template>
@@ -57,7 +16,7 @@ onMounted(getPinnedRepos);
   </p>
 
   <ol class="repos">
-    <li v-if="loading" v-for="n in 2" :key="n">
+    <li v-if="repoStore.loading" v-for="n in 2" :key="n">
       <a href="#">
         <div class="w-8 h-8 bg-gray-300 dark:bg-dark-surface rounded-lg animate-pulse"></div>
         <div class="w-full h-4 bg-gray-300 dark:bg-dark-surface rounded-lg animate-pulse mt-3"></div>
@@ -67,7 +26,7 @@ onMounted(getPinnedRepos);
       </a>
     </li>
 
-    <li v-else v-for="(repo, index) in repos" :key="index">
+    <li v-else v-for="(repo, index) in repoStore.repos" :key="index">
       <a :href="repo.url" target="_blank">
         <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
           <path d="M19,3H12.472a1.019,1.019,0,0,1-.447-.1L8.869,1.316A3.014,3.014,0,0,0,7.528,1H5A5.006,5.006,0,0,0,0,6V18a5.006,5.006,0,0,0,5,5H19a5.006,5.006,0,0,0,5-5V8A5.006,5.006,0,0,0,19,3ZM5,3H7.528a1.019,1.019,0,0,1,.447.1l3.156,1.579A3.014,3.014,0,0,0,12.472,5H19a3,3,0,0,1,2.779,1.882L2,6.994V6A3,3,0,0,1,5,3ZM19,21H5a3,3,0,0,1-3-3V8.994l20-.113V18A3,3,0,0,1,19,21Z"/>

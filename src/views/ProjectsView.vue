@@ -3,47 +3,19 @@
   import { useScreenSize } from "@/utils/screenResize.js";
   import Repositories from "@/components/projects/Repositories.vue";
   import Pagination from "@/components/projects/Pagination.vue";
-  import apiService from "@/utils/apiService";
-  import { onMounted, ref, watchEffect } from "vue";
-  import { useToast } from "@/utils/useToast";
+  import { onMounted } from "vue";
+  import { useProjectStore } from "@/stores/project";
 
   const { resizeScreen } = useScreenSize();
-  const projects = ref([]);
-  const loading = ref(true);
-  const currentPage = ref(1);
-  const lastPage = ref(1);
-  const toast = useToast();
+  const projectStore = useProjectStore(); // Gunakan store
 
-  const fetchProjects = async (page = 1) => {
-    loading.value = true;
-
-    try {
-      const response = await apiService.get(`/projects?page=${page}`);
-      const project = response.data;
-
-      projects.value = project.data;
-      currentPage.value = project.current_page;
-      lastPage.value = project.last_page;
-    } catch (err) {
-      console.log(err);
-
-      if (err.response && err.response.status === 401) {
-        toast.error(err.response.data.message);
-      } else {
-        toast.warning("Please refresh the page to fetch the projects");
-      }
-    } finally {
-      loading.value = false;
+  const changePage = (page) => {
+    if (page >= 1 && page <= projectStore.lastPage) {
+      projectStore.fetchProjects(page);
     }
   };
 
-  const changePage = (page) => {
-    if (page >= 1 && page <= lastPage.value) {
-      fetchProjects(page);
-    }
-  }
-
-  onMounted(() => fetchProjects(currentPage.value));
+  onMounted(() => projectStore.fetchProjects(projectStore.currentPage));
 </script>
 
 <template>
@@ -60,8 +32,7 @@
             These are some of my projects that I've worked on.
           </p>
           <ol class="projects">
-
-            <li v-if="loading" v-for="n in 1" :key="n">
+            <li v-if="projectStore.loading" v-for="n in 1" :key="n">
               <a href="#" class="flex items-start gap-4">
                 <div class="w-20 h-20 md:w-28 md:h-28 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-xl"></div>
                 <div class="w-full h-full flex flex-col justify-between">
@@ -72,8 +43,8 @@
                 </div>
               </a>
             </li>
-            
-            <li v-else v-for="(project, index) in projects" :key="index">
+
+            <li v-else v-for="(project, index) in projectStore.projects" :key="index">
               <router-link class="flex items-start gap-4" :to="`/projects/${project.slug}`">
                 <img :src="project.image_link" alt="thumbnail" />
                 <div class="w-full h-full flex flex-col justify-between">
@@ -94,8 +65,13 @@
               </router-link>
             </li>
           </ol>
-          
-          <Pagination v-if="lastPage > 1" :loading="loading" :current-page="currentPage" :last-page="lastPage" @page-change="changePage" />
+
+          <Pagination v-if="projectStore.lastPage > 1"
+            :loading="projectStore.loading"
+            :current-page="projectStore.currentPage"
+            :last-page="projectStore.lastPage"
+            @page-change="changePage"
+          />
 
           <Repositories />
         </div>
@@ -103,6 +79,7 @@
     </div>
   </section>
 </template>
+
 
 <style scoped>
   @reference 'tailwindcss';
