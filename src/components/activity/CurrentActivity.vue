@@ -7,6 +7,7 @@ import {
   calculateActivityElapsedTime,
   calculateSongProgress
 } from "@/utils/activity";
+import { replaceText } from "@/utils/helpers";
 
 const userId = import.meta.env.VITE_DISCORD_USER_ID;
 
@@ -169,7 +170,7 @@ onUnmounted(() => {
           </div>
         </div>
 
-        <div v-else-if="activity.state">
+        <div v-else-if="activity.name === 'Visual Studio Code'">
           <p class="dark:text-gray-400 font-medium text-gray-600 mb-3.5">
             Developing Code
           </p>
@@ -191,7 +192,10 @@ onUnmounted(() => {
             <div class="flex flex-col w-[calc(100%-5rem)]">
               <h2 class="text-[16px] font-semibold">{{ activity.name }}</h2>
               <div class="desc">
-                <p class="dark:text-gray-400 text-gray-600 text-sm">{{ activity.details }} - {{ activity.state }}</p>
+                <p class="dark:text-gray-400 text-gray-600 text-sm">
+                  {{ replaceText(activity.details, 'Editing', 'Currently editing ') }}
+                  {{ activity.state ? replaceText(activity.state, 'Workspace:', 'in ') : "" }}
+                </p>
                 <p class="text-primary text-sm font-semibold mt-2">{{ elapsedTimeCode }}</p>
               </div>
             </div>

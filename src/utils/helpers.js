@@ -51,3 +51,8 @@ export const getWithExpiry = (key, SECRET_KEY) => {
         return null;
     }
 };
+
+export const replaceText = (text, searchValue, replaceValue) => {
+    if (typeof text !== "string") return text; // Pastikan input adalah string
+    return text.replace(new RegExp(searchValue, "g"), replaceValue);
+};
