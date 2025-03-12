@@ -33,7 +33,7 @@ const lanyardSocket = createLanyardWebSocket(userId, handleDiscordDataUpdate);
 
 // Activity time tracking
 function updateActivityElapsedTime() {
-  const activityCode = currActivities.value?.filter(a => !a.flags && a.state).find(a => a.timestamps?.start);
+  const activityCode = currActivities.value?.filter(a => a.name == 'Visual Studio Code').find(a => a.timestamps?.start);
   const activityGame = currActivities.value?.filter(a => !a.state && !a.flags).find(a => a.timestamps?.start);
 
   if (activityCode) {
@@ -58,7 +58,7 @@ function updateSongProgress() {
 watch(currActivities, (newActivities) => {
   clearActivityTimers();
 
-  const activityCode = newActivities?.filter(a => !a.flags && a.state).find(a => a.timestamps?.start);
+  const activityCode = newActivities?.filter(a => a.name == 'Visual Studio Code').find(a => a.timestamps?.start);
   const activityGame = newActivities?.filter(a => !a.flags && !a.state).find(a => a.timestamps?.start);
   
   if (activityCode) {
@@ -218,7 +218,7 @@ onUnmounted(() => {
             <div class="flex flex-col w-[calc(100%-5rem)]">
               <h2 class="text-[16px] font-semibold">{{ activity.name }}</h2>
               <div class="desc">
-                <p class="text-primary text-sm font-semibold mt-2">{{ elapsedTimeGame }}</p>
+                <p class="text-primary text-sm font-semibold mt-1">{{ elapsedTimeGame }}</p>
               </div>
             </div>
           </div>
