@@ -26,38 +26,44 @@ onMounted(() => {
           <p class="text-base/relaxed font-normal text-gray-700 dark:text-gray-400 mb-4">
             These are the educations that I have taken so far.
           </p>
-          
-          <ol class="edu" :class="{ 'not-loading': !educationStore.loading }">
-            <li v-if="educationStore.loading" v-for="n in 2" :key="n">
-              <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[260px]"></div>
-              <div class="h-3 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4 w-[200px]"></div>
 
-              <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
-              <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-3"></div>
-              <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-3"></div>
-              <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-3"></div>
-            </li>
+          <div v-if="educationStore.educations.length === 0" class="card">
+            Hmm, I haven't added any education yet.
+          </div>
 
-            <li v-for="(education, i) in educationStore.educations" :key="i">
-              <div class="bullet"></div>
-              <time>{{ education.major }} // {{ education.until_date }}</time>
-              <h3 class="title">{{ education.title }}</h3>
+          <div v-else>
+            <ol class="edu" :class="{ 'not-loading': !educationStore.loading }">
+              <li v-if="educationStore.loading" v-for="n in 2" :key="n">
+                <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[260px]"></div>
+                <div class="h-3 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4 w-[200px]"></div>
 
-              <VueMarkdown class="content text-base/relaxed font-normal text-gray-700 dark:text-gray-400"
-                :source="education.description"/>
+                <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
+                <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-3"></div>
+                <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-3"></div>
+                <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-3"></div>
+              </li>
 
-              <ol class="achievement" v-if="education.achievements.length">
-                <li v-for="(achievement, j) in education.achievements" :key="j">
-                  <p class="font-medium text-base/relaxed">
-                    {{ achievement.name }}
-                  </p>
-                  <p class="mt-1 text-base/relaxed dark:text-gray-400 text-gray-700">
-                    {{ achievement.description }}
-                  </p>
-                </li>
-              </ol>
-            </li>
-          </ol>
+              <li v-for="(education, i) in educationStore.educations" :key="i">
+                <div class="bullet"></div>
+                <time>{{ education.major }} // {{ education.until_date }}</time>
+                <h3 class="title">{{ education.title }}</h3>
+
+                <VueMarkdown class="content text-base/relaxed font-normal text-gray-700 dark:text-gray-400"
+                  :source="education.description"/>
+
+                <ol class="achievement" v-if="education.achievements.length">
+                  <li v-for="(achievement, j) in education.achievements" :key="j">
+                    <p class="font-medium text-base/relaxed">
+                      {{ achievement.name }}
+                    </p>
+                    <p class="mt-1 text-base/relaxed dark:text-gray-400 text-gray-700">
+                      {{ achievement.description }}
+                    </p>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </div>
 
           <Certificates />
         </div>

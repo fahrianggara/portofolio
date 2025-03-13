@@ -11,7 +11,7 @@ onMounted(() => {
 
 <template>
   <h1 class="text-lg font-medium mb-1 mt-6">My Repositories</h1>
-  <p class="dark:text-gray-400 text-gray-600 mb-5 text-[15px] md:text-[16px]">
+  <p class="text-gray-700 dark:text-gray-400 mb-5 text-[15px] md:text-[16px]">
     These are some of my pinned repositories on GitHub.
   </p>
 

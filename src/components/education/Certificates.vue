@@ -14,10 +14,15 @@
     <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-1">
       My Certificates
     </h2>
-    <p class="mb-5 text-gray-600 dark:text-gray-400 text-[15px] md:text-[16px]">
-      Here are some certificates that I have achieved during my studies and work.
+    <p class="mb-5 text-gray-700 dark:text-gray-400 text-[15px] md:text-[16px]">
+      Here are some certificates that I have achieved during my studies.
     </p>
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+
+    <div v-if="certificateStore.certificates.length === 0" class="card">
+      Whoops, I haven't added any certificates yet.
+    </div>
+
+    <div v-else class="grid grid-cols-2 md:grid-cols-3 gap-4">
       <span v-if="certificateStore.loading" v-for="n in 2" :key="n" class="animate-pulse bg-gray-300 
         dark:bg-zinc-900 rounded-lg w-full h-30"></span>
         

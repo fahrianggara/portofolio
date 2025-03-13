@@ -28,50 +28,57 @@
 
         <div class="dark:text-white col-span-2 mb-5">
           <h1 class="text-lg font-medium mb-1">My Projects</h1>
-          <p class="dark:text-gray-400 text-gray-600 mb-5 text-[15px] md:text-[16px]">
+          <p class="text-gray-700 dark:text-gray-400 mb-5 text-[15px] md:text-[16px]">
             These are some of my projects that I've worked on.
           </p>
-          <ol class="projects">
-            <li v-if="projectStore.loading" v-for="n in 1" :key="n">
-              <a href="#" class="flex items-start gap-4">
-                <div class="w-20 h-20 md:w-28 md:h-28 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-xl"></div>
-                <div class="w-full h-full flex flex-col justify-between">
-                  <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[120px]"></div>
-                  <div class="h-4 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
-                  <div class="h-3 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
-                  <div class="h-3 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-2"></div>
-                </div>
-              </a>
-            </li>
 
-            <li v-else v-for="(project, index) in projectStore.projects" :key="index">
-              <router-link class="flex items-start gap-4" :to="`/projects/${project.slug}`">
-                <img :src="project.image_link" alt="thumbnail" />
-                <div class="w-full h-full flex flex-col justify-between">
-                  <div>
-                    <span class="text-[12px] sm:text-[13px] dark:text-gray-600 text-gray-400 font-medium mb-1 block">
-                      {{ project.category.name }}
-                    </span>
-                    <h3 class="text-[15px] sm:text-[16px] md:text-lg font-semibold mb-1 
-                      line-clamp-1 duration-300 ease-in-out">
-                      {{ project.title }}
-                    </h3>
+          <div v-if="projectStore.projects.length === 0" class="card">
+            Hmm.. I haven't added any projects yet.
+          </div>
+
+          <div v-else>
+            <ol class="projects">
+              <li v-if="projectStore.loading" v-for="n in 1" :key="n">
+                <a href="#" class="flex items-start gap-4">
+                  <div class="w-20 h-20 md:w-28 md:h-28 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-xl"></div>
+                  <div class="w-full h-full flex flex-col justify-between">
+                    <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[120px]"></div>
+                    <div class="h-4 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
+                    <div class="h-3 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
+                    <div class="h-3 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-2"></div>
                   </div>
-                  <p class="text-base/relaxed text-[13px] sm:text-[15px] text-gray-600 dark:text-gray-400 
-                    line-clamp-2 mt-auto">
-                    {{ project.body }}
-                  </p>
-                </div>
-              </router-link>
-            </li>
-          </ol>
+                </a>
+              </li>
 
-          <Pagination v-if="projectStore.lastPage > 1"
-            :loading="projectStore.loading"
-            :current-page="projectStore.currentPage"
-            :last-page="projectStore.lastPage"
-            @page-change="changePage"
-          />
+              <li v-else v-for="(project, index) in projectStore.projects" :key="index">
+                <router-link class="flex items-start gap-4" :to="`/projects/${project.slug}`">
+                  <img :src="project.image_link" alt="thumbnail" />
+                  <div class="w-full h-full flex flex-col justify-between">
+                    <div>
+                      <span class="text-[12px] sm:text-[13px] dark:text-gray-600 text-gray-400 font-medium mb-1 block">
+                        {{ project.category.name }}
+                      </span>
+                      <h3 class="text-[15px] sm:text-[16px] md:text-lg font-semibold mb-1 
+                        line-clamp-1 duration-300 ease-in-out">
+                        {{ project.title }}
+                      </h3>
+                    </div>
+                    <p class="text-base/relaxed text-[13px] sm:text-[15px] text-gray-600 dark:text-gray-400 
+                      line-clamp-2 mt-auto">
+                      {{ project.body }}
+                    </p>
+                  </div>
+                </router-link>
+              </li>
+            </ol>
+
+            <Pagination v-if="projectStore.lastPage > 1"
+              :loading="projectStore.loading"
+              :current-page="projectStore.currentPage"
+              :last-page="projectStore.lastPage"
+              @page-change="changePage"
+            />
+          </div>
 
           <Repositories />
         </div>

@@ -23,11 +23,15 @@ onMounted(() => {
         </div>
         <div class="dark:text-white col-span-2">
           <h1 class="mb-1 font-medium text-lg">Work Experience</h1>
-          <p class="mb-5 text-gray-600 dark:text-gray-400 text-[15px] md:text-[16px]">
+          <p class="mb-5 text-gray-700 dark:text-gray-400 text-[15px] md:text-[16px]">
             These are some of the work experiences that I've had.
           </p>
 
-          <ol class="parent" :class="{ 'not-loading': !experienceStore.loading }">
+          <div v-if="experienceStore.experiences.length === 0" class="card">
+            Whoops, I haven't added any work experience yet.
+          </div>
+
+          <ol v-else class="parent" :class="{ 'not-loading': !experienceStore.loading }">
             <li v-if="experienceStore.loading" v-for="n in 1" :key="n">
               <div class="flex gap-2">
                 <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[100px]"></div>
@@ -65,8 +69,8 @@ onMounted(() => {
                 :source="experience.description" v-if="experience.description">
               </VueMarkdown>
             </li>
-
           </ol>
+
         </div>
       </div>
     </div>

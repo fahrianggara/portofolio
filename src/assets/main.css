@@ -49,6 +49,13 @@
 	--color-line: #9c9c9c;
 }
 
+@layer components {
+	.card {
+		@apply dark:bg-dark-surface/60 bg-white/60 rounded-xl p-4 px-5 backdrop-blur-xl
+		border border-solid dark:border-zinc-900 border-gray-300 text-[15px];
+	}
+}
+
 /* Home Section */
 .home {
 	@apply min-h-screen flex flex-col justify-center pt-[20px];
