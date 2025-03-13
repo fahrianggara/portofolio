@@ -1,8 +1,20 @@
 <script setup>
   import Sidebar from "@/components/Sidebar.vue";
   import { useScreenSize } from "@/utils/screenResize.js";
-  import testImg from "@/assets/img/test.jpg";
+  // import testImg from "@/assets/img/test.jpg";
+  import { useAboutStore } from "@/stores/about";
+  import { onMounted } from "vue";
+  import VueMarkdown from "vue-markdown-render";
+import { containsText } from "@/utils/helpers";
+
+  const aboutStore = useAboutStore();
   const { resizeScreen } = useScreenSize();
+
+  onMounted(() => {
+    aboutStore.getAbout();
+    aboutStore.getConfig();
+    aboutStore.getSkills();
+  });
 </script>
 
 <template>
@@ -13,68 +25,96 @@
           <Sidebar :class="'sticky top-26'" />
         </div>
         <div class="dark:text-white col-span-2 w-full mb-5">
-          <div class="about" v-glightbox>
-            <!-- Gambar dengan float -->
-            <a data-gallery="certificates" data-type="image" :href="testImg" class="glightbox">
-              <img
-                :src="testImg" 
-                class="float-right w-1/3 ml-4 mb-4 rounded-2xl rotate-0 ease-in-out duration-300 hover:rotate-2" 
-                alt="test" 
-                :key="testImg"
-                loading="lazy"
-              />
-            </a>
+
+          <div v-if="aboutStore.loading" class="clearfix relative">
+            <div class="h-38 w-38 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-2xl float-right ml-4 mb-4"></div>
             
-            <!-- H1 dengan text wrap -->
-            <h1 class="text-[22px] sm:text-[32px] font-bold mb-3 text-wrap leading-9 sm:leading-11">
-              I’m Fahri Anggara. I live in Depok City, where I develope the future.
-            </h1>
+            <p class="h-3 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg w-[calc(100%-10.5rem)]"></p>
+            <p class="h-3 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg mt-2.5 w-[calc(100%-10.5rem)]"></p>
+            <p class="h-3 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg mt-2.5 w-[calc(100%-10.5rem)]"></p>
 
-            <p class="mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.
-              Cras porttitor metus vel lorem finibus convallis. Duis viverra lectus vel orci sollicitudin, eget dignissim tellus feugiat.
-            </p>
-            <p class="mb-4">
-              Praesent euismod magna at purus cursus, eu faucibus justo semper. Mauris eu tellus blandit, convallis erat ac, fermentum sem.
-              Maecenas vitae dui vel nibh aliquam fringilla non ac velit. Morbi gravida ante non volutpat commodo.
-            </p>
-            <p class="mb-4">
-              Suspendisse potenti. Curabitur facilisis, urna vel egestas vulputate, tellus nisl viverra risus, in fringilla purus erat at mi.
-              Suspendisse potenti. Sed id lorem justo. Cras sed semper enim.
-            </p>
+            <p class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg mt-5 w-[calc(100%-10.5rem)]"></p>
+            <p class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg mt-3 w-[calc(100%-10.5rem)]"></p>
+            <p class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg mt-3 w-[calc(100%-10.5rem)]"></p>
+            <p class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg mt-3 w-[calc(100%-10.5rem)]"></p>
 
-            <!-- Clear float untuk memastikan elemen di bawahnya tidak terpengaruh -->
-            <div class="clear-both"></div>
+            <p class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg mt-6"></p>
+            <p class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg mt-3"></p>
+            <p class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg mt-3"></p>
+            <p class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg mt-3"></p>
+
+            <div class="grid grid-cols-2 load gap-2.5 w-full mt-6">
+              <p class="h-12 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg"></p>
+              <p class="h-12 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg"></p>
+              <p class="h-12 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg"></p>
+              <p class="h-12 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg"></p>
+            </div>
+
+            <p class="h-3 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg mt-6 w-[150px]"></p>
+            <p class="h-2 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg mt-3"></p>
+
+            <div class="grid grid-cols-2 load gap-2.5 w-full mt-6">
+              <p class="h-12 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg"></p>
+              <p class="h-12 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg"></p>
+              <p class="h-12 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg"></p>
+              <p class="h-12 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-lg"></p>
+            </div>
           </div>
 
-          <div class="skills">
-            <h1 class="text-[20px] font-bold my-4">My Skills</h1>
-            <ul>
-              <li>
-                <a href="#">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/225px-HTML5_logo_and_wordmark.svg.png" alt="">
-                  <span>HTML 5</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="https://tailwindcss.com/_next/static/media/tailwindcss-mark.d52e9897.svg" alt="">
-                  <span>Tailwind CSS</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/255px-Vue.js_Logo_2.svg.png" alt="">
-                  <span>Vue.js</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/180px-Laravel.svg.png" alt="">
-                  <span>Laravel</span>
-                </a>
-              </li>
-            </ul>
+          <div v-else>
+            <div class="about" v-glightbox>
+              <!-- Gambar dengan float -->
+              <a data-gallery="certificates" data-type="image" :href="aboutStore.about?.photo_link" class="glightbox">
+                <img :src="aboutStore.about?.photo_link" alt="test" :key="aboutStore.about?.photo_link" loading="lazy"
+                  class="float-right w-1/3 ml-4 mb-4 rounded-2xl rotate-0 ease-in-out duration-300 hover:rotate-2" />
+              </a>
+              
+              <!-- Title -->
+              <h1 class="text-[22px] sm:text-[32px] font-bold mb-3 text-wrap leading-9 sm:leading-11">
+                {{ aboutStore.about?.title }}
+              </h1>
+
+              <!-- Desc -->
+              <VueMarkdown :source="aboutStore.about.description"
+                class="content text-base/relaxed text-gray-800 dark:text-gray-300"/>
+
+              <!-- Clear float -->
+              <div class="clear-both"></div>
+            </div>
+
+            <div class="socials mt-5" v-if="aboutStore.config.social_media.length > 0">
+              <ul class="links">
+                <li v-for="(social, index) in aboutStore.config.social_media" :key="index">
+                  <a :href="social.link" class="link" target="_blank" rel="noopener noreferrer">
+                    <div class="flex items-center gap-3">
+                      <img :src="social.image_link">
+                      <span>{{ social.platform }}</span>
+                    </div>
+                    <i class="fi fi-rr-arrow-up-right-from-square"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="skills mt-5">
+              <h2 class="text-[18px] font-bold mb-1">My Skills</h2>
+              <p class="text-base/relaxed font-normal text-gray-800 dark:text-gray-300 mb-4">
+                I have experience with the following technologies and tools:
+              </p>
+
+              <ul class="links">
+                <li v-for="(skill, index) in aboutStore.skills" :key="index">
+                  <a :href="skill.website" class="link" target="_blank" rel="noopener noreferrer">
+                    <div class="flex items-center gap-3">
+                      <img :src="skill.image_url" alt="">
+                      <span>{{ skill.name }}</span>
+                    </div>
+                    <i class="fi fi-rr-arrow-up-right-from-square"></i>
+                  </a>
+                </li>
+              </ul>
+              
+            </div>
           </div>
         </div>
       </div>
@@ -86,19 +126,40 @@
 <style scoped>
   @import '@/assets/main.css';
 
+  .links {
+    @apply grid grid-cols-2 gap-2.5 w-full;
+  }
+
+  .links .link {
+    @apply flex items-center justify-between gap-2.5 bg-surface/60 dark:bg-dark-surface/50 
+    border-gray-300 dark:border-zinc-900 border py-3 px-3 font-medium
+    rounded-xl backdrop-blur-2xl ease-in-out duration-300 hover:dark:bg-dark-surface/40 
+    hover:dark:border-dark-surface hover:bg-surface/40
+    -translate-y-0 hover:-translate-y-[2px] overflow-hidden;
+  }
+
+  .links .link img {
+    @apply aspect-square w-7 h-7 object-contain;
+  }
+
+  .links .link i {
+    @apply text-lg sm:text-xl translate-x-10 translate-y-[1.5px]
+    transition-transform ease-in-out duration-300;
+  }
+
+  .links .link:hover i {
+    @apply -translate-x-1;
+  }
+
   .skills ul {
     @apply flex flex-col gap-2.5 w-full sm:grid sm:grid-cols-2 sm:gap-2;
   }
 
-  .skills li a {
-    @apply flex items-center gap-3 bg-surface/60 dark:bg-dark-surface/50 
-    border-gray-300 dark:border-zinc-900 border py-3 px-4 font-medium
-    rounded-xl backdrop-blur-2xl ease-in-out duration-300 hover:dark:bg-dark-surface/40 
-    hover:dark:border-dark-surface hover:bg-surface/40
-    -translate-y-0 hover:-translate-y-[2px];
-  }
-
-  .skills li img {
-    @apply aspect-square w-[40px];
+  @media (max-width: 499.99px) {
+    .socials .links,
+    .skills ul,
+    .load {
+      @apply grid-cols-1 gap-3.5;
+    }
   }
 </style>

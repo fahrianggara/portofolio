@@ -29,7 +29,7 @@ onMounted(() => {
           
           <ol class="edu" :class="{ 'not-loading': !educationStore.loading }">
             <li v-if="educationStore.loading" v-for="n in 2" :key="n">
-              <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[120px]"></div>
+              <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[260px]"></div>
               <div class="h-3 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4 w-[200px]"></div>
 
               <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>

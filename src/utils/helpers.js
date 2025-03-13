@@ -56,3 +56,8 @@ export const replaceText = (text, searchValue, replaceValue) => {
     if (typeof text !== "string") return text; // Pastikan input adalah string
     return text.replace(new RegExp(searchValue, "g"), replaceValue);
 };
+
+export const containsText = (text, searchValue) => {
+    if (typeof text !== "string") return false; // Pastikan input adalah string
+    return new RegExp(searchValue, "g").test(text); // Cek apakah searchValue ada di dalam text
+};
