@@ -1,6 +1,14 @@
 <script setup> 
 import ListMenu from '@/components/ListMenu.vue';
 import ListSocial from '@/components/ListSocial.vue';
+import { useHomeStore } from '@/stores/home';
+import { onMounted } from 'vue';
+
+const homeStore = useHomeStore();
+
+onMounted(() => {
+  homeStore.getGreeting();
+});
 </script>
 
 <template>
@@ -8,27 +16,49 @@ import ListSocial from '@/components/ListSocial.vue';
     <div class="container-center">
       <div class="relative px-2 sm:px-4 lg:px-0">
         <div class="max-w-3xl lg:mx-0 md:mx-auto mx-0 home-box relative">
-          <div class="img-container">
+          <div class="img-container" :class="{ 'loading': homeStore.loading }">
             <img src="@/assets/img/logo.png" alt="logo" />
           </div>
 
-          <h1 class="text-[26px] md:text-[40px] sm:text-[33px] leading-10 
-            md:leading-13 sm:leading-12 font-bold dark:text-white mb-3">
-            Web Developer &amp; UI/UX Designer
-          </h1>
-
-          <p class="md:text-base/8 text-base/7 text-[15px] sm:text-[16px] dark:text-gray-300 text-gray-800">
-            Hi, I`m Fahri Anggara.
-            Experienced Web Developer and UI/UX Designer skilled in creating responsive websites and 
-            intuitive interfaces. Strong problem-solving, communication, and adaptability.
-          </p>
-
-          <div class="social-links">
-            <list-social />
+          <div v-if="homeStore.loading">
+            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-8 w-[100%] rounded-full"></div>
+            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-3 w-[100%] rounded-xl mt-5"></div>
+            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-3 w-[100%] rounded-xl mt-3"></div>
+            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-3 w-[100%] rounded-xl mt-3"></div>
+            <div class="flex flex-wrap mt-5 gap-2">
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-8 w-8 rounded-full"></div>
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-8 w-8 rounded-full"></div>
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-8 w-8 rounded-full"></div>
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-8 w-8 rounded-full"></div>
+            </div>
+            <div class="flex flex-wrap mt-6 gap-2">
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-11 w-[100px] rounded-full"></div>
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-11 w-[100px] rounded-full"></div>
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-11 w-[100px] rounded-full"></div>
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-11 w-[100px] rounded-full"></div>
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-11 w-[100px] rounded-full"></div>
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-11 w-[100px] rounded-full"></div>
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-11 w-[100px] rounded-full"></div>
+            </div>
           </div>
 
-          <div class="home-menu">
-            <ListMenu :show-icon="false" />
+          <div v-else>
+            <h1 class="text-[26px] md:text-[40px] sm:text-[33px] leading-10 
+              md:leading-13 sm:leading-12 font-bold dark:text-white mb-3">
+              {{ homeStore.greeting.title }}
+            </h1>
+
+            <p class="md:text-base/8 text-base/7 text-[15px] sm:text-[16px] dark:text-gray-300 text-gray-800">
+              {{ homeStore.greeting.subtitle }}
+            </p>
+
+            <div class="social-links">
+              <ListSocial />
+            </div>
+
+            <div class="home-menu">
+              <ListMenu :show-icon="false" />
+            </div>
           </div>
         </div>
       </div>
@@ -63,7 +93,20 @@ import ListSocial from '@/components/ListSocial.vue';
     transition: 0.3s ease-in-out;
   }
 
+  .img-container.loading::before {
+    animation: pulse 1.8s infinite;
+  }
+
   .img-container img {
     @apply w-[85px] h-[85px] rounded-xl;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.8);
+    }
   }
 </style>

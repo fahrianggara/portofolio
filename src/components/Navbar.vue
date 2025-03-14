@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+import { useCvStore } from '@/stores/cv';
 import SunIcon from './icon/SunIcon.vue';
 import MoonIcon from './icon/MoonIcon.vue';
 import ListMenu from './ListMenu.vue';
@@ -7,6 +8,14 @@ import ListMenu from './ListMenu.vue';
 // Props
 defineProps({ isDark: Boolean });
 const emit = defineEmits(['toggleDark']);
+
+// Store
+const cvStore = useCvStore();
+
+// Fetch CV config
+onMounted(() => {
+  cvStore.fetchConfig();
+});
 
 // State for menu visibility
 const isMenuOpen = ref(false);
@@ -17,13 +26,19 @@ const closeMenu = () => isMenuOpen.value = false;
 const handleOutsideInteraction = (event) => {
   const clickedOutside = 
     !event.target.closest('.mobile-menu') && 
-    !event.target.closest('.btn-menu') &&
-    !event.target.closest('.btn-theme');
+    !event.target.closest('.btn-menu');
     
   if (clickedOutside) closeMenu();
 };
 
-const handleResize = () => { if (window.innerWidth >= 768) closeMenu() };
+const handleResize = () => { 
+  if (window.innerWidth >= 768) closeMenu();
+};
+
+// Download CV
+const downloadCV = () => {
+  cvStore.downloadCV();
+};
 
 onMounted(() => {
   document.addEventListener('click', handleOutsideInteraction);
@@ -43,10 +58,14 @@ onUnmounted(() => {
         <img src="@/assets/img/logo.png" alt="Logo" />
       </router-link>
       <div class="nav-menu">
-        <button class="btn-cv">Download CV</button>
+        <button class="btn-cv" ref="btnCV" @click="downloadCV">
+          Download CV
+        </button>
+
         <button @click="toggleMenu" :aria-expanded="isMenuOpen" class="btn-menu">
           Menu <i :class="['fi', isMenuOpen ? 'fi-rr-angle-small-up' : 'fi-rr-angle-small-down']"></i>
         </button> 
+
         <button @click="emit('toggleDark')" class="btn-theme">
           <component :is="isDark ? SunIcon : MoonIcon" class="w-[23px] h-[23px]" />
         </button>
