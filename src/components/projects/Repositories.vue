@@ -5,7 +5,7 @@ import { useRepoStore } from "@/stores/repositories";
 const repoStore = useRepoStore();
 
 onMounted(() => {
-  repoStore.fetchPinnedRepos();
+  repoStore.getPinnedRepos();
 });
 </script>
 

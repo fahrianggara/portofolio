@@ -10,7 +10,9 @@ const { resizeScreen } = useScreenSize();
 const educationStore = useEducationStore();
 
 onMounted(() => {
-  educationStore.getEducations();
+  if (!educationStore.educations.length) {
+    educationStore.getEducations();
+  }
 });
 </script>
 
@@ -27,9 +29,10 @@ onMounted(() => {
             These are the educations that I have taken so far.
           </p>
 
-          <div v-if="educationStore.educations.length < 0" class="card">
-            Hmm, I haven't added any education yet.
+          <div v-if="!educationStore.educations.length && !educationStore.loading" class="card">
+            Whoops, I haven't added any work experience yet.
           </div>
+
 
           <div v-else>
             <ol class="edu" :class="{ 'not-loading': !educationStore.loading }">

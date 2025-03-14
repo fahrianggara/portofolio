@@ -8,21 +8,18 @@ export const useProjectStore = defineStore("projectStore", () => {
   const currentPage = ref(1);
   const lastPage = ref(1);
 
-  const fetchProjects = async (page = 1) => {
-    if (projects.value.length && currentPage.value === page) return; // Cegah fetch ulang
-
-    loading.value = true;
+  const getProjects = async (page = 1) => {
     try {
-      const response = await apiService.get(`/projects?page=${page}`);
-      projects.value = response.data.data;
-      currentPage.value = response.data.current_page;
-      lastPage.value = response.data.last_page;
+      const { data, current_page, last_page } = await apiService.get(`/projects?page=${page}`);
+      projects.value = Array.isArray(data) ? data : [];
+      currentPage.value = current_page;
+      lastPage.value = last_page;
     } catch (err) {
-      console.error(err);
+      projects.value = [];
     } finally {
       loading.value = false;
     }
   };
 
-  return { projects, loading, currentPage, lastPage, fetchProjects };
+  return { projects, loading, currentPage, lastPage, getProjects };
 });

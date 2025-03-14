@@ -3,20 +3,25 @@
   import { useScreenSize } from "@/utils/screenResize.js";
   import Repositories from "@/components/projects/Repositories.vue";
   import Pagination from "@/components/projects/Pagination.vue";
-  import { onMounted } from "vue";
+  import { onMounted, watchEffect } from "vue";
   import { useProjectStore } from "@/stores/project";
 
   const { resizeScreen } = useScreenSize();
-  const projectStore = useProjectStore(); // Gunakan store
+  const projectStore = useProjectStore();
 
   const changePage = (page) => {
     if (page >= 1 && page <= projectStore.lastPage) {
-      projectStore.fetchProjects(page);
+      projectStore.getProjects(page);
     }
   };
 
-  onMounted(() => projectStore.fetchProjects(projectStore.currentPage));
+  onMounted(() => {
+    if (!projectStore.projects.length) {
+      projectStore.getProjects(projectStore.currentPage);
+    }
+  });
 </script>
+
 
 <template>
   <section>
@@ -32,7 +37,7 @@
             These are some of my projects that I've worked on.
           </p>
 
-          <div v-if="projectStore.projects.length === 0" class="card">
+          <div v-if="!projectStore.projects.length && !projectStore.loading" class="card">
             Hmm.. I haven't added any projects yet.
           </div>
 

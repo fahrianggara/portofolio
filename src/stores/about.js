@@ -13,7 +13,7 @@ export const useAboutStore = defineStore("aboutStore", () => {
       const { data } = await apiService.get("/about");
       about.value = data;
     } catch (error) {
-      console.error(error);
+      // error
     } finally {
       loading.value = false;
     }
@@ -24,7 +24,7 @@ export const useAboutStore = defineStore("aboutStore", () => {
       const { data } = await apiService.get("/skills");
       skills.value = data;
     } catch (error) {
-      console.error(error);
+      // error
     } finally {
       loading.value = false;
     }
@@ -35,7 +35,7 @@ export const useAboutStore = defineStore("aboutStore", () => {
       const { data } = await apiService.get("/configuration");
       config.value = data;
     } catch (error) {
-      console.error(error);
+      // error
     } finally {
       loading.value = false;
     }

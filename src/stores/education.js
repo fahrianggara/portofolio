@@ -9,10 +9,10 @@ export const useEducationStore = defineStore("educationStore", () => {
     const getEducations = async () => {
         try {
             const { data } = await apiService.get("/educations");
-            console.log(data);
             educations.value = data;
         } catch (error) {
             console.error(error);
+            educations.value = [];
         } finally {
             loading.value = false;
         }

@@ -6,16 +6,16 @@ export const useExperienceStore = defineStore("experienceStore", () => {
   const experiences = ref([]);
   const loading = ref(true);
 
-  const fetchExperiences = async () => {
+  const getExperiences = async () => {    
     try {
       const { data } = await apiService.get("/experiences");
-      experiences.value = data;
+      experiences.value = Array.isArray(data) ? data : []; // Pastikan selalu array
     } catch (error) {
-      console.error(error);
+      experiences.value = []; // Jika error, set kosong agar tidak undefined
     } finally {
       loading.value = false;
     }
   };
 
-  return { experiences, loading, fetchExperiences };
+  return { experiences, loading, getExperiences };
 });

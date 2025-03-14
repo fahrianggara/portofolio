@@ -5,7 +5,9 @@
   const certificateStore = useCertificateStore();
 
   onMounted(() => {
-    certificateStore.fetchCertificates();
+    if (!certificateStore.certificates.length) {
+      certificateStore.getCertificates();
+    }
   });
 </script>
 
@@ -18,7 +20,7 @@
       Here are some certificates that I have achieved during my studies.
     </p>
 
-    <div v-if="certificateStore.certificates.length === 0" class="card">
+    <div v-if="certificateStore.certificates.length < 0" class="card">
       Whoops, I haven't added any certificates yet.
     </div>
 

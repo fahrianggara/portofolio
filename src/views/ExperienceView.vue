@@ -9,7 +9,9 @@ const { resizeScreen } = useScreenSize();
 const experienceStore = useExperienceStore();
 
 onMounted(() => {
-  experienceStore.fetchExperiences();
+  if (!experienceStore.experiences.length) {
+    experienceStore.getExperiences();
+  }
 });
 </script>
 
@@ -27,11 +29,11 @@ onMounted(() => {
             These are some of the work experiences that I've had.
           </p>
 
-          <div v-if="experienceStore.experiences.length === 0" class="card">
+          <div v-if="!experienceStore.experiences.length && !experienceStore.loading" class="card">
             Whoops, I haven't added any work experience yet.
           </div>
 
-          <ol v-else class="parent" :class="{ 'not-loading': !experienceStore.loading }">
+          <ol class="parent" :class="{ 'not-loading': !experienceStore.loading }">
             <li v-if="experienceStore.loading" v-for="n in 1" :key="n">
               <div class="flex gap-2">
                 <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[100px]"></div>

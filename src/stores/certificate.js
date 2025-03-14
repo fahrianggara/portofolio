@@ -6,16 +6,16 @@ export const useCertificateStore = defineStore("certificateStore", () => {
   const certificates = ref([]);
   const loading = ref(true);
 
-  const fetchCertificates = async () => {
+  const getCertificates = async () => {
     try {
       const { data } = await apiService.get("/certifications");
       certificates.value = data;
     } catch (error) {
-      console.error(error);
+      certificates.value = [];
     } finally {
       loading.value = false;
     }
   };
 
-  return { certificates, loading, fetchCertificates };
+  return { certificates, loading, getCertificates };
 })

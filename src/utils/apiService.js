@@ -25,14 +25,6 @@ const apiService = {
       return response.data;
     } catch (error) {
       throw error;
-      
-      if (error.response.status === 401) {
-        toast.error(error.response.data.message);
-      } else if (error.response.status === 422) {
-        throw error.response ? error.response.data : error;
-      } else {
-        toast.error(error.message);
-      }
     }
   },
 

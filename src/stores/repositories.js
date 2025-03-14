@@ -9,7 +9,7 @@ export const useRepoStore = defineStore("repo", {
   }),
 
   actions: {
-    async fetchPinnedRepos() {
+    async getPinnedRepos() {
       const GITHUB_ACCESS_TOKEN = import.meta.env.VITE_GITHUB_ACCESS_TOKEN;
       const query = `
         query {
@@ -44,8 +44,7 @@ export const useRepoStore = defineStore("repo", {
         );
         this.repos = response.data.data.viewer.pinnedItems.nodes;
       } catch (error) {
-        this.error = "Failed to load repositories.";
-        console.error("Error fetching repositories:", error);
+        // 
       } finally {
         this.loading = false;
       }
