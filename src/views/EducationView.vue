@@ -4,7 +4,7 @@ import { useScreenSize } from "@/utils/screenResize.js";
 import Certificates from "@/components/education/Certificates.vue";
 import { useEducationStore } from "@/stores/education";
 import { onMounted } from "vue";
-import VueMarkdown from "vue-markdown-render";
+import MarkdownViewer from "@/components/MarkdownViewer.vue";
 
 const { resizeScreen } = useScreenSize();
 const educationStore = useEducationStore();
@@ -27,7 +27,7 @@ onMounted(() => {
             These are the educations that I have taken so far.
           </p>
 
-          <div v-if="educationStore.educations.length === 0" class="card">
+          <div v-if="educationStore.educations.length < 0" class="card">
             Hmm, I haven't added any education yet.
           </div>
 
@@ -45,20 +45,18 @@ onMounted(() => {
 
               <li v-for="(education, i) in educationStore.educations" :key="i">
                 <div class="bullet"></div>
-                <time>{{ education.major }} // {{ education.until_date }}</time>
-                <h3 class="title">{{ education.title }}</h3>
+                <time>{{ education.major }}</time>
+                <h3 class="title mt-1">{{ education.title }}</h3>
+                <time>{{ education.until_date }}</time>
 
-                <VueMarkdown class="content text-base/relaxed font-normal text-gray-700 dark:text-gray-400"
-                  :source="education.description"/>
+                <MarkdownViewer v-if="education.description" :content="education.description" />
 
                 <ol class="achievement" v-if="education.achievements.length">
                   <li v-for="(achievement, j) in education.achievements" :key="j">
                     <p class="font-medium text-base/relaxed">
                       {{ achievement.name }}
                     </p>
-                    <p class="mt-1 text-base/relaxed dark:text-gray-400 text-gray-700">
-                      {{ achievement.description }}
-                    </p>
+                    <MarkdownViewer :content="achievement.description" />
                   </li>
                 </ol>
               </li>
@@ -82,7 +80,7 @@ onMounted(() => {
 }
 
 .title {
-  @apply text-lg font-semibold text-gray-900 dark:text-white mb-1.5;
+  @apply text-lg font-semibold text-gray-900 dark:text-white;
 }
 
 .edu.not-loading {

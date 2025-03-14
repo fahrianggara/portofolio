@@ -8,7 +8,7 @@ import { computed, onMounted, ref, watch } from "vue";
 import NotFoundSvg from "@/components/icon/NotFound.vue";
 
 import { useRoute } from "vue-router";
-import VueMarkdown from "vue-markdown-render";
+import MarkdownViewer from "@/components/MarkdownViewer.vue";
 const { resizeScreen } = useScreenSize();
 
 const route = useRoute();
@@ -100,7 +100,7 @@ watch(pageTitle, (newTitle) => {
             <div class="content-wrapper" v-else>
               <h1>{{ project.title }}</h1>
 
-              <VueMarkdown class="content" v-if="project" :source="project.description" v-prism />
+              <MarkdownViewer class="content" v-if="project" :content="project.description" v-prism />
               
               <div class="project-info">
                 <h1>Project Information</h1>

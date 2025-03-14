@@ -4,8 +4,7 @@
   // import testImg from "@/assets/img/test.jpg";
   import { useAboutStore } from "@/stores/about";
   import { onMounted } from "vue";
-  import VueMarkdown from "vue-markdown-render";
-import { containsText } from "@/utils/helpers";
+  import MarkdownViewer from "@/components/MarkdownViewer.vue";
 
   const aboutStore = useAboutStore();
   const { resizeScreen } = useScreenSize();
@@ -75,8 +74,7 @@ import { containsText } from "@/utils/helpers";
               </h1>
 
               <!-- Desc -->
-              <VueMarkdown :source="aboutStore.about.description"
-                class="content text-base/relaxed text-gray-800 dark:text-gray-300"/>
+              <MarkdownViewer :content="aboutStore.about.description"/>
 
               <!-- Clear float -->
               <div class="clear-both"></div>
@@ -135,7 +133,7 @@ import { containsText } from "@/utils/helpers";
     border-gray-300 dark:border-zinc-900 border py-3 px-3 font-medium
     rounded-xl backdrop-blur-2xl ease-in-out duration-300 hover:dark:bg-dark-surface/40 
     hover:dark:border-dark-surface hover:bg-surface/40
-    -translate-y-0 hover:-translate-y-[2px] overflow-hidden;
+    -translate-y-0 hover:-translate-y-[2px] overflow-hidden text-[14.5px];
   }
 
   .links .link img {

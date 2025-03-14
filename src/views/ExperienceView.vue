@@ -3,7 +3,7 @@ import Sidebar from "@/components/Sidebar.vue";
 import { useScreenSize } from "@/utils/screenResize.js";
 import { useExperienceStore } from "@/stores/experience";
 import { onMounted } from "vue";
-import VueMarkdown from "vue-markdown-render";
+import MarkdownViewer from "@/components/MarkdownViewer.vue";
 
 const { resizeScreen } = useScreenSize();
 const experienceStore = useExperienceStore();
@@ -65,9 +65,7 @@ onMounted(() => {
                 </time>
               </div>
 
-              <VueMarkdown class="content mt-3 text-base/relaxed font-normal text-gray-700 dark:text-gray-400"
-                :source="experience.description" v-if="experience.description">
-              </VueMarkdown>
+              <MarkdownViewer :content="experience.description" v-if="experience.description" />
             </li>
           </ol>
 
