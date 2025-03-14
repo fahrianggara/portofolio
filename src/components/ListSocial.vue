@@ -1,27 +1,19 @@
 <script setup>
+  import { onMounted } from 'vue';
+  import { useSocialsStore } from '@/stores/socials';
 
+  const socialStore = useSocialsStore();
+
+  onMounted(() => {
+    socialStore.getSocials();
+  });
 </script>
 
 <template>
   <ul>
-    <li>
-      <a href="#">
-        <i class="fi fi-brands-linkedin"></i>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fi fi-brands-instagram"></i>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fi fi-brands-github"></i>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fi fi-rr-envelope"></i>
+    <li v-for="(social, index) in socialStore.socials" :key="index">
+      <a :href="social.link" class="link" target="_blank" rel="noopener noreferrer">
+        <i :class="social.icon"></i>
       </a>
     </li>
   </ul>

@@ -17,7 +17,7 @@ import ListSocial from '@/components/ListSocial.vue';
             Web Developer &amp; UI/UX Designer
           </h1>
 
-          <p class="md:text-base/8 text-base/7 text-[15px] sm:text-[16px] dark:text-gray-400 text-gray-600">
+          <p class="md:text-base/8 text-base/7 text-[15px] sm:text-[16px] dark:text-gray-300 text-gray-800">
             Hi, I`m Fahri Anggara.
             Experienced Web Developer and UI/UX Designer skilled in creating responsive websites and 
             intuitive interfaces. Strong problem-solving, communication, and adaptability.
