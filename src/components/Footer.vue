@@ -1,7 +1,15 @@
 <script setup>
   import ListSocial from './ListSocial.vue';
   import ListMenu from './ListMenu.vue';
+  import { useHomeStore } from '@/stores/home';
+  import { onMounted } from 'vue';
+
   const year = new Date().getFullYear();
+  const social = useHomeStore();
+
+  onMounted(() => {
+    social.getGreeting();
+  });
 </script>
 
 <template>
@@ -12,7 +20,15 @@
           <ListMenu :showIcon="false" :hideResume="true" />
         </div>
         <div class="footer-bottom">
-          <ListSocial />
+          <div v-if="social.loading" class="flex flex-wrap gap-2 mb-4">
+            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-7 w-7 rounded-full"></div>
+            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-7 w-7 rounded-full"></div>
+            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-7 w-7 rounded-full"></div>
+            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-7 w-7 rounded-full"></div>
+          </div>
+
+          <ListSocial v-else :socials="social.greeting.socials" />
+          
           <p class="copyright">
             &copy; {{ year }} Fahri Anggara. Made with ❤️
           </p>

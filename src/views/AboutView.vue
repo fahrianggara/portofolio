@@ -11,7 +11,7 @@
 
   onMounted(() => {
     aboutStore.getAbout();
-    aboutStore.getConfig();
+    aboutStore.getGreeting();
     aboutStore.getSkills();
   });
 </script>
@@ -74,15 +74,17 @@
               </h1>
 
               <!-- Desc -->
-              <MarkdownViewer :content="aboutStore.about.description"/>
+              <div v-if="aboutStore.about.description">
+                <MarkdownViewer :content="aboutStore.about.description" />
+              </div>
 
               <!-- Clear float -->
               <div class="clear-both"></div>
             </div>
 
-            <div class="socials mt-5" v-if="aboutStore.config.social_media.length > 0">
+            <div class="socials mt-5" v-if="aboutStore.greeting && aboutStore.greeting.socials">
               <ul class="links">
-                <li v-for="(social, index) in aboutStore.config.social_media" :key="index">
+                <li v-for="(social, index) in aboutStore.greeting.socials" :key="index">
                   <a :href="social.link" class="link" target="_blank" rel="noopener noreferrer">
                     <div class="flex items-center gap-3">
                       <img :src="social.image_link">

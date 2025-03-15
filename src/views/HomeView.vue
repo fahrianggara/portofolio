@@ -53,7 +53,7 @@ onMounted(() => {
             </p>
 
             <div class="social-links">
-              <ListSocial />
+              <ListSocial :socials="homeStore.greeting.socials" />
             </div>
 
             <div class="home-menu">

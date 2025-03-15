@@ -6,7 +6,7 @@ export const useAboutStore = defineStore("aboutStore", () => {
   const about = ref(null);
   const loading = ref(true);
   const skills = ref([]);
-  const config = ref(null);
+  const greeting = ref(null);
 
   const getAbout = async () => {
     try {
@@ -25,21 +25,17 @@ export const useAboutStore = defineStore("aboutStore", () => {
       skills.value = data;
     } catch (error) {
       // error
-    } finally {
-      loading.value = false;
     }
   };
 
-  const getConfig = async () => {
+  const getGreeting = async () => {
     try {
-      const { data } = await apiService.get("/configuration");
-      config.value = data;
+      const { data } = await apiService.get("/greeting");
+      greeting.value = data;
     } catch (error) {
       // error
-    } finally {
-      loading.value = false;
     }
   };
 
-  return { about, loading, getAbout, getConfig, config, getSkills, skills };
+  return { about, loading, getAbout, getGreeting, greeting, getSkills, skills };
 })
