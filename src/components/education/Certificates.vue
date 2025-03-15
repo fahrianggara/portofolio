@@ -28,8 +28,8 @@
       <span v-if="certificateStore.loading" v-for="n in 2" :key="n" class="animate-pulse bg-gray-300 
         dark:bg-zinc-900 rounded-lg w-full h-30"></span>
         
-      <a v-else v-for="(certificate, index) in certificateStore.certificates" :key="index" :href="certificate.image_link" class="glightbox" 
-        data-gallery="certificates" data-type="image" v-glightbox>
+      <a v-else v-for="(certificate, index) in certificateStore.certificates" :key="index" :href="certificate.image_link" 
+        class="glightbox drop-shadow-2xl" data-gallery="certificates" data-type="image" v-glightbox>
         <img :src="certificate.image_link">
       </a>
     </div>
@@ -42,6 +42,6 @@
 
   .glightbox img {
     @apply h-auto max-w-full rounded-xl cursor-pointer transform ease-in-out duration-300 
-    translate-y-0 hover:-translate-y-1;
+    translate-y-0 hover:-translate-y-1; 
   }
 </style>

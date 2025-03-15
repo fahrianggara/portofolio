@@ -29,5 +29,5 @@ const compiled = computed(() => DOMPurify.sanitize(marked(props.content), { ADD_
 </script>
 
 <template>
-  <div v-html="compiled" class="content mt-2 text-base/relaxed font-normal text-gray-700 dark:text-gray-400"></div>
+  <div v-html="compiled" class="content mt-2 text-base/relaxed font-normal text-gray-800 dark:text-gray-400"></div>
 </template>

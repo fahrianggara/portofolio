@@ -48,7 +48,7 @@ onMounted(() => {
 
               <li v-for="(education, i) in educationStore.educations" :key="i">
                 <div class="bullet"></div>
-                <time>{{ education.major }}</time>
+                <time class="!text-primary">{{ education.major }}</time>
                 <h3 class="title mt-1">{{ education.title }}</h3>
                 <time>{{ education.until_date }}</time>
 
@@ -103,7 +103,7 @@ bg-white/60 dark:bg-dark-surface/60 backdrop-blur-2xl
 }
 
 time {
-  @apply mb-1 text-sm font-normal leading-none text-gray-600 dark:text-gray-500;
+  @apply mb-1 text-sm font-normal leading-none text-gray-700 dark:text-gray-400;
 }
 
 .bullet {
