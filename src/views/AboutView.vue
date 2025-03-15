@@ -83,6 +83,7 @@
             </div>
 
             <div class="socials mt-5" v-if="aboutStore.greeting && aboutStore.greeting.socials">
+              <p class="mb-4 text-[17px] font-bold">Let's connect with me on social media</p>
               <ul class="links">
                 <li v-for="(social, index) in aboutStore.greeting.socials" :key="index">
                   <a :href="social.link" class="link" target="_blank" rel="noopener noreferrer">

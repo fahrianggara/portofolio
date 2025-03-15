@@ -27,9 +27,8 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/wakatime-api/, '')
       },
       '/api' : {
-        target: 'http://portofolio-v5-be.test',
+        target: 'https://be.fahrianggara.my.id',
         changeOrigin: true,
-        secure: false,
         rewrite: (path) => path.replace(/^\/api/, 'api')
       },
       '/github-api' : {
