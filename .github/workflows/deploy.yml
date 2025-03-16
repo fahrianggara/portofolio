@@ -7,20 +7,21 @@ on:
 
 jobs:
   deploy:
+    name: Deploy to Hosting
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-    - name: Install Dependencies
-      run: npm install
-
-    - name: Build Project
-      run: npm run build
+    - name: Cache FTP Deploy State
+      uses: actions/cache@v3
+      with:
+        path: .ftp-deploy-sync-state
+        key: ftp-cache-${{ github.sha }}
+        restore-keys: ftp-cache-
 
     - name: Deploy via FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4
+      uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
@@ -34,3 +35,9 @@ jobs:
           **/src/**
           **/tests/**
           **/*.md
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build Project
+      run: npm run build
