@@ -13,11 +13,8 @@ const CACHE_EXPIRY = 24 * 60 * 60 * 1000; // 1 hari dalam milidetik
 
 // Ambil data dari API atau cache
 const getActivity = async () => {
-  const url = import.meta.env.MODE === "development" 
-    ? "/wakatime-api" : "https://wakatime.com/api/v1/users/current/stats";
-
   try {
-    const response = await axios.get(url, {
+    const response = await axios.get("/wakatime-api", {
       headers: {
         Authorization: `Basic ${btoa(SECRET_KEY)}`,
         "Content-Type": "application/json"
