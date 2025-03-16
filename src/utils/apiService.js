@@ -3,8 +3,12 @@ import { useToast } from "./useToast";
 
 const toast = useToast();
 
+console.log(import.meta.env.MODE); // development atau production
+
 // Tentukan baseURL berdasarkan mode (development atau production)
-const baseURL = import.meta.env.MODE === "development" ? "/api" : import.meta.env.VITE_API_BASE_URL; 
+const baseURL = import.meta.env.MODE === "development" 
+  ? "/api" 
+  : import.meta.env.VITE_API_BASE_URL || "https://be.fahrianggara.my.id/api"; 
 
 const apiClient = axios.create({
   baseURL,
