@@ -26,7 +26,7 @@ jobs:
         key: ftp-cache-${{ github.sha }}
         restore-keys: ftp-cache-
 
-    - name: Deploy via FTP
+    - name: Deploy project via FTP
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
         server: ${{ secrets.FTP_SERVER }}
