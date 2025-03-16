@@ -1,0 +1,44 @@
+# Aktifkan mod_rewrite
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Redirect semua request ke index.html kecuali file/folder yang ada
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.html [QSA,L]
+</IfModule>
+
+# Atur Cache untuk meningkatkan performa
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access 1h"
+  ExpiresByType text/css "access 1 month"
+  ExpiresByType application/javascript "access 1 month"
+  ExpiresByType image/jpeg "access 6 months"
+  ExpiresByType image/png "access 6 months"
+  ExpiresByType image/gif "access 6 months"
+  ExpiresByType image/svg+xml "access 6 months"
+  ExpiresByType application/font-woff2 "access 6 months"
+</IfModule>
+
+# Redirect ke HTTPS otomatis
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Custom 404 Page (opsional)
+ErrorDocument 404 /index.html
+
+# Blokir akses ke file sensitif
+<FilesMatch "(\.git|\.env|composer\.(lock|json))$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+# Batasi akses direktori (opsional)
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>
