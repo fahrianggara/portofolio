@@ -1,12 +1,15 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import Sidebar from "@/components/Sidebar.vue";
 import { useScreenSize } from "@/utils/screenResize.js";
 import apiService from "@/utils/apiService";
 import Contact from "@/models/contact";
 import { useToast } from "@/utils/useToast";
+import { useHomeStore } from "@/stores/home";
+import { replaceText } from "@/utils/helpers";
 
 const toast = useToast();
+const homeStore = useHomeStore();
 const contact = ref(new Contact());
 const loading = ref(false);
 const { resizeScreen } = useScreenSize();
@@ -30,6 +33,18 @@ const submitForm = async () => {
     loading.value = false;
   }
 }
+
+onMounted(() => {
+  homeStore.getGreeting();
+});
+
+const socials = computed(() => {
+  return homeStore.greeting.socials.filter(social => !social.link.includes("@"));
+});
+
+const email = computed(() => {
+  return homeStore.greeting.socials.find(social => social.link.includes("@"));
+});
 </script>
 
 <template>
@@ -43,8 +58,10 @@ const submitForm = async () => {
         <div class="dark:text-white col-span-2 mb-5.5">
           <div class="contact-wrapper">
             <div class="contact-box lg:col-span-2 md:col-span-3 sm:col-span-full col-span-1">
-              <h1>Let's Talk</h1>
-              <p>Fill out the form below and we'll get back to you as soon as possible.</p>
+              <h1>Let's Connect!</h1>
+              <p>
+                Have a project, idea, or opportunity? Let’s make it happen!
+              </p>
               <form class="contact-form" @submit.prevent="submitForm" autocomplete="off">
                 <div class="grid grid-cols-1 gap-3">
                   <div class="mb-2">
@@ -99,16 +116,32 @@ const submitForm = async () => {
             <div class="contact-info w-full sm:col-span-3 lg:col-span-1">
               <div class="contact-box">
                 <h1 class="mb-1">Email</h1>
-                <a href="mailto:fahriangga30@gmail.com" class="">
-                  fahriangga30@gmail.com
-                </a>
+                <div v-if="homeStore.loading" class="animate-pulse md:w-full w-[200px] h-1.5 bg-gray-400 
+                  dark:bg-zinc-800 rounded-lg mt-3"></div>
+
+                  <template v-else>
+                    <a v-if="email" :href="email.link" target="_blank" rel="noopener noreferrer"> 
+                      {{ replaceText(email.link, "mailto:", "") }}
+                    </a>
+                  </template>
               </div>
+
               <div class="contact-box">
                 <h1>Social Media</h1>
-                <div class="flex flex-row flex-wrap gap-x-1 gap-y-0 mt-1 links">
-                  <a href="https://www.linkedin.com/in/fahrianggara" target="_blank" class="text-primary">LinkedIn</a>
-                  <a href="https://www.github.com/fahrianggara" target="_blank" class="text-primary">GitHub</a>
-                  <a href="https://www.instagram.com/fahrianqqara" target="_blank" class="text-primary">Instagram</a>
+
+                <div v-if="homeStore.loading">
+                  <div class="animate-pulse flex flex-row flex-wrap gap-x-1 gap-y-2 mt-3">
+                    <div class="w-12 h-1.5 bg-gray-400 dark:bg-zinc-800 rounded-full"></div>
+                    <div class="w-12 h-1.5 bg-gray-400 dark:bg-zinc-800 rounded-full"></div>
+                    <div class="w-12 h-1.5 bg-gray-400 dark:bg-zinc-800 rounded-full"></div>
+                  </div>
+                </div>
+
+                <div class="links" v-else>
+                  <a v-for="(social, index) in socials" :key="index" class="text-primary"
+                    :href="social.link" target="_blank" rel="noopener noreferrer">
+                    {{ social.platform }}
+                  </a>
                 </div>
               </div>
             </div>
@@ -153,7 +186,7 @@ const submitForm = async () => {
   }
 
   .contact-form input.is-invalid, .contact-form textarea.is-invalid {
-    @apply border-red-500 ring-0 ring-red-500/50 dark:placeholder:placeholder-gray-400 
+    @apply border-red-500 ring-0 ring-red-500/50 dark:placeholder-gray-400 
     placeholder:text-gray-600 focus:border-red-500 focus:ring-3;
   }
 
@@ -190,6 +223,10 @@ const submitForm = async () => {
 
   .contact-info .contact-box a {
     @apply text-primary hover:underline p-0 m-0;
+  }
+
+  .contact-info .contact-box .links {
+    @apply flex flex-row flex-wrap gap-x-1 gap-y-0 mt-1;
   }
 
   @media (max-width: 499.99px) {
