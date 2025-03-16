@@ -17,7 +17,14 @@ jobs:
       run: npm install
 
     - name: Build Project
-      run: npm run build --mode staging
+      run: npm run build -- --mode production
+
+    - name: Create .env.production
+      run: |
+        echo "VITE_API_KEY=${{ secrets.VITE_API_KEY }}" > .env.production
+        echo "VITE_GITHUB_ACCESS_TOKEN=${{ secrets.VITE_GITHUB_ACCESS_TOKEN }}" >> .env.production
+        echo "VITE_WAKATIME_API_KEY=${{ secrets.VITE_WAKATIME_API_KEY }}" >> .env.production
+        echo "VITE_VITE_DISCORD_USER_ID"=${{ secrets.VITE_VITE_DISCORD_USER_ID }}" >> .env.production
 
     - name: Cache FTP Deploy State
       uses: actions/cache@v3
