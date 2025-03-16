@@ -171,7 +171,7 @@ const email = computed(() => {
   }
 
   .contact-box > p {
-    @apply text-[15px] leading-6 dark:text-gray-500 text-gray-600 mt-1.5;
+    @apply text-[15px] leading-6 dark:text-gray-400 text-gray-700 mt-1.5;
   }
   
   .contact-form {

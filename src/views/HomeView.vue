@@ -21,10 +21,11 @@ onMounted(() => {
           </div>
 
           <div v-if="homeStore.loading">
-            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-8 w-[100%] rounded-full"></div>
-            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-3 w-[100%] rounded-xl mt-5"></div>
-            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-3 w-[100%] rounded-xl mt-3"></div>
-            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-3 w-[100%] rounded-xl mt-3"></div>
+            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-6 w-[100%] rounded-xl"></div>
+            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-2 w-[100%] rounded-xl mt-5"></div>
+            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-2 w-[100%] rounded-xl mt-3"></div>
+            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-2 w-[100%] rounded-xl mt-3"></div>
+            <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-2 w-[100%] rounded-xl mt-3"></div>
             <div class="flex flex-wrap mt-5 gap-2">
               <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-8 w-8 rounded-full"></div>
               <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-8 w-8 rounded-full"></div>
@@ -32,13 +33,13 @@ onMounted(() => {
               <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-8 w-8 rounded-full"></div>
             </div>
             <div class="flex flex-wrap mt-6 gap-2">
-              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-11 w-[100px] rounded-full"></div>
-              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-11 w-[100px] rounded-full"></div>
-              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-11 w-[100px] rounded-full"></div>
-              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-11 w-[100px] rounded-full"></div>
-              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-11 w-[100px] rounded-full"></div>
-              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-11 w-[100px] rounded-full"></div>
-              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-11 w-[100px] rounded-full"></div>
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-9 w-[90px] rounded-xl"></div>
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-9 w-[90px] rounded-xl"></div>
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-9 w-[90px] rounded-xl"></div>
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-9 w-[90px] rounded-xl"></div>
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-9 w-[90px] rounded-xl"></div>
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-9 w-[90px] rounded-xl"></div>
+              <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-9 w-[90px] rounded-xl"></div>
             </div>
           </div>
 

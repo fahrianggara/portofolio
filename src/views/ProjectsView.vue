@@ -60,7 +60,7 @@
                   <img :src="project.image_link" alt="thumbnail" />
                   <div class="w-full h-full flex flex-col justify-between">
                     <div>
-                      <span class="text-[12px] sm:text-[13px] dark:text-gray-600 text-gray-400 font-medium mb-1 block">
+                      <span class="text-[12px] sm:text-[13px] text-primary mb-1 block">
                         {{ project.category.name }}
                       </span>
                       <h3 class="text-[15px] sm:text-[16px] md:text-lg font-semibold mb-1 
@@ -105,11 +105,7 @@
     @apply relative p-4 rounded-2xl bg-white/40 dark:bg-dark-surface/60 backdrop-blur-2xl border border-solid dark:border-zinc-900 border-gray-300 ease-in-out duration-300 transform hover:-translate-y-[2px]
     dark:hover:bg-dark-surface/80 hover:bg-white/70;
   }
-  .projects li a img {
-    @apply w-20 h-20 md:w-28 md:h-28 object-cover rounded-xl;
-  }
-  
-  .projects li a:hover h3 {
-    @apply text-primary;
+  .projects li img {
+    @apply w-20 h-20 md:w-28 md:h-28 object-cover rounded-lg border border-solid border-gray-300 dark:border-zinc-800;
   }
 </style>

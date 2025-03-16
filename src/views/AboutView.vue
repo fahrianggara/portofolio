@@ -65,11 +65,11 @@
               <!-- Gambar dengan float -->
               <a data-gallery="certificates" data-type="image" :href="aboutStore.about?.photo_link" class="glightbox">
                 <img :src="aboutStore.about?.photo_link" alt="test" :key="aboutStore.about?.photo_link" loading="lazy"
-                  class="float-right w-1/3 ml-4 mb-4 rounded-2xl rotate-0 ease-in-out duration-300 hover:rotate-2" />
+                  class="float-right sm:w-1/3 w-[145px] ml-4 mb-4 rounded-2xl rotate-0 ease-in-out duration-300 hover:rotate-2" />
               </a>
               
               <!-- Title -->
-              <h1 class="text-[22px] sm:text-[32px] font-bold mb-3 text-wrap leading-9 sm:leading-11">
+              <h1 class="text-[22px] sm:text-[32px] font-bold mb-3 text-wrap leading-8 sm:leading-11">
                 {{ aboutStore.about?.title }}
               </h1>
 

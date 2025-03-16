@@ -102,7 +102,7 @@ onUnmounted(() => {
 }
 
 .thumbnail {
-  @apply w-full object-cover rounded-xl;
+  @apply w-full object-cover rounded-xl border border-solid border-gray-300 dark:border-zinc-800;
 }
 
 .thumbnails {
@@ -116,6 +116,6 @@ onUnmounted(() => {
 }
 
 .thumbnail-item img {
-  @apply w-[100px] h-[75px] object-cover rounded-lg cursor-pointer shadow-md;
+  @apply w-[100px] h-[75px] object-cover rounded-lg cursor-pointer border border-solid border-gray-300 dark:border-zinc-800;
 }
 </style>
