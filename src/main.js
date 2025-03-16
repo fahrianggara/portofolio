@@ -2,41 +2,26 @@ import './assets/main.css'
 import './assets/custom.css'
 import 'glightbox/dist/css/glightbox.min.css'
 import 'prismjs/themes/prism.min.css'
-import Prism from 'prismjs'
+
+import prismDirective from './directives/prism'
+import glightboxDirective from './directives/glightbox'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { createHead } from '@vueuse/head'
+
 import App from './App.vue'
 import router from './router'
-import GLightbox from 'glightbox'
 
 const pinia = createPinia()
+const head = createHead();
 const app = createApp(App)
 
-app.directive('glightbox', {
-    mounted(el) {
-        el.lightbox = GLightbox({
-            selector: ".glightbox",
-        });
-
-        el.lightbox.on('open', () => {
-            document.body.classList.remove('glightbox-open');
-        });
-    },
-    unmounted(el) {
-        el.lightbox.destroy();
-    }
-})
-
-app.directive('prism', {
-    mounted(el) {
-        Prism.highlightAllUnder(el)
-    },
-    updated(el) {
-        Prism.highlightAllUnder(el)
-    }
-})
+app.directive('glightbox', glightboxDirective)
+app.directive('prism', prismDirective)
 
 app.use(router)
 app.use(pinia)
+app.use(head)
+
 app.mount('#app')
