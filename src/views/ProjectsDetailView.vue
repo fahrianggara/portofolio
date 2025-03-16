@@ -36,7 +36,7 @@ onMounted(() => {
 
 // Change the page title
 const pageTitle = computed(() => {
-  return `Project - ${project.value?.title || "Loading..."}`;
+  return `${project.value?.title || "Loading..."} - Fahri Anggara`;
 });
 
 watch(pageTitle, (newTitle) => {
@@ -98,7 +98,7 @@ watch(pageTitle, (newTitle) => {
 
             <!-- Content -->
             <div class="content-wrapper" v-else>
-              <h1>{{ project.title }}</h1>
+              <h1 v-if="project">{{ project.title }}</h1>
 
               <MarkdownViewer class="content" v-if="project" :content="project.description" v-prism />
               

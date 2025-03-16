@@ -76,7 +76,7 @@ onUnmounted(() => {
   <!-- Transition effect for mobile menu -->
   <Transition name="fade-bottom">
     <div v-if="isMenuOpen" class="mobile-menu">
-      <ListMenu @close-menu="closeMenu" />
+      <ListMenu @close-menu="closeMenu" :downloadCV="downloadCV" />
     </div>
   </Transition>
 </template>

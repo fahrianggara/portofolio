@@ -16,6 +16,7 @@
       type: Boolean,
       default: false,
     },
+    downloadCV: Function,
   });
 
   const { resizeScreen } = useScreenSize();
@@ -79,11 +80,12 @@
         <span>Activity</span>
       </router-link>
     </li>
+    
     <li v-if="showResume">
-      <router-link to="/resume" :class="{ active: isActiveMenu('/resume') }" @click="$emit('close-menu')">
+      <a href="#" :class="{ active: isActiveMenu('/resume') }" @click="downloadCV">
         <i class="fi fi-rr-file" v-if="showIcon"></i>
         <span>Download CV</span>
-      </router-link>
+      </a>
     </li>
   </ul>
 </template>

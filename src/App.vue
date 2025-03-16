@@ -6,7 +6,6 @@ import { onMounted, ref, watch } from 'vue';
 import { useToggle } from '@vueuse/shared';
 import Parallax from './components/Parallax.vue';
 import { useDark } from '@vueuse/core';
-import Lenis from "@studio-freight/lenis";
 import GlowCursor from "./components/GlowCursor.vue";
 import ToastContainer from './components/ToastContainer.vue';
 
@@ -23,36 +22,43 @@ const isDark = useDark({
 // Dark Mode Toggle
 const toggleDark = useToggle(isDark);
 
-const lenis = new Lenis();
+// Function to check if the device is mobile
+const isMobile = () => window.innerWidth <= 768 || /Mobi|Android/i.test(navigator.userAgent);
 
 onMounted(() => {
-  // Tambahkan dark:bg-dark-background saat pertama kali dimuat
+  // Add dark:bg-dark-background when first loaded
   const bodyClasses = [
     'dark:bg-dark-background',
     'bg-background',
-    'relative', // Tambahkan relative agar before muncul
+    'relative',
     'before:content-[""]',
     'before:absolute',
     'before:inset-0',
     'before:backdrop-blur-2xl',
-    'before:z-[1]', // Pastikan before ada di belakang konten
+    'before:z-[1]',
   ];
-
   document.body.classList.add(...bodyClasses);
 
-  // Smooth Scroll
-  function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
-});
+  // Smooth Scroll with Lenis (only if not mobile)
+  if (!isMobile()) {
+    import("@studio-freight/lenis").then(({ default: Lenis }) => {
+      const lenis = new Lenis();
 
-// Scroll ke atas saat route berubah
-watch(route, () => {
-  lenis.scrollTo(0, { behavior: "smooth" });
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      // Scroll to top when route changes
+      watch(route, () => {
+        lenis.scrollTo(0, { behavior: "smooth" });
+      });
+    });
+  }
 });
 </script>
+
 
 <template>
   <GlowCursor />
