@@ -17,7 +17,7 @@ onMounted(() => {
       <div class="relative px-2 sm:px-4 lg:px-0">
         <div class="max-w-3xl lg:mx-0 md:mx-auto mx-0 home-box relative">
           <div class="img-container" :class="{ 'loading': homeStore.loading }">
-            <img src="@/assets/img/logo.png" alt="logo" />
+            <img src="/public/android-chrome-512x512.png" alt="logo" />
           </div>
 
           <div v-if="homeStore.loading">
@@ -87,7 +87,7 @@ onMounted(() => {
     left: 50%;
     width: 190%;
     height: 190%;
-    background-color: #2a86ff;
+    background-color: #003f91;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     z-index: -1;
@@ -99,7 +99,7 @@ onMounted(() => {
   }
 
   .img-container img {
-    @apply w-[85px] h-[85px] rounded-xl;
+    @apply w-[85px] h-[85px];
   }
 
   @keyframes pulse {

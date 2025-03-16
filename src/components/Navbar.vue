@@ -55,7 +55,7 @@ onUnmounted(() => {
   <header id="header">
     <nav>
       <router-link to="/" class="nav-brand">
-        <img src="@/assets/img/logo.png" alt="Logo" />
+        <img src="/public/android-chrome-512x512.png" alt="Logo" />
       </router-link>
       <div class="nav-menu">
         <button class="btn-cv" ref="btnCV" @click="downloadCV">
@@ -94,11 +94,11 @@ onUnmounted(() => {
   }
 
   .nav-brand {
-    @apply flex items-center space-x-3;
+    @apply flex items-center space-x-3 ml-2;
   }
 
   .nav-brand img {
-    @apply w-[35px] h-[35px] rounded-[50%];
+    @apply w-[28px] h-[28px];
   }
 
   .btn-theme {
