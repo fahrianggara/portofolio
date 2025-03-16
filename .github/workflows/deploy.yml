@@ -19,13 +19,6 @@ jobs:
     - name: Build Project
       run: npm run build
 
-    - name: Cache FTP Deploy State
-      uses: actions/cache@v3
-      with:
-        path: .ftp-deploy-sync-state
-        key: ftp-cache-${{ github.sha }}
-        restore-keys: ftp-cache-
-
     - name: Deploy project via FTP
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
