@@ -4,7 +4,6 @@ import { useToast } from "./useToast";
 const toast = useToast();
 
 console.log(import.meta.env.VITE_DISCORD_USER_ID); // Object yang berisi informasi environment
-console.log(import.meta.env); // API Key
 console.log(import.meta.env.MODE); // development atau production
 
 const baseURL = import.meta.env.MODE === "development" ? "/api" : "https://be.fahrianggara.my.id/api"; 
