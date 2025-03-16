@@ -9,7 +9,6 @@ jobs:
   deploy:
     name: Deploy to Hosting
     runs-on: ubuntu-latest
-    environment: production
 
     steps:
     - uses: actions/checkout@v3
@@ -18,19 +17,7 @@ jobs:
       run: npm install
 
     - name: Build Project
-      run: npm run build
-
-    - name: Create .env.production
-      run: |
-        touch .env.production
-        for var in $(printenv | grep VITE_ | awk -F= '{print $1}'); do
-          echo "$var=${!var}" >> .env.production
-        done
-      env:
-        VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
-        VITE_DISCORD_USER_ID: ${{ secrets.VITE_DISCORD_USER_ID }}
-        VITE_GITHUB_ACCESS_TOKEN: ${{ secrets.VITE_GITHUB_ACCESS_TOKEN }}
-        VITE_WAKATIME_API_KEY: ${{ secrets.VITE_WAKATIME_API_KEY }}
+      run: npm run build --mode staging
 
     - name: Cache FTP Deploy State
       uses: actions/cache@v3
