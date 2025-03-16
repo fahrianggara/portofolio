@@ -13,6 +13,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build Project
+      run: npm run build
+
     - name: Cache FTP Deploy State
       uses: actions/cache@v3
       with:
@@ -35,9 +41,3 @@ jobs:
           **/src/**
           **/tests/**
           **/*.md
-
-    - name: Install Dependencies
-      run: npm install
-
-    - name: Build Project
-      run: npm run build
