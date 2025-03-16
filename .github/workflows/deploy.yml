@@ -19,6 +19,9 @@ jobs:
     - name: Build Project
       run: npm run build
 
+    - name: Preview Project
+      run: npm run preview
+
     - name: Cache FTP Deploy State
       uses: actions/cache@v3
       with:
