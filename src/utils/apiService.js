@@ -3,8 +3,11 @@ import { useToast } from "./useToast";
 
 const toast = useToast();
 
+// Tentukan baseURL berdasarkan mode (development atau production)
+const baseURL = import.meta.env.MODE === "development" ? "/api" : import.meta.env.VITE_API_BASE_URL; 
+
 const apiClient = axios.create({
-  baseURL: "/api",
+  baseURL,
   headers: {
     "Content-Type": "application/json",
     "Accept": "application/json",
@@ -24,6 +27,8 @@ const apiService = {
       });
       return response.data;
     } catch (error) {
+      console.error("API Error:", error);
+      toast.error("Terjadi kesalahan pada API");
       throw error;
     }
   },
