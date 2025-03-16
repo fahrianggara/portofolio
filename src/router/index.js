@@ -1,8 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
+import { useHead } from '@vueuse/head'
+import HomeView from '@/views/HomeView.vue'
+import AboutView from '@/views/AboutView.vue'
 import EducationView from '@/views/EducationView.vue'
 import PageNotFound from '@/views/PageNotFoundView.vue'
+
+const defaultDescription = "Hi, I'm Fahri Anggara. Experienced Web Developer and UI/UX Designer skilled in creating responsive websites and intuitive interfaces. Strong problem-solving, communication, and adaptability."
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,7 +16,8 @@ const router = createRouter({
       component: HomeView,
       meta: { 
         showNavbarAndFooter: false,
-        title: null
+        title: null,
+        description: defaultDescription
       }
     },
     {
@@ -22,7 +26,8 @@ const router = createRouter({
       component: AboutView,
       meta: { 
         showNavbarAndFooter: true,
-        title: 'About Me'
+        title: 'About Me',
+        description: "Learn more about me, an experienced Web Developer & UI/UX Designer."
       }
     },
     {
@@ -31,31 +36,34 @@ const router = createRouter({
       component: EducationView,
       meta: { 
         showNavbarAndFooter: true,
-        title: 'Education'
+        title: 'Education',
+        description: "Discover my educational background and learning journey."
       }
     },
     {
       path: '/experience',
       name: 'experience',
-      component: () => import('../views/ExperienceView.vue'),
+      component: () => import('@/views/ExperienceView.vue'),
       meta: { 
         showNavbarAndFooter: true,
-        title: 'Experience'
+        title: 'Experience',
+        description: "Explore my work experiences and projects."
       }
     },
     {
       path: '/projects',
       name: 'projects',
-      component: () => import('../views/ProjectsView.vue'),
+      component: () => import('@/views/ProjectsView.vue'),
       meta: { 
         showNavbarAndFooter: true,
-        title: 'Projects'
+        title: 'Projects',
+        description: "View my web development projects and UI/UX designs."
       },
     },
     {
       path: '/projects/:slug',
       name: 'project-detail',
-      component: () => import('../views/ProjectsDetailView.vue'),
+      component: () => import('@/views/ProjectsDetailView.vue'),
       meta: { 
         showNavbarAndFooter: true,
         title: 'Project Detail'
@@ -64,19 +72,21 @@ const router = createRouter({
     {
       path: '/contact',
       name: 'contact',
-      component: () => import('../views/ContactView.vue'),
+      component: () => import('@/views/ContactView.vue'),
       meta: { 
         showNavbarAndFooter: true,
-        title: 'Contact'
+        title: 'Contact',
+        description: "Get in touch with me to discuss potential projects or collaborations."
       }
     },
     {
       path: '/activity',
       name: 'activity',
-      component: () => import('../views/ActivityView.vue'),
+      component: () => import('@/views/ActivityView.vue'),
       meta: { 
         showNavbarAndFooter: true,
-        title: 'Activity'
+        title: 'Activity',
+        description: "View my recent activities."
       }
     },
     {
@@ -89,18 +99,32 @@ const router = createRouter({
       }
     }
   ],
+  
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      return savedPosition; // Jika ada posisi yang tersimpan, gunakan itu (misalnya saat tombol back/forward browser)
+      return savedPosition;
     } else {
-      return { top: 0, behavior: 'smooth' }; // Scroll ke atas dengan efek smooth
+      return { top: 0, behavior: 'smooth' };
     }
   }
 })
 
+// Menggunakan VueUse Head untuk meta tags
 router.beforeEach((to, from, next) => {
   let appName = 'Fahri Anggara'
-  document.title = to.meta.title ? `${to.meta.title} - ${appName}` : appName
+  let title = to.meta.title ? `${to.meta.title} - ${appName}` : appName
+  let description = to.meta.description || defaultDescription
+
+  useHead({
+    title,
+    meta: [
+      { name: 'description', content: description },
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: description },
+      { property: 'og:type', content: 'website' }
+    ]
+  })
+
   next()
 })
 
