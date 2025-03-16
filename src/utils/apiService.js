@@ -3,6 +3,7 @@ import { useToast } from "./useToast";
 
 const toast = useToast();
 
+console.log(import.meta.env.VITE_DISCORD_USER_ID); // Object yang berisi informasi environment
 console.log(import.meta.env.MODE); // development atau production
 
 // Tentukan baseURL berdasarkan mode (development atau production)
