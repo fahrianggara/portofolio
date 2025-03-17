@@ -1,12 +1,14 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
-import Sidebar from "@/components/Sidebar.vue";
 import { useScreenSize } from "@/utils/screenResize.js";
-import apiService from "@/utils/apiService";
-import Contact from "@/models/contact";
 import { useToast } from "@/utils/useToast";
 import { useHomeStore } from "@/stores/home";
 import { replaceText } from "@/utils/helpers";
+import Sidebar from "@/components/Sidebar.vue";
+import Contact from "@/models/contact";
+import axios from "axios";
+import Input from "@/components/form/input.vue";
+import Textarea from "@/components/form/textarea.vue";
 
 const toast = useToast();
 const homeStore = useHomeStore();
@@ -18,8 +20,8 @@ const submitForm = async () => {
   loading.value = true;
 
   try {
-    const response = await apiService.post("/contact", contact.value);
-    toast.success(response.message);
+    const response = await axios.post("api/contact", contact.value);
+    toast.success(response.data.message);
     contact.value.reset();
   } catch (err) {
     if (err.response.status === 401) {
@@ -64,37 +66,11 @@ const email = computed(() => {
               </p>
               <form class="contact-form" @submit.prevent="submitForm" autocomplete="off">
                 <div class="grid grid-cols-1 gap-3">
-                  <div class="mb-2">
-                    <input type="text" v-model="contact.name" placeholder="What's your name?" 
-                      :class="{ 'is-invalid': contact.errors.name }" />
-                    <p v-if="contact.errors.name" class="text-[13.5px] mt-2 text-red-500">
-                      {{ contact.errors.name[0] }}
-                    </p>
-                  </div>
 
-                  <div class="mb-2">
-                    <input type="email" v-model="contact.email" placeholder="What's your email address?" 
-                      :class="{ 'is-invalid': contact.errors.email }" />
-                    <p v-if="contact.errors.email" class="text-[13.5px] mt-2 text-red-500">
-                      {{ contact.errors.email[0] }}
-                    </p>
-                  </div>
-
-                  <div class="mb-2">
-                    <input type="text" v-model="contact.subject" placeholder="What's the subject?" 
-                      :class="{ 'is-invalid': contact.errors.subject }" />
-                    <p v-if="contact.errors.subject" class="text-[13.5px] mt-2 text-red-500">
-                      {{ contact.errors.subject[0] }}
-                    </p>
-                  </div>
-
-                  <div class="mb-2">
-                    <textarea v-model="contact.message" placeholder="Please write your message here..." 
-                    :class="{ 'is-invalid': contact.errors.message }" rows="3"></textarea>
-                    <p v-if="contact.errors.message" class="text-[13.5px] mt-2 text-red-500">
-                      {{ contact.errors.message[0] }}
-                    </p>
-                  </div>
+                  <Input v-model="contact.name" placeholder="What's your name?" :error="contact.errors.name" />
+                  <Input v-model="contact.email" placeholder="What's your email address?" :error="contact.errors.email" />
+                  <Input v-model="contact.subject" placeholder="What's the subject?" :error="contact.errors.subject" />
+                  <Textarea v-model="contact.message" placeholder="Please write your message here..." :error="contact.errors.message" />
 
                   <div>
                     <button v-if="loading" disabled type="button" class="">
@@ -113,6 +89,7 @@ const email = computed(() => {
               </form>
 
             </div>
+
             <div class="contact-info w-full sm:col-span-3 lg:col-span-1">
               <div class="contact-box">
                 <h1 class="mb-1">Email</h1>
@@ -145,114 +122,10 @@ const email = computed(() => {
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
     </div>
   </section>
 </template>
-
-<style scoped>
-  @reference 'tailwindcss';
-  @import '@/assets/main.css';
-
-  .contact-wrapper {
-    @apply grid sm:grid-cols-3 gap-6;
-  }
-
-  .contact-box {
-    @apply dark:bg-dark-surface/60 backdrop-blur-xl
-    border border-solid dark:border-zinc-900 border-gray-300 bg-white/60
-    px-5 py-4 rounded-xl;
-  }
-
-  .contact-box > h1 {
-    @apply text-[18px] dark:text-white text-gray-900 font-semibold mt-1;
-  }
-
-  .contact-box > p {
-    @apply text-[15px] leading-6 dark:text-gray-400 text-gray-700 mt-1.5;
-  }
-  
-  .contact-form {
-    @apply mt-5 mb-2;
-  }
-
-  .contact-form input, .contact-form textarea {
-    @apply w-full px-4 py-2.5 border border-solid dark:border-zinc-900 border-gray-300 rounded-lg
-    text-[15px] dark:text-white text-gray-900 dark:bg-dark-surface/90 backdrop-blur-2xl bg-white
-    focus:outline-none focus:border-primary focus:ring-3 focus:ring-primary/30 focus:shadow-md placeholder:text-[14px] 
-    placeholder:font-normal placeholder:text-gray-600 dark:placeholder-gray-400;
-  }
-
-  .contact-form input.is-invalid, .contact-form textarea.is-invalid {
-    @apply border-red-500 ring-0 ring-red-500/50 dark:placeholder-gray-400 
-    placeholder:text-gray-600 focus:border-red-500 focus:ring-3;
-  }
-
-  .contact-form button {
-    @apply w-full px-4 py-3 
-    dark:bg-dark-bg-primary text-primary bg-bg-primary 
-    rounded-lg text-[14px] font-medium cursor-pointer ease-in-out transition-all duration-300
-    hover:bg-primary hover:text-bg-primary;
-  }
-
-  .contact-form button:disabled {
-    @apply text-white cursor-not-allowed bg-primary;
-  }
-
-  .contact-info {
-    @apply lg:flex lg:flex-col gap-5 grid md:grid-cols-2 grid-cols-1;
-  }
-
-  .contact-info .contact-box {
-    @apply dark:bg-dark-surface/60 backdrop-blur-xl
-    border border-solid dark:border-zinc-900 border-gray-300 bg-white/60
-    px-5 py-3 rounded-xl;
-  }
-
-  .contact-info .contact-box h1 {
-    @apply text-[15px] dark:text-white text-gray-900 font-semibold mt-1;
-  }
-
-  .contact-info .contact-box p,
-  .contact-info .contact-box a {
-    @apply text-[15px] leading-6 dark:text-gray-500 text-gray-600 mt-0.5 mb-1
-    md:text-[13px];
-  }
-
-  .contact-info .contact-box a {
-    @apply text-primary hover:underline p-0 m-0;
-  }
-
-  .contact-info .contact-box .links {
-    @apply flex flex-row flex-wrap gap-x-1 gap-y-0 mt-1;
-  }
-
-  @media (max-width: 499.99px) {
-    .contact-form input, .contact-form textarea {
-      @apply dark:bg-dark-surface/50 backdrop-blur-2xl bg-white/70 py-[13px] 
-      placeholder:text-gray-600 dark:placeholder:text-gray-400;
-    }
-
-    .contact-form [type="submit"] {
-      @apply py-[15px] text-[13px];
-    }
-
-    .contact-info {
-      @apply gap-4 overflow-hidden;
-    }
-
-    .contact-wrapper {
-      @apply flex flex-col-reverse;
-    }
-
-    .contact-info .contact-box h1 {
-      @apply text-[18px] mb-1.5;
-    }
-
-    .contact-info .contact-box .links {
-      @apply gap-x-4;
-    }
-  }
-</style>
