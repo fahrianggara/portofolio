@@ -1,51 +1,18 @@
 <script setup>
-import { ref, onMounted, computed } from "vue";
-import axios from "axios";
-import { setWithExpiry, getWithExpiry } from "@/utils/helpers.js"; // Import helpers
+import { onMounted, computed } from "vue";
 import LanguageChart from "./TopLanguage.vue";
+import { useActivityStore } from "@/stores/activity";
 
-const codingStats = ref(null);
-const loading = ref(true);
-const errorMessage = ref("");
-const SECRET_KEY = import.meta.env.VITE_WAKATIME_API_KEY;
-const CACHE_KEY = "coding-activity";
-const CACHE_EXPIRY = 24 * 60 * 60 * 1000; // 1 hari dalam milidetik
-
-// Ambil data dari API atau cache
-const getActivity = async () => {
-  try {
-    const response = await axios.get("/wakatime-api", {
-      headers: {
-        Authorization: `Basic ${btoa(SECRET_KEY)}`,
-        "Content-Type": "application/json"
-      }
-    });
-
-    codingStats.value = response.data.data;
-    setWithExpiry(CACHE_KEY, codingStats.value, SECRET_KEY, CACHE_EXPIRY);
-  } catch (error) {
-    errorMessage.value = "Failed fetching data";
-    console.error("Error fetching data:", error);
-  } finally {
-    loading.value = false;
-  }
-};
+const activityStore = useActivityStore();
 
 // Cek cache sebelum fetch data
 onMounted(() => {
-  const cachedData = getWithExpiry(CACHE_KEY, SECRET_KEY);
-
-  if (cachedData) {
-    codingStats.value = cachedData;
-    loading.value = false; // Tidak perlu skeleton
-  } else {
-    getActivity();
-  }
+  activityStore.getActivity();
 });
 
 // Format data untuk tampilan
 const formattedRange = computed(() => {
-  return codingStats.value?.human_readable_range?.replace(/since\s+/i, '') || '';
+  return activityStore.codingStats?.human_readable_range?.replace(/since\s+/i, '') || '';
 });
 </script>
 
@@ -61,13 +28,13 @@ const formattedRange = computed(() => {
     <div class="box">
       <h1>Since</h1>
       <!-- Skeleton Loading hanya muncul pertama kali -->
-      <div v-if="loading" class="animate-pulse bg-gray-300 dark:bg-zinc-900 rounded h-4 mt-1"></div>
+      <div v-if="activityStore.loading" class="animate-pulse bg-gray-300 dark:bg-zinc-900 rounded h-4 mt-1"></div>
 
       <!-- Data setelah selesai loading -->
       <div v-else class="text-[15px] md:text-[13.5px] lg:text-[15px]">
         {{ formattedRange }}
         <span class="dark:text-gray-400 text-gray-600">
-          ({{ codingStats?.human_readable_total }})
+          ({{ activityStore.codingStats?.human_readable_total }})
         </span>
       </div>
     </div>
@@ -75,7 +42,7 @@ const formattedRange = computed(() => {
     <div class="box">
       <h1>Code Editor</h1>
       <!-- Skeleton Loading hanya muncul pertama kali -->
-      <div v-if="loading" class="animate-pulse bg-gray-300 dark:bg-zinc-900 rounded h-4 mt-1"></div>
+      <div v-if="activityStore.loading" class="animate-pulse bg-gray-300 dark:bg-zinc-900 rounded h-4 mt-1"></div>
 
       <!-- Data setelah selesai loading -->
       <div v-else class="text-[15px] md:text-[13.5px] lg:text-[15px]">
@@ -93,9 +60,9 @@ const formattedRange = computed(() => {
       This is my top 10 languages based on coding time.
     </p>
 
-    <div v-if="loading" class="animate-pulse bg-gray-300 dark:bg-zinc-900 rounded h-7 mt-1"></div>
+    <div v-if="activityStore.loading" class="animate-pulse bg-gray-300 dark:bg-zinc-900 rounded h-7 mt-1"></div>
 
-    <LanguageChart v-if="!loading && codingStats" :codingStats="codingStats" :key="codingStats" />
+    <LanguageChart v-if="!activityStore.loading && activityStore.codingStats" :codingStats="activityStore.codingStats" :key="activityStore.codingStats" />
   </div>
 </template>
 

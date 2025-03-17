@@ -17,41 +17,6 @@ export const decryptData = (ciphertext, SECRET_KEY) => {
     }
 };
 
-// Simpan data ke LocalStorage dengan expiry time
-export const setWithExpiry = (key, value, SECRET_KEY, ttl) => {
-    const now = new Date().getTime();
-    const encryptedValue = encryptData(value, SECRET_KEY);
-    
-    const item = {
-        value: encryptedValue, // Simpan dalam bentuk string terenkripsi
-        expiry: now + ttl,
-    };
-
-    localStorage.setItem(key, JSON.stringify(item));
-};
-
-// Ambil data dari LocalStorage dengan pengecekan expiry
-export const getWithExpiry = (key, SECRET_KEY) => {
-    const itemStr = localStorage.getItem(key);
-    if (!itemStr) return null;
-
-    try {
-        const item = JSON.parse(itemStr); // Parse object JSON dulu
-        const now = new Date().getTime();
-
-        // Jika expired, hapus dari LocalStorage
-        if (now > item.expiry) {
-            localStorage.removeItem(key);
-            return null;
-        }
-
-        return decryptData(item.value, SECRET_KEY); // Dekripsi setelah diambil
-    } catch (error) {
-        console.error("Error parsing JSON from localStorage:", error);
-        return null;
-    }
-};
-
 export const replaceText = (text, searchValue, replaceValue) => {
     if (typeof text !== "string") return text; // Pastikan input adalah string
     return text.replace(new RegExp(searchValue, "g"), replaceValue);

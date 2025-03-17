@@ -7,6 +7,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig(({ mode }) => {
   // Load environment variables sesuai mode (development/production)
   const env = loadEnv(mode, process.cwd(), 'VITE_');
+  const proxyApi = env.VITE_API_URL;
 
   return {
     plugins: [
@@ -28,14 +29,13 @@ export default defineConfig(({ mode }) => {
       allowedHosts: [''],
       proxy: {
         '/wakatime-api': {
-          target: 'https://wakatime.com/api/v1/users/current/stats',
+          target: `${proxyApi}/wakatime-api`,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/wakatime-api/, '')
         },
         '/api': {
-          target: import.meta.env.VITE_API_URL,
+          target: `${proxyApi}/api`,
           changeOrigin: true,
-          secure: false,
           rewrite: (path) => path.replace(/^\/api/, '')
         },
         '/github-api': {

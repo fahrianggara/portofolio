@@ -9,10 +9,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const apiUrl = 'https://be.fahrianggara.my.id/api';
+const wakatimeApiUrl = 'https://wakatime.com/api/v1/users/current/stats';
 
-app.use('/', async (req, res) => {
-  console.log(req.method, req.originalUrl, req.body); // Log request body
-
+app.use('/api', async (req, res) => {
   try {
     const response = await axios({
       method: req.method,
@@ -22,15 +21,32 @@ app.use('/', async (req, res) => {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
-      data: req.body 
+      data: req.body
     });
 
-    console.log(response.status, response.data);
     res.status(response.status).json(response.data);
   } catch (error) {
-    console.error(error.response?.status, error.response?.data);
-    res.status(error.response?.status || 500).json(error.response?.data || { 
-      error: "Internal Server Error" 
+    res.status(error.response?.status || 500).json(error.response?.data || {
+      error: "Internal Server Error"
+    });
+  }
+});
+
+app.use('/wakatime-api', async (req, res) => {
+  try {
+    const response = await axios({
+      method: req.method,
+      url: wakatimeApiUrl,
+      headers: {
+        Authorization: `Basic ${btoa(process.env.WAKATIME_API_KEY)}`,
+        "Content-Type": "application/json",
+      }
+    });
+
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    res.status(error.response?.status || 500).json(error.response?.data || {
+      error: "Internal Server Error"
     });
   }
 });
