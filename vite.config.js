@@ -33,9 +33,10 @@ export default defineConfig(({ mode }) => {
           rewrite: (path) => path.replace(/^\/wakatime-api/, '')
         },
         '/api': {
-          target: 'https://be.fahrianggara.my.id',
+          target: import.meta.env.VITE_API_URL,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, 'api')
+          secure: false,
+          rewrite: (path) => path.replace(/^\/api/, '')
         },
         '/github-api': {
           target: 'https://api.github.com',
