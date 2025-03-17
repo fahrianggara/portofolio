@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import apiService from "@/utils/apiService";
 import { useToast } from "@/utils/useToast";
+import axios from "axios";
 
 const toast = useToast();
 
@@ -11,8 +11,8 @@ export const useCvStore = defineStore("cv", {
   actions: {
     async fetchConfig() {
       try {
-        const { data } = await apiService.get("/configuration");
-        this.data = data;
+        const { data } = await axios.get("api/configuration");
+        this.data = data.data;
       } catch (error) {
         
       }

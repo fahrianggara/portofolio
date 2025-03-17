@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import apiService from "@/utils/apiService";
 import { ref } from "vue";
+import axios from "axios";
 
 export const useHomeStore = defineStore('homeStore', () => {
   const loading = ref(true);
@@ -8,8 +8,8 @@ export const useHomeStore = defineStore('homeStore', () => {
 
   const getGreeting = async () => {
     try {
-      const { data } = await apiService.get("/greeting");
-      greeting.value = data;
+      const { data } = await axios.get("api/greeting");
+      greeting.value = data.data;
     } catch (error) {
       
     } finally {

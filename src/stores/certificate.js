@@ -1,4 +1,4 @@
-import apiService from "@/utils/apiService";
+import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
@@ -8,8 +8,8 @@ export const useCertificateStore = defineStore("certificateStore", () => {
 
   const getCertificates = async () => {
     try {
-      const { data } = await apiService.get("/certifications");
-      certificates.value = data;
+      const { data } = await axios.get("api/certifications");
+      certificates.value = data.data;
     } catch (error) {
       certificates.value = [];
     } finally {

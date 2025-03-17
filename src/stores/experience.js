@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import apiService from "@/utils/apiService";
+import axios from "axios";
 
 export const useExperienceStore = defineStore("experienceStore", () => {
   const experiences = ref([]);
@@ -8,8 +8,8 @@ export const useExperienceStore = defineStore("experienceStore", () => {
 
   const getExperiences = async () => {    
     try {
-      const { data } = await apiService.get("/experiences");
-      experiences.value = Array.isArray(data) ? data : []; // Pastikan selalu array
+      const { data } = await axios.get("api/experiences");
+      experiences.value = Array.isArray(data.data) ? data.data : []; // Pastikan selalu array
     } catch (error) {
       experiences.value = []; // Jika error, set kosong agar tidak undefined
     } finally {

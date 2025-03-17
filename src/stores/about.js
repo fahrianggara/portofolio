@@ -1,4 +1,4 @@
-import apiService from "@/utils/apiService";
+import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
@@ -10,8 +10,8 @@ export const useAboutStore = defineStore("aboutStore", () => {
 
   const getAbout = async () => {
     try {
-      const { data } = await apiService.get("/about");
-      about.value = data;
+      const { data } = await axios.get("api/about");
+      about.value = data.data;
     } catch (error) {
       // error
     } finally {
@@ -21,8 +21,8 @@ export const useAboutStore = defineStore("aboutStore", () => {
 
   const getSkills = async () => {
     try {
-      const { data } = await apiService.get("/skills");
-      skills.value = data;
+      const { data } = await axios.get("api/skills");
+      skills.value = data.data;
     } catch (error) {
       // error
     }
@@ -30,8 +30,8 @@ export const useAboutStore = defineStore("aboutStore", () => {
 
   const getGreeting = async () => {
     try {
-      const { data } = await apiService.get("/greeting");
-      greeting.value = data;
+      const { data } = await axios.get("api/greeting");
+      greeting.value = data.data;
     } catch (error) {
       // error
     }
