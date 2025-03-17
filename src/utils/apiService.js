@@ -2,10 +2,6 @@ import axios from "axios";
 import { useToast } from "./useToast";
 
 const toast = useToast();
-
-console.log(import.meta.env.VITE_DISCORD_USER_ID); // Object yang berisi informasi environment
-console.log(import.meta.env.MODE); // development atau production
-
 const baseURL = import.meta.env.MODE === "development" ? "/api" : "https://be.fahrianggara.my.id/api"; 
 
 const apiClient = axios.create({
@@ -30,7 +26,6 @@ const apiService = {
       return response.data;
     } catch (error) {
       console.error("API Error:", error);
-      toast.error("Terjadi kesalahan pada API");
       throw error;
     }
   },

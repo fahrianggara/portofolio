@@ -41,7 +41,7 @@ onMounted(() => {
 
   // Smooth Scroll with Lenis (only if not mobile)
   if (!isMobile()) {
-    import("@studio-freight/lenis").then(({ default: Lenis }) => {
+    import("lenis").then(({ default: Lenis }) => {
       const lenis = new Lenis();
 
       function raf(time) {

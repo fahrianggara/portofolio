@@ -7,6 +7,8 @@ on:
 
 jobs:
   deploy:
+    if: false
+
     name: Deploy to Hosting
     runs-on: ubuntu-latest
 

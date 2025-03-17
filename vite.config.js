@@ -26,7 +26,6 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       allowedHosts: [''],
-      port: 3000,
       proxy: {
         '/wakatime-api': {
           target: 'https://wakatime.com/api/v1/users/current/stats',
