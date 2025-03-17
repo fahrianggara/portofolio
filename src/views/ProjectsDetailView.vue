@@ -1,14 +1,13 @@
 <script setup>
-
-import Sidebar from "@/components/Sidebar.vue";
 import { useScreenSize } from "@/utils/screenResize.js";
-import Thumbnail from "@/components/projects/Thumbnail.vue";
-import apiService from "@/utils/apiService";
 import { computed, onMounted, ref, watch } from "vue";
-import NotFoundSvg from "@/components/icon/NotFound.vue";
-
 import { useRoute } from "vue-router";
+import Sidebar from "@/components/Sidebar.vue";
+import Thumbnail from "@/components/projects/Thumbnail.vue";
+import axios from "axios";
+import NotFoundSvg from "@/components/icon/NotFound.vue";
 import MarkdownViewer from "@/components/MarkdownViewer.vue";
+
 const { resizeScreen } = useScreenSize();
 
 const route = useRoute();
@@ -18,8 +17,8 @@ const notFound = ref(false);
 
 const getProject = async () => {
   try {
-    const res = await apiService.get(`/projects/${route.params.slug}`);
-    project.value = res.data;
+    const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/projects/${route.params.slug}`);
+    project.value = data.data;
   } catch (err) {
     if (err.response.status === 404) {
       notFound.value = true;
@@ -29,6 +28,8 @@ const getProject = async () => {
     loading.value = false;
   }
 };
+
+watch(() => route.params.slug, getProject, { immediate: true });
 
 onMounted(() => {
   getProject();

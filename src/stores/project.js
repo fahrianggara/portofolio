@@ -10,7 +10,7 @@ export const useProjectStore = defineStore("projectStore", () => {
 
   const getProjects = async (page = 1) => {
     try {
-      const { data, current_page, last_page } = await axios.get(`api/projects?page=${page}`);
+      const { data, current_page, last_page } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/projects?page=${page}`);
       projects.value = Array.isArray(data.data.data) ? data.data.data : [];
       currentPage.value = current_page;
       lastPage.value = last_page;

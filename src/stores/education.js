@@ -8,7 +8,7 @@ export const useEducationStore = defineStore("educationStore", () => {
 
   const getEducations = async () => {
     try {
-      const { data } = await axios.get("api/educations");
+      const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/educations`);
       educations.value = data.data;
     } catch (error) {
       console.error(error);

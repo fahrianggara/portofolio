@@ -56,7 +56,10 @@
               </li>
 
               <li v-else v-for="(project, index) in projectStore.projects" :key="index">
-                <router-link class="flex items-start gap-4" :to="`/projects/${project.slug}`">
+                <router-link class="flex items-start gap-4" :to="{
+                  name: 'project-detail',
+                  params: { slug: project.slug }
+                }">
                   <img :src="project.image_link" alt="thumbnail" />
                   <div class="w-full h-full flex flex-col justify-between">
                     <div>

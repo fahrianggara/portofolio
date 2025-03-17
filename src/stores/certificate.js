@@ -8,7 +8,7 @@ export const useCertificateStore = defineStore("certificateStore", () => {
 
   const getCertificates = async () => {
     try {
-      const { data } = await axios.get("api/certifications");
+      const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/certifications`);
       certificates.value = data.data;
     } catch (error) {
       certificates.value = [];
