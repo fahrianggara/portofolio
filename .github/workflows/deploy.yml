@@ -13,14 +13,14 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install Dependencies
-      run: npm install
-
     - name: Create .env.production
       run: |
-        echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" > .env.production
+        echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> .env.production
         echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env.production
         echo "VITE_DISCORD_USER_ID=${{ secrets.VITE_DISCORD_USER_ID }}" >> .env.production
+
+    - name: Install Dependencies
+      run: npm install
 
     - name: Build Project
       run: npm run build
