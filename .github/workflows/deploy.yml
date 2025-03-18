@@ -19,6 +19,15 @@ jobs:
     - name: Build Project
       run: npm run build
 
+    - name: Create a ENV file
+      uses: SpicyPizza/create-envfile@v2.0
+      with:
+        envkey_DEBUG: false
+        envkey_VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
+        envkey_VITE_API_URL: ${{ secrets.VITE_API_URL }}
+        envkey_VITE_DISCORD_USER_ID: ${{ secrets.VITE_DISCORD_USER_ID }}
+        file_name: .env.production
+
     - name: Deploy project via FTP
       uses: SamKirkland/FTP-Deploy-Action@4.3.1
       with:
