@@ -1,4 +1,4 @@
-import axios from "axios";
+import apiClient from "@/utils/axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
@@ -8,7 +8,7 @@ export const useActivityStore = defineStore("activityStore", () => {
 
   const getActivity = async () => {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/wakatime`);
+      const { data } = await apiClient.get(`wakatime`);
       codingStats.value = data.data;
     } catch (error) {
       codingStats.value = [];

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import axios from "axios";
+import apiClient from "@/utils/axios";
 
 export const useExperienceStore = defineStore("experienceStore", () => {
   const experiences = ref([]);
@@ -8,7 +8,7 @@ export const useExperienceStore = defineStore("experienceStore", () => {
 
   const getExperiences = async () => {    
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/experiences`);
+      const { data } = await apiClient.get(`api/experiences`);
       experiences.value = Array.isArray(data.data) ? data.data : []; // Pastikan selalu array
     } catch (error) {
       experiences.value = []; // Jika error, set kosong agar tidak undefined

@@ -1,4 +1,4 @@
-import axios from "axios";
+import apiClient from "@/utils/axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
@@ -10,7 +10,7 @@ export const useAboutStore = defineStore("aboutStore", () => {
 
   const getAbout = async () => {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/about`);
+      const { data } = await apiClient.get(`api/about`);
       about.value = data.data;
     } catch (error) {
       // error
@@ -21,7 +21,7 @@ export const useAboutStore = defineStore("aboutStore", () => {
 
   const getSkills = async () => {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/skills`);
+      const { data } = await apiClient.get(`api/skills`);
       skills.value = data.data;
     } catch (error) {
       // error
@@ -30,7 +30,7 @@ export const useAboutStore = defineStore("aboutStore", () => {
 
   const getGreeting = async () => {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/greeting`);
+      const { data } = await apiClient.get(`api/greeting`);
       greeting.value = data.data;
     } catch (error) {
       // error

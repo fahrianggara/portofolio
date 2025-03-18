@@ -6,9 +6,9 @@ import { useHomeStore } from "@/stores/home";
 import { replaceText } from "@/utils/helpers";
 import Sidebar from "@/components/Sidebar.vue";
 import Contact from "@/models/contact";
-import axios from "axios";
 import Input from "@/components/form/input.vue";
 import Textarea from "@/components/form/textarea.vue";
+import apiClient from "@/utils/axios";
 
 const toast = useToast();
 const homeStore = useHomeStore();
@@ -20,7 +20,7 @@ const submitForm = async () => {
   loading.value = true;
 
   try {
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/contact`, contact.value);
+    const response = await apiClient.post(`api/contact`, contact.value);
     toast.success(response.data.message);
     contact.value.reset();
   } catch (err) {

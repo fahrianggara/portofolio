@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import axios from "axios";
+import apiClient from "@/utils/axios";
 
 export const useEducationStore = defineStore("educationStore", () => {
   const loading = ref(true);
@@ -8,7 +8,7 @@ export const useEducationStore = defineStore("educationStore", () => {
 
   const getEducations = async () => {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/educations`);
+      const { data } = await apiClient.get(`api/educations`);
       educations.value = data.data;
     } catch (error) {
       console.error(error);

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import axios from "axios";
+import apiClient from "@/utils/axios";
 
 export const useHomeStore = defineStore('homeStore', () => {
   const loading = ref(true);
@@ -8,7 +8,7 @@ export const useHomeStore = defineStore('homeStore', () => {
 
   const getGreeting = async () => {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/greeting`);
+      const { data } = await apiClient.get(`api/greeting`);
       greeting.value = data.data;
     } catch (error) {
       

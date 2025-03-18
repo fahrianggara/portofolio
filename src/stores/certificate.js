@@ -1,4 +1,4 @@
-import axios from "axios";
+import apiClient from "@/utils/axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
@@ -8,7 +8,7 @@ export const useCertificateStore = defineStore("certificateStore", () => {
 
   const getCertificates = async () => {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/certifications`);
+      const { data } = await apiClient.get(`api/certifications`);
       certificates.value = data.data;
     } catch (error) {
       certificates.value = [];
