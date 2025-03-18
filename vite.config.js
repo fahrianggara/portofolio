@@ -30,22 +30,19 @@ export default defineConfig(({ mode }) => {
       allowedHosts: [''],
       proxy: {
         '/wakatime': {
-          target: `${API_URL}/wakatime`,
+          target: `${API_URL}`,
           changeOrigin: isDev,
           secure: !isDev,
-          rewrite: (path) => path.replace(/^\/wakatime/, '')
         },
         '/api': {
-          target: `${API_URL}/api`,
+          target: `${API_URL}`,
           changeOrigin: isDev,
           secure: !isDev,
-          rewrite: (path) => path.replace(/^\/api/, '')
         },
         '/github': {
-          target: `${API_URL}/github`,
+          target: `${API_URL}`,
           changeOrigin: isDev,
           secure: !isDev,
-          rewrite: (path) => path.replace(/^\/github/, '')
         }
       },
     }

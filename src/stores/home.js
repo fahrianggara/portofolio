@@ -8,7 +8,7 @@ export const useHomeStore = defineStore('homeStore', () => {
 
   const getGreeting = async () => {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/greeting`);
+      const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/greeting`);
       greeting.value = data.data;
     } catch (error) {
       

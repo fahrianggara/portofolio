@@ -10,7 +10,7 @@ export const useAboutStore = defineStore("aboutStore", () => {
 
   const getAbout = async () => {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/about`);
+      const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/about`);
       about.value = data.data;
     } catch (error) {
       // error
@@ -21,7 +21,7 @@ export const useAboutStore = defineStore("aboutStore", () => {
 
   const getSkills = async () => {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/skills`);
+      const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/skills`);
       skills.value = data.data;
     } catch (error) {
       // error
@@ -30,7 +30,7 @@ export const useAboutStore = defineStore("aboutStore", () => {
 
   const getGreeting = async () => {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/greeting`);
+      const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/greeting`);
       greeting.value = data.data;
     } catch (error) {
       // error
