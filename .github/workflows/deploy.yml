@@ -37,6 +37,7 @@ jobs:
           **/src/**
           **/tests/**
           **/*.md
+        dry-run: true
 
     - name: Install Dependencies for Express.js
       run: |
@@ -56,3 +57,4 @@ jobs:
           **/node_modules/**
           **/README.md
           **/.env*
+        dry-run: true
