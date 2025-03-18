@@ -7,7 +7,8 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig(({ mode }) => {
   // Load environment variables sesuai mode (development/production)
   const env = loadEnv(mode, process.cwd(), 'VITE_');
-  const proxyApi = env.VITE_API_URL;
+  const API_URL = env.VITE_API_URL;
+  const isDev = mode === 'development';
 
   return {
     plugins: [
@@ -29,18 +30,21 @@ export default defineConfig(({ mode }) => {
       allowedHosts: [''],
       proxy: {
         '/wakatime': {
-          target: `${proxyApi}/wakatime`,
-          changeOrigin: true,
+          target: `${API_URL}/wakatime`,
+          changeOrigin: isDev,
+          secure: !isDev,
           rewrite: (path) => path.replace(/^\/wakatime/, '')
         },
         '/api': {
-          target: `${proxyApi}/api`,
-          changeOrigin: true,
+          target: `${API_URL}/api`,
+          changeOrigin: isDev,
+          secure: !isDev,
           rewrite: (path) => path.replace(/^\/api/, '')
         },
         '/github': {
-          target: `${proxyApi}/github`,
-          changeOrigin: true,
+          target: `${API_URL}/github`,
+          changeOrigin: isDev,
+          secure: !isDev,
           rewrite: (path) => path.replace(/^\/github/, '')
         }
       },

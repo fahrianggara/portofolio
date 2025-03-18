@@ -6,10 +6,12 @@ const app = express();
 const port = process.env.PORT || 3000;
 const path = require('path');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
 dotenv.config({ path: path.resolve(__dirname, envFile) });
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
