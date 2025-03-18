@@ -7,14 +7,11 @@ on:
 
 jobs:
   deploy:
-    # if: false
-
     name: Deploy to Hosting
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
     - name: Install Dependencies
       run: npm install
@@ -36,21 +33,20 @@ jobs:
           **/src/**
           **/tests/**
           **/*.md
+    # - name: Install Dependencies for Express.js
+    #   run: |
+    #     cd backend
+    #     npm install --production
 
-    - name: Install Dependencies for Express.js
-      run: |
-        cd backend
-        npm install --production
-
-    - name: Upload Express.js via FTP
-      uses: SamKirkland/FTP-Deploy-Action@4.3.3
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME_API }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: backend/
-        exclude: |
-          **/.git*
-          **/node_modules/**
-          **/README.md
-          **/.env*
+    # - name: Upload Express.js via FTP
+    #   uses: SamKirkland/FTP-Deploy-Action@4.3.3
+    #   with:
+    #     server: ${{ secrets.FTP_SERVER }}
+    #     username: ${{ secrets.FTP_USERNAME_API }}
+    #     password: ${{ secrets.FTP_PASSWORD }}
+    #     local-dir: backend/
+    #     exclude: |
+    #       **/.git*
+    #       **/node_modules/**
+    #       **/README.md
+    #       **/.env*
