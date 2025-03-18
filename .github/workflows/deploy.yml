@@ -36,7 +36,6 @@ jobs:
           **/src/**
           **/tests/**
           **/*.md
-        dry-run: true
 
     - name: Install Dependencies for Express.js
       run: |
@@ -47,7 +46,7 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
         server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
+        username: ${{ secrets.FTP_USERNAME_API }}
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: backend/
         exclude: |
@@ -55,4 +54,3 @@ jobs:
           **/node_modules/**
           **/README.md
           **/.env*
-        dry-run: true
