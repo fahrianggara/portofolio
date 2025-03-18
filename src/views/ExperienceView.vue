@@ -34,18 +34,20 @@ onMounted(() => {
           </div>
 
           <ol class="parent" :class="{ 'not-loading': !experienceStore.loading }">
-            <li v-if="experienceStore.loading" v-for="n in 1" :key="n">
-              <div class="flex gap-2">
-                <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[100px]"></div>
-                <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[100px]"></div>
-              </div>
-              <div class="h-4 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4 w-[200px]"></div>
-              <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4 w-[120px]"></div>
-              <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
-              <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-3"></div>
-              <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-3"></div>
-              <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-3"></div>
-            </li>
+            <template v-if="experienceStore.loading">
+              <li v-for="n in 1" :key="n">
+                <div class="flex gap-2">
+                  <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[100px]"></div>
+                  <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[100px]"></div>
+                </div>
+                <div class="h-4 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4 w-[200px]"></div>
+                <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4 w-[120px]"></div>
+                <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
+                <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-3"></div>
+                <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-3"></div>
+                <div class="h-2.5 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-3"></div>
+              </li>
+            </template>
             
             <li v-else class="mb-5 ms-7" v-for="(experience, index) in experienceStore.experiences" :key="index">         
               <span class="icon">

@@ -115,58 +115,58 @@ router.beforeEach((to, from, next) => {
   let title = to.meta.title ? `${to.meta.title} - ${appName}` : appName
   let description = to.meta.description || defaultDescription
 
-  useSeoMeta({
-    title,
-    description,
-    author: appName,
-    robots: 'index, follow',
-    ogTitle: title,
-    ogDescription: description,
-    ogType: 'website',
-    ogUrl: `${import.meta.env.VITE_BASE_URL}${to.path}`,
-    ogImage: `${import.meta.env.VITE_BASE_URL}/img/og.png`,
-    ogImageAlt: `${appName} Logo`,
-    ogImageHeight: 630,
-    ogImageWidth: 1200,
-    ogImageType: 'image/png',
-    ogSiteName: appName,
-    twitterCard: 'summary_large_image',
-    twitterTitle: title,
-    twitterDescription: description,
-    twitterImage: `${import.meta.env.VITE_BASE_URL}/img/og.png`,
-    twitterImageAlt: `${appName} Logo`,
-    twitterImageHeight: 630,
-    twitterImageWidth: 1200,
-  });
+  // useSeoMeta({
+  //   title,
+  //   description,
+  //   author: appName,
+  //   robots: 'index, follow',
+  //   ogTitle: title,
+  //   ogDescription: description,
+  //   ogType: 'website',
+  //   ogUrl: `${import.meta.env.VITE_BASE_URL}${to.path}`,
+  //   ogImage: `${import.meta.env.VITE_BASE_URL}/img/og.png`,
+  //   ogImageAlt: `${appName} Logo`,
+  //   ogImageHeight: 630,
+  //   ogImageWidth: 1200,
+  //   ogImageType: 'image/png',
+  //   ogSiteName: appName,
+  //   twitterCard: 'summary_large_image',
+  //   twitterTitle: title,
+  //   twitterDescription: description,
+  //   twitterImage: `${import.meta.env.VITE_BASE_URL}/img/og.png`,
+  //   twitterImageAlt: `${appName} Logo`,
+  //   twitterImageHeight: 630,
+  //   twitterImageWidth: 1200,
+  // });
 
-  useHead({
-    link: [
-      {
-        rel: 'canonical',
-        href: `${import.meta.env.VITE_BASE_URL}${to.path}`
-      }
-    ],
-    script: [
-      {
-        type: 'application/ld+json',
-        innerHTML: `
-          {
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": ${JSON.stringify(appName)},
-            "jobTitle": "Web Developer & UI/UX Designer",
-            "url": "${import.meta.env.VITE_BASE_URL}",
-            "image": "${import.meta.env.VITE_BASE_URL}/img/logo.png",
-            "sameAs": [
-              "https://github.com/fahrianggara",
-              "https://www.linkedin.com/in/fahrianggara",
-              "https://www.instagram.com/fahrianqqara",
-            ]
-          }
-        `
-      }
-    ]
-  });
+  // useHead({
+  //   link: [
+  //     {
+  //       rel: 'canonical',
+  //       href: `${import.meta.env.VITE_BASE_URL}${to.path}`
+  //     }
+  //   ],
+  //   script: [
+  //     {
+  //       type: 'application/ld+json',
+  //       innerHTML: `
+  //         {
+  //           "@context": "https://schema.org",
+  //           "@type": "Person",
+  //           "name": ${JSON.stringify(appName)},
+  //           "jobTitle": "Web Developer & UI/UX Designer",
+  //           "url": "${import.meta.env.VITE_BASE_URL}",
+  //           "image": "${import.meta.env.VITE_BASE_URL}/img/logo.png",
+  //           "sameAs": [
+  //             "https://github.com/fahrianggara",
+  //             "https://www.linkedin.com/in/fahrianggara",
+  //             "https://www.instagram.com/fahrianqqara",
+  //           ]
+  //         }
+  //       `
+  //     }
+  //   ]
+  // });
 
   next();
 })

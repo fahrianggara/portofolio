@@ -16,15 +16,17 @@ onMounted(() => {
   </p>
 
   <ol class="repos">
-    <li v-if="repoStore.loading" v-for="n in 2" :key="n">
-      <a href="#">
-        <div class="w-8 h-8 bg-gray-300 dark:bg-dark-surface rounded-lg animate-pulse"></div>
-        <div class="w-full h-4 bg-gray-300 dark:bg-dark-surface rounded-lg animate-pulse mt-3"></div>
-        <div class="w-full h-3 bg-gray-300 dark:bg-dark-surface rounded-lg animate-pulse mt-3"></div>
-        <div class="w-full h-3 bg-gray-300 dark:bg-dark-surface rounded-lg animate-pulse mt-2"></div>
-        <div class="w-[100px] h-3 bg-gray-300 dark:bg-dark-surface rounded-lg animate-pulse mt-4"></div>
-      </a>
-    </li>
+    <template v-if="repoStore.loading">
+      <li v-for="n in 2" :key="n">
+        <a href="#">
+          <div class="w-8 h-8 bg-gray-300 dark:bg-dark-surface rounded-lg animate-pulse"></div>
+          <div class="w-full h-4 bg-gray-300 dark:bg-dark-surface rounded-lg animate-pulse mt-3"></div>
+          <div class="w-full h-3 bg-gray-300 dark:bg-dark-surface rounded-lg animate-pulse mt-3"></div>
+          <div class="w-full h-3 bg-gray-300 dark:bg-dark-surface rounded-lg animate-pulse mt-2"></div>
+          <div class="w-[100px] h-3 bg-gray-300 dark:bg-dark-surface rounded-lg animate-pulse mt-4"></div>
+        </a>
+      </li>
+    </template>
 
     <li v-else v-for="(repo, index) in repoStore.repos" :key="index">
       <a :href="repo.url" target="_blank">

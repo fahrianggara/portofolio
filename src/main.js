@@ -9,7 +9,6 @@ import glightboxDirective from './directives/glightbox'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createHead } from '@unhead/vue/client';
-import { CanonicalPlugin } from 'unhead/plugins'
 
 import App from './App.vue'
 import router from './router'

@@ -25,8 +25,9 @@
     </div>
 
     <div v-else class="grid grid-cols-2 md:grid-cols-3 gap-4">
-      <span v-if="certificateStore.loading" v-for="n in 2" :key="n" class="animate-pulse bg-gray-300 
-        dark:bg-zinc-900 rounded-lg w-full h-30"></span>
+      <template v-if="certificateStore.loading">
+        <span v-for="n in 2" :key="n" class="animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-full h-30"></span>
+      </template>
         
       <a v-else v-for="(certificate, index) in certificateStore.certificates" :key="index" :href="certificate.image_link" 
         class="glightbox drop-shadow-2xl" data-gallery="certificates" data-type="image" v-glightbox>

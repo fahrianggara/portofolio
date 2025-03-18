@@ -43,17 +43,19 @@
 
           <div v-else>
             <ol class="projects">
-              <li v-if="projectStore.loading" v-for="n in 1" :key="n">
-                <a href="#" class="flex items-start gap-4">
-                  <div class="w-20 h-20 md:w-28 md:h-28 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-xl"></div>
-                  <div class="w-full h-full flex flex-col justify-between">
-                    <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[120px]"></div>
-                    <div class="h-4 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
-                    <div class="h-3 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
-                    <div class="h-3 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-2"></div>
-                  </div>
-                </a>
-              </li>
+              <template v-if="projectStore.loading">
+                <li v-for="n in 1" :key="n">
+                  <a href="#" class="flex items-start gap-4">
+                    <div class="w-20 h-20 md:w-28 md:h-28 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-xl"></div>
+                    <div class="w-full h-full flex flex-col justify-between">
+                      <div class="h-2 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg w-[120px]"></div>
+                      <div class="h-4 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
+                      <div class="h-3 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-4"></div>
+                      <div class="h-3 animate-pulse bg-gray-300 dark:bg-zinc-900 rounded-lg mt-2"></div>
+                    </div>
+                  </a>
+                </li>
+              </template>
 
               <li v-else v-for="(project, index) in projectStore.projects" :key="index">
                 <router-link class="flex items-start gap-4" :to="{
