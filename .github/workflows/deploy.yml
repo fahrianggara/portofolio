@@ -18,29 +18,15 @@ jobs:
 
     - name: Create .env.production
       run: |
-        cat <<EOF > .env.production
-        VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}
-        VITE_API_URL=${{ secrets.VITE_API_URL }}
-        VITE_DISCORD_USER_ID=${{ secrets.VITE_DISCORD_USER_ID }}
-        EOF
-        cat .env.production
-
-    # Pastikan dist/ ada sebelum pindah file .env.production
-    - name: Ensure dist/ exists
-      run: mkdir -p dist/
-
-    - name: Move .env.production to dist
-      run: mv .env.production dist/
+        echo VITE_BASE_URL=${{ secrets.VITE_BASE_URL }} > .env.production
+        echo VITE_API_URL=${{ secrets.VITE_API_URL }} >> .env.production
+        echo VITE_DISCORD_USER_ID=${{ secrets.VITE_DISCORD_USER_ID }} >> .env.production
 
     - name: Build Project
       run: npm run build
 
-    # Cek apakah .env.production benar-benar ada di dist/
-    - name: Check files in dist before upload
-      run: ls -lah dist/
-
     - name: Deploy project via FTP
-      uses: SamKirkland/FTP-Deploy-Action@4.3.3
+      uses: SamKirkland/FTP-Deploy-Action@4.3.1
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
@@ -60,7 +46,7 @@ jobs:
         npm install
 
     - name: Upload Express.js via FTP
-      uses: SamKirkland/FTP-Deploy-Action@4.3.3
+      uses: SamKirkland/FTP-Deploy-Action@4.3.1
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME_API }}
