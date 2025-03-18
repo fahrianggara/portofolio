@@ -1,4 +1,4 @@
-name: Deploy web to Hosting
+name: Deploy portfolio to Hosting
 
 on:
   push:
@@ -25,7 +25,10 @@ jobs:
         EOF
         cat .env.production
 
-    # Pindahkan .env.production ke dist/
+    # Pastikan dist/ ada sebelum pindah file .env.production
+    - name: Ensure dist/ exists
+      run: mkdir -p dist/
+
     - name: Move .env.production to dist
       run: mv .env.production dist/
 
