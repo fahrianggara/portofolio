@@ -17,7 +17,7 @@ const notFound = ref(false);
 
 const getProject = async () => {
   try {
-    const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/projects/${route.params.slug}`);
+    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/projects/${route.params.slug}`);
     project.value = data.data;
   } catch (err) {
     if (err.response.status === 404) {

@@ -11,7 +11,7 @@ export const useCvStore = defineStore("cv", {
   actions: {
     async fetchConfig() {
       try {
-        const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/configuration`);
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/configuration`);
         this.data = data.data;
       } catch (error) {
         

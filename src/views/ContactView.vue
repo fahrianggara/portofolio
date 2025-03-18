@@ -20,7 +20,7 @@ const submitForm = async () => {
   loading.value = true;
 
   try {
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/contact`, contact.value);
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/contact`, contact.value);
     toast.success(response.data.message);
     contact.value.reset();
   } catch (err) {

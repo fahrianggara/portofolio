@@ -31,7 +31,7 @@ export const useRepoStore = defineStore("repo", {
       `;
 
       try {
-        const response = await axios.post("github", {query});
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/github`, {query});
         this.repos = response.data.data.viewer.pinnedItems.nodes;
       } catch (error) {
         // 
