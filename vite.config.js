@@ -28,20 +28,20 @@ export default defineConfig(({ mode }) => {
     server: {
       allowedHosts: [''],
       proxy: {
-        '/wakatime-api': {
-          target: `${proxyApi}/wakatime-api`,
+        '/wakatime': {
+          target: `${proxyApi}/wakatime`,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/wakatime-api/, '')
+          rewrite: (path) => path.replace(/^\/wakatime/, '')
         },
         '/api': {
           target: `${proxyApi}/api`,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '')
         },
-        '/github-api': {
-          target: 'https://api.github.com',
+        '/github': {
+          target: `${proxyApi}/github`,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/github-api/, '')
+          rewrite: (path) => path.replace(/^\/github/, '')
         }
       },
     }

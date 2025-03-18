@@ -10,7 +10,6 @@ export const useRepoStore = defineStore("repo", {
 
   actions: {
     async getPinnedRepos() {
-      const GITHUB_ACCESS_TOKEN = import.meta.env.VITE_GITHUB_ACCESS_TOKEN;
       const query = `
         query {
           viewer {
@@ -32,16 +31,7 @@ export const useRepoStore = defineStore("repo", {
       `;
 
       try {
-        const response = await axios.post(
-          "https://api.github.com/graphql",
-          { query },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${GITHUB_ACCESS_TOKEN}`,
-            },
-          }
-        );
+        const response = await axios.post("github", {query});
         this.repos = response.data.data.viewer.pinnedItems.nodes;
       } catch (error) {
         // 

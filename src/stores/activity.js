@@ -8,7 +8,7 @@ export const useActivityStore = defineStore("activityStore", () => {
 
   const getActivity = async () => {
     try {
-      const { data } = await axios.get("wakatime-api");
+      const { data } = await axios.get("wakatime");
       codingStats.value = data.data;
     } catch (error) {
       codingStats.value = [];

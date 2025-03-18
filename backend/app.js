@@ -3,13 +3,19 @@ require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
+const path = require('path');
+const dotenv = require('dotenv');
+
+const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
+dotenv.config({ path: path.resolve(__dirname, envFile) });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const apiUrl = 'https://be.fahrianggara.my.id/api';
 const wakatimeApiUrl = 'https://wakatime.com/api/v1/users/current/stats';
+const githubApiUrl = 'https://api.github.com/graphql';
 
 app.use('/api', async (req, res) => {
   try {
@@ -32,7 +38,7 @@ app.use('/api', async (req, res) => {
   }
 });
 
-app.use('/wakatime-api', async (req, res) => {
+app.use('/wakatime', async (req, res) => {
   try {
     const response = await axios({
       method: req.method,
@@ -51,6 +57,30 @@ app.use('/wakatime-api', async (req, res) => {
   }
 });
 
+app.use('/github', async (req, res) => {
+  try {
+    const response = await axios({
+      method: req.method,
+      url: githubApiUrl,
+      headers: {
+        Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      data: req.body
+    });
+
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    res.status(error.response?.status || 500).json(error.response?.data || {
+      error: "Internal Server Error"
+    });
+  }
+});
+
+app.use((req, res) => {
+  res.redirect(process.env.FRONTEND_URL);
+});
+
 app.listen(port, () => {
-  console.log(`Proxy API running on port ${port}`);
+  console.log(`Proxy API running on port ${process.env.BASE_URL}:${port}`);
 });
