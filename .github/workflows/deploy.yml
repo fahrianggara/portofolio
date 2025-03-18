@@ -1,4 +1,4 @@
-name: Deploy portfolio to Hosting
+name: Deploy web to Hosting
 
 on:
   push:
@@ -18,17 +18,26 @@ jobs:
 
     - name: Create .env.production
       run: |
-        touch .env.production
-        echo VITE_BASE_URL=${{ secrets.VITE_BASE_URL }} >> .env.production
-        echo VITE_API_URL=${{ secrets.VITE_API_URL }} >> .env.production
-        echo VITE_DISCORD_USER_ID=${{ secrets.VITE_DISCORD_USER_ID }} >> .env.production
+        cat <<EOF > .env.production
+        VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}
+        VITE_API_URL=${{ secrets.VITE_API_URL }}
+        VITE_DISCORD_USER_ID=${{ secrets.VITE_DISCORD_USER_ID }}
+        EOF
         cat .env.production
+
+    # Pindahkan .env.production ke dist/
+    - name: Move .env.production to dist
+      run: mv .env.production dist/
 
     - name: Build Project
       run: npm run build
 
+    # Cek apakah .env.production benar-benar ada di dist/
+    - name: Check files in dist before upload
+      run: ls -lah dist/
+
     - name: Deploy project via FTP
-      uses: SamKirkland/FTP-Deploy-Action@4.3.1
+      uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
@@ -48,7 +57,7 @@ jobs:
         npm install
 
     - name: Upload Express.js via FTP
-      uses: SamKirkland/FTP-Deploy-Action@4.3.1
+      uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME_API }}
@@ -58,3 +67,4 @@ jobs:
           **/.git*
           **/node_modules/**
           **/README.md
+          **/.env*
