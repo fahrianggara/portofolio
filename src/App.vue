@@ -2,14 +2,23 @@
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
 import { useRoute } from 'vue-router';
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { useToggle } from '@vueuse/shared';
 import Parallax from './components/Parallax.vue';
 import { useDark } from '@vueuse/core';
 import GlowCursor from "./components/GlowCursor.vue";
 import ToastContainer from './components/ToastContainer.vue';
 
-const route = useRoute();
+const route = useRoute(); // Vue Router's route
+
+// Ambil title dari meta
+const title = computed(() => route.meta.title);
+
+// Pantau perubahan title dan perbarui document.title
+watch(title, (newTitle) => {
+  const appName = import.meta.env.VITE_APP_NAME;
+  document.title = newTitle ? `${newTitle} - ${appName}` : appName;
+}, { immediate: true });
 
 // Dark Mode
 const isDark = useDark({
@@ -24,6 +33,17 @@ const toggleDark = useToggle(isDark);
 
 // Function to check if the device is mobile
 const isMobile = () => window.innerWidth <= 768 || /Mobi|Android/i.test(navigator.userAgent);
+
+// Update saat ukuran layar berubah
+const updateIsMobile = () => {
+  isMobile.value = window.innerWidth <= 768 || /Mobi|Android/i.test(navigator.userAgent);
+};
+
+// Pantau perubahan ukuran layar
+watchEffect(() => {
+  window.addEventListener('resize', updateIsMobile);
+  return () => window.removeEventListener('resize', updateIsMobile);
+});
 
 onMounted(() => {
   // Add dark:bg-dark-background when first loaded
@@ -57,11 +77,11 @@ onMounted(() => {
     });
   }
 });
-</script>
-
+</script> 
 
 <template>
   <GlowCursor />
+
   <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark" @toggleDark="toggleDark" />
   
   <main class="flex flex-col min-h-screen font-inter relative z-9">
@@ -69,7 +89,7 @@ onMounted(() => {
     <Footer v-if="route.meta.showNavbarAndFooter" />
   </main>
 
-  <Parallax />
+  <!-- <Parallax /> -->
 
   <ToastContainer />
 </template>

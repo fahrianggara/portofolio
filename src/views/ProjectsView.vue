@@ -62,7 +62,7 @@
                   name: 'project-detail',
                   params: { slug: project.slug }
                 }">
-                  <img :src="project.image_link" alt="thumbnail" />
+                  <img v-lazy="project.image_link" alt="thumbnail" />
                   <div class="w-full h-full flex flex-col justify-between">
                     <div>
                       <span class="text-[12px] sm:text-[13px] text-primary mb-1 block">
@@ -107,7 +107,7 @@
   }
 
   .projects li a  {
-    @apply relative p-4 rounded-2xl bg-white/40 dark:bg-dark-surface/60 backdrop-blur-2xl border border-solid dark:border-zinc-900 border-gray-300 ease-in-out duration-300 transform hover:-translate-y-[2px]
+    @apply relative p-4 rounded-2xl bg-white/60 dark:bg-dark-surface/60 backdrop-blur-2xl border border-solid dark:border-zinc-900 border-gray-300 ease-in-out duration-300 transform hover:-translate-y-[2px]
     dark:hover:bg-dark-surface/80 hover:bg-white/70;
   }
   .projects li img {

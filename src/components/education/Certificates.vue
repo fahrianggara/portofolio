@@ -31,7 +31,7 @@
         
       <a v-else v-for="(certificate, index) in certificateStore.certificates" :key="index" :href="certificate.image_link" 
         class="glightbox drop-shadow-2xl" data-gallery="certificates" data-type="image" v-glightbox>
-        <img :src="certificate.image_link">
+        <img v-lazy="certificate.image_link">
       </a>
     </div>
   </div>

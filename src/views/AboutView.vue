@@ -64,7 +64,7 @@
             <div class="about" v-glightbox>
               <!-- Gambar dengan float -->
               <a data-gallery="certificates" data-type="image" :href="aboutStore.about?.photo_link" class="glightbox">
-                <img :src="aboutStore.about?.photo_link" alt="test" :key="aboutStore.about?.photo_link" loading="lazy"
+                <img v-lazy="aboutStore.about?.photo_link" alt="test" :key="aboutStore.about?.photo_link"
                   class="float-right sm:w-1/3 w-[145px] ml-4 mb-4 rounded-2xl rotate-0 ease-in-out duration-300 hover:rotate-2" />
               </a>
               
@@ -82,13 +82,16 @@
               <div class="clear-both"></div>
             </div>
 
-            <div class="socials mt-5" v-if="aboutStore.greeting && aboutStore.greeting.socials">
-              <p class="mb-4 text-[17px] font-bold">Let's connect with me on social media</p>
+            <div class="items mt-5" v-if="aboutStore.greeting && aboutStore.greeting.socials">
+              <h2 class="mb-1 text-[18px] font-bold">Let's connect</h2>
+              <p class="text-base/relaxed font-normal text-gray-800 dark:text-gray-300 mb-4">
+                You can find me on the following platforms:
+              </p>
               <ul class="links">
                 <li v-for="(social, index) in aboutStore.greeting.socials" :key="index">
                   <a :href="social.link" class="link" target="_blank" rel="noopener noreferrer">
                     <div class="flex items-center gap-3">
-                      <img :src="social.image_link">
+                      <img v-lazy="social.image_link">
                       <span>{{ social.platform }}</span>
                     </div>
                     <i class="fi fi-rr-arrow-up-right-from-square"></i>
@@ -97,7 +100,7 @@
               </ul>
             </div>
 
-            <div class="skills mt-5">
+            <div class="items mt-5">
               <h2 class="text-[18px] font-bold mb-1">My Skills</h2>
               <p class="text-base/relaxed font-normal text-gray-800 dark:text-gray-300 mb-4">
                 I have experience with the following technologies and tools:
@@ -107,7 +110,7 @@
                 <li v-for="(skill, index) in aboutStore.skills" :key="index">
                   <a :href="skill.website" class="link" target="_blank" rel="noopener noreferrer">
                     <div class="flex items-center gap-3">
-                      <img :src="skill.image_url" alt="">
+                      <img v-lazy="skill.image_url" alt="">
                       <span>{{ skill.name }}</span>
                     </div>
                     <i class="fi fi-rr-arrow-up-right-from-square"></i>
@@ -134,9 +137,8 @@
   .links .link {
     @apply flex items-center justify-between gap-2.5 bg-surface/60 dark:bg-dark-surface/50 
     border-gray-300 dark:border-zinc-900 border py-3 px-3 font-medium
-    rounded-xl backdrop-blur-2xl ease-in-out duration-300 hover:dark:bg-dark-surface/40 
-    hover:dark:border-dark-surface hover:bg-surface/40
-    -translate-y-0 hover:-translate-y-[2px] overflow-hidden text-[14.5px];
+    rounded-xl backdrop-blur-2xl ease-in-out hover:dark:bg-dark-surface/40 
+    hover:dark:border-dark-surface hover:bg-surface/40 overflow-hidden text-[14.5px];
   }
 
   .links .link img {
@@ -145,20 +147,15 @@
 
   .links .link i {
     @apply text-lg sm:text-xl translate-x-10 translate-y-[1.5px]
-    transition-transform ease-in-out duration-300;
+    transition-transform ease-in-out duration-200;
   }
 
   .links .link:hover i {
     @apply -translate-x-1;
   }
 
-  .skills ul {
-    @apply flex flex-col gap-2.5 w-full sm:grid sm:grid-cols-2 sm:gap-2;
-  }
-
   @media (max-width: 499.99px) {
-    .socials .links,
-    .skills ul,
+    .items .links,
     .load {
       @apply grid-cols-1 gap-3.5;
     }

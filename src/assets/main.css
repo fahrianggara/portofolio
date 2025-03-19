@@ -148,10 +148,14 @@ footer {
 
 /* Mobile Menu */
 .mobile-menu {
-	@apply fixed top-[85px] left-0 right-[0px] w-[calc(100%-30px)] sm:w-[calc(50%)] 
-	mx-auto sm:mx-0 sm:ml-auto sm:right-[15px] h-auto max-h-dvh z-[999] ease-in-out duration-300
+	@apply fixed top-[75px] left-0 right-[0px] w-[calc(100%-30px)] sm:w-[calc(50%)] 
+	mx-auto sm:mx-0 sm:ml-auto sm:right-[15px] h-auto max-h-[calc(100%-70px)] z-[999] ease-in-out duration-300
 	bg-surface/60 dark:bg-dark-surface/80 backdrop-blur-xl border border-solid 
-	border-gray-300 dark:border-zinc-900 rounded-2xl dark:text-white;
+	border-gray-300 dark:border-zinc-900 rounded-2xl dark:text-white overflow-auto;
+}
+
+.mobile-menu.show {
+	@apply rounded-tr-none rounded-tl-none border-t-0;
 }
 
 .mobile-menu ul {
@@ -281,7 +285,7 @@ pre[class*="language-"]::selection {
 }
 
 .contact-form {
-	@apply mt-5 mb-2;
+	@apply mt-4 mb-2;
 }
 
 .contact-form input,

@@ -2,9 +2,11 @@ import './assets/main.css'
 import './assets/custom.css'
 import 'glightbox/dist/css/glightbox.min.css'
 import 'prismjs/themes/prism.min.css'
+import 'vue3-calendar-heatmap/dist/style.css'
 
 import prismDirective from './directives/prism'
 import glightboxDirective from './directives/glightbox'
+import VueLazyLoad from 'vue3-lazyload'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -23,5 +25,6 @@ app.directive('prism', prismDirective)
 app.use(router)
 app.use(pinia)
 app.use(head)
+app.use(VueLazyLoad)
 
 app.mount('#app')
