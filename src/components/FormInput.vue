@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, defineEmits, computed } from 'vue';
+import { defineProps, defineEmits, computed, watch } from 'vue';
 
 const props = defineProps({
   modelValue: [String, Number],
@@ -18,6 +18,35 @@ const emit = defineEmits(['update:modelValue']);
 const errorMessage = computed(() => (props.error?.[0] ? props.error[0] : ''));
 const charCount = computed(() => props.modelValue?.length || 0);
 const isBelowMin = computed(() => props.minlength && charCount.value < props.minlength);
+
+// Fungsi untuk memotong input berdasarkan maxlength
+const truncateValue = (value) => {
+  if (!props.maxlength || !value) return value;
+  return String(value).slice(0, props.maxlength);
+};
+
+// Handle input dengan memastikan tidak melebihi maxlength
+const handleInput = (event) => {
+  const value = event.target.value;
+  const truncatedValue = truncateValue(value);
+  
+  // Jika nilai sudah terpotong, update nilai di input
+  if (value !== truncatedValue) {
+    event.target.value = truncatedValue;
+  }
+  
+  emit('update:modelValue', truncatedValue);
+};
+
+// Watch untuk memastikan modelValue tidak melebihi maxlength
+watch(() => props.modelValue, (newValue) => {
+  if (newValue) {
+    const truncatedValue = truncateValue(newValue);
+    if (truncatedValue !== newValue) {
+      emit('update:modelValue', truncatedValue);
+    }
+  }
+}, { immediate: true });
 </script>
 
 <template>
@@ -33,9 +62,9 @@ const isBelowMin = computed(() => props.minlength && charCount.value < props.min
     </p>
 
     <!-- Input -->
-    <input v-if="type === 'text' || type === 'number' || type === 'email' || type === 'password'"
+    <input v-if="['text', 'email'].includes(type)"
       :type="type" :value="modelValue" :placeholder="placeholder"
-      @input="emit('update:modelValue', $event.target.value)"
+      @input="handleInput"
       :maxlength="maxlength" class="w-full p-2 border rounded-md"
       :class="{ 'is-invalid': errorMessage }"
     />
@@ -43,20 +72,9 @@ const isBelowMin = computed(() => props.minlength && charCount.value < props.min
     <!-- Textarea -->
     <textarea v-else-if="type === 'textarea'"
       :value="modelValue" :placeholder="placeholder" :maxlength="maxlength"
-      @input="emit('update:modelValue', $event.target.value)"
+      @input="handleInput"
       rows="3" class="w-full p-2 border rounded-md resize-none"
       :class="{ 'is-invalid': errorMessage }"></textarea>
-
-    <!-- Select -->
-    <select v-else-if="type === 'select'"
-      :value="modelValue" @change="emit('update:modelValue', $event.target.value)"
-      class="w-full p-2 border rounded-md" :class="{ 'is-invalid': errorMessage }">
-      
-      <option value="" disabled selected>Pilih...</option>
-      <option v-for="opt in options" :key="opt.value" :value="opt.value">
-        {{ option.label }}
-      </option>
-    </select>
 
     <!-- Error Message -->
     <p v-if="errorMessage" :class="{
@@ -67,7 +85,3 @@ const isBelowMin = computed(() => props.minlength && charCount.value < props.min
     </p>
   </div>
 </template>
-
-<style scoped>
-
-</style>
