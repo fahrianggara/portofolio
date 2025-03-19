@@ -2,14 +2,23 @@
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
 import { useRoute } from 'vue-router';
-import { onMounted, ref, watch, watchEffect } from 'vue';
+import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { useToggle } from '@vueuse/shared';
 import Parallax from './components/Parallax.vue';
 import { useDark } from '@vueuse/core';
 import GlowCursor from "./components/GlowCursor.vue";
 import ToastContainer from './components/ToastContainer.vue';
 
-const route = useRoute();
+const route = useRoute(); // Vue Router's route
+
+// Ambil title dari meta
+const title = computed(() => route.meta.title);
+
+// Pantau perubahan title dan perbarui document.title
+watch(title, (newTitle) => {
+  const appName = import.meta.env.VITE_APP_NAME;
+  document.title = newTitle ? `${newTitle} - ${appName}` : appName;
+}, { immediate: true });
 
 // Dark Mode
 const isDark = useDark({

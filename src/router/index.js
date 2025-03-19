@@ -111,9 +111,6 @@ const router = createRouter({
 
 // Menggunakan VueUse Head untuk meta tags
 router.beforeEach((to, from, next) => {
-  let appName = 'Fahri Anggara'
-  let title = to.meta.title ? `${to.meta.title} - ${appName}` : appName
-  let description = to.meta.description || defaultDescription
 
   // useSeoMeta({
   //   title,
