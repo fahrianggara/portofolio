@@ -53,7 +53,7 @@ onUnmounted(() => {
 
 <template>
   <header id="header">
-    <nav>
+    <nav :class="{ 'show': isMenuOpen }">
       <router-link to="/" class="nav-brand">
         <img src="/public/android-chrome-512x512.png" alt="Logo" />
       </router-link>
@@ -75,7 +75,7 @@ onUnmounted(() => {
 
   <!-- Transition effect for mobile menu -->
   <Transition name="fade-bottom">
-    <div v-if="isMenuOpen" class="mobile-menu">
+    <div v-if="isMenuOpen" class="mobile-menu" :class="{ 'show': isMenuOpen }" data-lenis-prevent>
       <ListMenu @close-menu="closeMenu" :downloadCV="downloadCV" />
     </div>
   </Transition>
@@ -90,7 +90,12 @@ onUnmounted(() => {
 
   nav {
     @apply flex items-center justify-between h-[60px] max-w-5xl mx-auto px-3 backdrop-blur-lg 
-      border border-solid rounded-4xl border-gray-300 dark:border-zinc-900 bg-surface/50 dark:bg-dark-surface/60;
+    border border-solid rounded-4xl border-gray-300 dark:border-zinc-900 bg-surface/50 dark:bg-dark-surface/60
+    transition-all duration-180 overflow-hidden;
+  }
+
+  nav.show {
+    @apply rounded-bl-none rounded-br-none sm:rounded-bl-4xl;
   }
 
   .nav-brand {

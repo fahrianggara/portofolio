@@ -2,7 +2,7 @@
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
 import { useRoute } from 'vue-router';
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch, watchEffect } from 'vue';
 import { useToggle } from '@vueuse/shared';
 import Parallax from './components/Parallax.vue';
 import { useDark } from '@vueuse/core';
@@ -25,6 +25,17 @@ const toggleDark = useToggle(isDark);
 // Function to check if the device is mobile
 const isMobile = () => window.innerWidth <= 768 || /Mobi|Android/i.test(navigator.userAgent);
 
+// Update saat ukuran layar berubah
+const updateIsMobile = () => {
+  isMobile.value = window.innerWidth <= 768 || /Mobi|Android/i.test(navigator.userAgent);
+};
+
+// Pantau perubahan ukuran layar
+watchEffect(() => {
+  window.addEventListener('resize', updateIsMobile);
+  return () => window.removeEventListener('resize', updateIsMobile);
+});
+
 onMounted(() => {
   // Add dark:bg-dark-background when first loaded
   const bodyClasses = [
@@ -40,28 +51,27 @@ onMounted(() => {
   document.body.classList.add(...bodyClasses);
 
   // Smooth Scroll with Lenis (only if not mobile)
-  // if (!isMobile()) {
-  //   import("lenis").then(({ default: Lenis }) => {
-  //     const lenis = new Lenis();
+  if (!isMobile()) {
+    import("lenis").then(({ default: Lenis }) => {
+      const lenis = new Lenis();
 
-  //     function raf(time) {
-  //       lenis.raf(time);
-  //       requestAnimationFrame(raf);
-  //     }
-  //     requestAnimationFrame(raf);
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
 
-  //     // Scroll to top when route changes
-  //     watch(route, () => {
-  //       lenis.scrollTo(0, { behavior: "smooth" });
-  //     });
-  //   });
-  // }
+      // Scroll to top when route changes
+      watch(route, () => {
+        lenis.scrollTo(0, { behavior: "smooth" });
+      });
+    });
+  }
 });
-</script>
-
+</script> 
 
 <template>
-  <!-- <GlowCursor /> -->
+  <GlowCursor />
 
   <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark" @toggleDark="toggleDark" />
   
