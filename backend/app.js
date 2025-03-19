@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const apiUrl = 'https://be.fahrianggara.my.id/api';
 const wakatimeApiUrl = 'https://wakatime.com/api/v1/users/current/stats';
-const githubApiUrl = 'https://api.github.com/graphql';
+const githubApiUrl = 'https://api.github.com';
 
 app.use('/api', async (req, res) => {
   try {
@@ -68,7 +68,7 @@ app.use('/github', async (req, res) => {
   try {
     const response = await axios({
       method: req.method,
-      url: githubApiUrl,
+      url: `${githubApiUrl}${req.originalUrl.replace('/github', '')}`,
       headers: {
         Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
         "Content-Type": "application/json",

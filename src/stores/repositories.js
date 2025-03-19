@@ -31,7 +31,7 @@ export const useRepoStore = defineStore("repo", {
       `;
 
       try {
-        const response = await apiClient.post(`github`, {query});
+        const response = await apiClient.post(`github/graphql`, {query});
         this.repos = response.data.data.viewer.pinnedItems.nodes;
       } catch (error) {
         // 

@@ -2,6 +2,7 @@ import './assets/main.css'
 import './assets/custom.css'
 import 'glightbox/dist/css/glightbox.min.css'
 import 'prismjs/themes/prism.min.css'
+import 'vue3-calendar-heatmap/dist/style.css'
 
 import prismDirective from './directives/prism'
 import glightboxDirective from './directives/glightbox'
