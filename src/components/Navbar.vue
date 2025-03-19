@@ -90,7 +90,7 @@ onUnmounted(() => {
 
   nav {
     @apply flex items-center justify-between h-[60px] max-w-5xl mx-auto px-3 backdrop-blur-lg 
-    border border-solid rounded-4xl border-gray-300 dark:border-zinc-900 bg-surface/50 dark:bg-dark-surface/60
+    border border-solid rounded-4xl border-gray-300 dark:border-zinc-900 bg-surface/60 dark:bg-dark-surface/70
     transition-all duration-180 overflow-hidden;
   }
 
