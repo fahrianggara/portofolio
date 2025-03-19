@@ -6,9 +6,8 @@ import { useHomeStore } from "@/stores/home";
 import { replaceText } from "@/utils/helpers";
 import Sidebar from "@/components/Sidebar.vue";
 import Contact from "@/models/contact";
-import Input from "@/components/form/input.vue";
-import Textarea from "@/components/form/textarea.vue";
 import apiClient from "@/utils/axios";
+import FormInput from "@/components/FormInput.vue";
 
 const toast = useToast();
 const homeStore = useHomeStore();
@@ -67,10 +66,14 @@ const email = computed(() => {
               <form class="contact-form" @submit.prevent="submitForm" autocomplete="off">
                 <div class="grid grid-cols-1 gap-3">
 
-                  <Input v-model="contact.name" placeholder="What's your name?" :error="contact.errors.name" />
-                  <Input v-model="contact.email" placeholder="What's your email address?" :error="contact.errors.email" />
-                  <Input v-model="contact.subject" placeholder="What's the subject?" :error="contact.errors.subject" />
-                  <Textarea v-model="contact.message" placeholder="Please write your message here..." :error="contact.errors.message" />
+                  <FormInput v-model="contact.name" type="text" :maxlength="50"
+                    placeholder="What's your name?" :error="contact.errors.name" />
+                  <FormInput v-model="contact.email" type="email" :maxlength="80" 
+                    placeholder="What's your email address?" :error="contact.errors.email" />
+                  <FormInput v-model="contact.subject" type="text" :maxlength="100" 
+                    placeholder="What's the subject?" :error="contact.errors.subject" />
+                  <FormInput v-model="contact.message" type="textarea" :maxlength="1000" :minlength="10"
+                    placeholder="Please write your message here..." :error="contact.errors.message" />
 
                   <div>
                     <button v-if="loading" disabled type="button" class="">

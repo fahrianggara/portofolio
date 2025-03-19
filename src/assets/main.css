@@ -285,7 +285,7 @@ pre[class*="language-"]::selection {
 }
 
 .contact-form {
-	@apply mt-5 mb-2;
+	@apply mt-4 mb-2;
 }
 
 .contact-form input,
