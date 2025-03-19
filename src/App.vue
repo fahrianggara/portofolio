@@ -40,28 +40,29 @@ onMounted(() => {
   document.body.classList.add(...bodyClasses);
 
   // Smooth Scroll with Lenis (only if not mobile)
-  if (!isMobile()) {
-    import("lenis").then(({ default: Lenis }) => {
-      const lenis = new Lenis();
+  // if (!isMobile()) {
+  //   import("lenis").then(({ default: Lenis }) => {
+  //     const lenis = new Lenis();
 
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
+  //     function raf(time) {
+  //       lenis.raf(time);
+  //       requestAnimationFrame(raf);
+  //     }
+  //     requestAnimationFrame(raf);
 
-      // Scroll to top when route changes
-      watch(route, () => {
-        lenis.scrollTo(0, { behavior: "smooth" });
-      });
-    });
-  }
+  //     // Scroll to top when route changes
+  //     watch(route, () => {
+  //       lenis.scrollTo(0, { behavior: "smooth" });
+  //     });
+  //   });
+  // }
 });
 </script>
 
 
 <template>
-  <GlowCursor />
+  <!-- <GlowCursor /> -->
+
   <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark" @toggleDark="toggleDark" />
   
   <main class="flex flex-col min-h-screen font-inter relative z-9">
@@ -69,7 +70,7 @@ onMounted(() => {
     <Footer v-if="route.meta.showNavbarAndFooter" />
   </main>
 
-  <Parallax />
+  <!-- <Parallax /> -->
 
   <ToastContainer />
 </template>

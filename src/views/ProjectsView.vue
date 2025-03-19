@@ -62,7 +62,7 @@
                   name: 'project-detail',
                   params: { slug: project.slug }
                 }">
-                  <img :src="project.image_link" alt="thumbnail" />
+                  <img v-lazy="project.image_link" alt="thumbnail" />
                   <div class="w-full h-full flex flex-col justify-between">
                     <div>
                       <span class="text-[12px] sm:text-[13px] text-primary mb-1 block">

@@ -5,6 +5,7 @@ import 'prismjs/themes/prism.min.css'
 
 import prismDirective from './directives/prism'
 import glightboxDirective from './directives/glightbox'
+import VueLazyLoad from 'vue3-lazyload'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -23,5 +24,6 @@ app.directive('prism', prismDirective)
 app.use(router)
 app.use(pinia)
 app.use(head)
+app.use(VueLazyLoad)
 
 app.mount('#app')

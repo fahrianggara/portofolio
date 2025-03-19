@@ -148,7 +148,7 @@ onUnmounted(() => {
 
           <div class="flex items-start md:gap-2 gap-4">
             <div class="relative inline-block">
-              <img :src="spotifyData.album_art_url" alt="Album Cover" class="w-20 h-20 rounded-lg mr-4 object-cover"/>
+              <img v-lazy="spotifyData.album_art_url" alt="Album Cover" class="w-20 h-20 rounded-lg mr-4 object-cover"/>
             </div>
             <div class="flex flex-col w-[calc(100%-5rem)]">
               <h2 class="text-[15.5px] leading-6 font-semibold">{{ spotifyData.song }} - {{ spotifyData.artist }}</h2>
@@ -179,12 +179,12 @@ onUnmounted(() => {
             <div class="relative inline-block">
               <img
                 v-if="activity.assets?.large_image"
-                :src="`${DISCORD_CDN_URL}/${activity.application_id}/${activity.assets.large_image}.png`"
+                v-lazy="`${DISCORD_CDN_URL}/${activity.application_id}/${activity.assets.large_image}.png`"
                 alt="Large Image" class="w-20 h-20 rounded-lg mr-3 object-cover"
               />
               <img
                 v-if="activity.assets?.small_image"
-                :src="`${DISCORD_CDN_URL}/${activity.application_id}/${activity.assets.small_image}.png`"
+                v-lazy="`${DISCORD_CDN_URL}/${activity.application_id}/${activity.assets.small_image}.png`"
                 alt="Small Image" class="absolute w-8 h-8 rounded-full right-1 -bottom-2 object-cover"
               />
             </div>
@@ -210,7 +210,7 @@ onUnmounted(() => {
           <div class="flex items-start md:gap-2 gap-4">
             <div class="relative inline-block">
               <img
-                :src="`https://dcdn.dstn.to/app-icons/${activity.application_id}.webp?size=512`"
+                v-lazy="`https://dcdn.dstn.to/app-icons/${activity.application_id}.webp?size=512`"
                 alt="Large Image" class="w-20 h-20 rounded-lg mr-3 object-cover"
               />
             </div>

@@ -64,7 +64,7 @@
             <div class="about" v-glightbox>
               <!-- Gambar dengan float -->
               <a data-gallery="certificates" data-type="image" :href="aboutStore.about?.photo_link" class="glightbox">
-                <img :src="aboutStore.about?.photo_link" alt="test" :key="aboutStore.about?.photo_link" loading="lazy"
+                <img v-lazy="aboutStore.about?.photo_link" alt="test" :key="aboutStore.about?.photo_link"
                   class="float-right sm:w-1/3 w-[145px] ml-4 mb-4 rounded-2xl rotate-0 ease-in-out duration-300 hover:rotate-2" />
               </a>
               
@@ -88,7 +88,7 @@
                 <li v-for="(social, index) in aboutStore.greeting.socials" :key="index">
                   <a :href="social.link" class="link" target="_blank" rel="noopener noreferrer">
                     <div class="flex items-center gap-3">
-                      <img :src="social.image_link">
+                      <img v-lazy="social.image_link">
                       <span>{{ social.platform }}</span>
                     </div>
                     <i class="fi fi-rr-arrow-up-right-from-square"></i>
@@ -107,7 +107,7 @@
                 <li v-for="(skill, index) in aboutStore.skills" :key="index">
                   <a :href="skill.website" class="link" target="_blank" rel="noopener noreferrer">
                     <div class="flex items-center gap-3">
-                      <img :src="skill.image_url" alt="">
+                      <img v-lazy="skill.image_url" alt="">
                       <span>{{ skill.name }}</span>
                     </div>
                     <i class="fi fi-rr-arrow-up-right-from-square"></i>

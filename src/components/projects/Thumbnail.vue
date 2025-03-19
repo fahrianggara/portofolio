@@ -77,14 +77,14 @@ onUnmounted(() => {
     }">
     <!-- Gambar utama -->
     <a :href="currentThumbnail" class="glightbox contents" data-gallery="gallery" :key="currentThumbnail">
-      <img :src="currentThumbnail" alt="Project Thumbnail" class="thumbnail" />
+      <img v-lazy="currentThumbnail" alt="Project Thumbnail" class="thumbnail" />
     </a>
 
     <!-- Thumbnail kecil -->
     <ul v-if="filteredThumbnails.length" class="thumbnails" data-lenis-prevent>
       <li v-for="(thumb, index) in filteredThumbnails" :key="index" class="thumbnail-item">
         <a :href="thumb" class="glightbox" data-gallery="gallery" :key="thumb">
-          <img :src="thumb" alt="Project Thumbnail" class="thumbnail" />
+          <img v-lazy="thumb" alt="Project Thumbnail" class="thumbnail" />
         </a>
       </li>
     </ul>
