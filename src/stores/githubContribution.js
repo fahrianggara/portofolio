@@ -44,8 +44,6 @@ export const useGithubContribution = defineStore("githubContribution", () => {
           date: day.date,
           count: day.contributionCount
         }));
-
-      console.log(contributions.value);
     } catch (error) {
       contributions.value = null;
     } finally {

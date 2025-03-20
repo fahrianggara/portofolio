@@ -80,7 +80,7 @@ onMounted(() => {
   }
 
   .img-container::before {
-    @apply blur-[70px] opacity-[1];
+    @apply blur-[70px] opacity-[0];
     content: "";
     position: absolute;
     top: 50%;

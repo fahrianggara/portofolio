@@ -131,14 +131,11 @@ onUnmounted(() => {
         </a>
       </li>
 
-      <li class="activity" v-if="!currActivities?.length && !loading" key="no-activity">
+      <li class="activity offline" v-if="!currActivities?.length && !loading" key="no-activity">
         <i class="fi fi-rr-info inline-block relative top-[2px] mr-2" 
-          :class="{'text-red-500': isOffline, 'text-primary': !isOffline}"
-          ></i>
-        <span class="dark:text-gray-300 text-gray-600">
-          {{ isOffline 
-            ? "I'm offline right now :( ..Check back later yeah?" 
-            : "I'm not currently doing anything :/ ..but i'm online :)" }}
+          :class="{'text-red-500': isOffline, 'text-primary': !isOffline}"></i>
+        <span class="dark:text-gray-300 text-gray-700">
+          {{ isOffline ? "Currently on sleep mode, try again later 😴" : "Just existing, no tasks running 😁" }}
         </span>
       </li>
 
@@ -240,5 +237,9 @@ onUnmounted(() => {
 .activity {
   @apply dark:bg-dark-surface/60 bg-white/60 rounded-xl p-4 px-5 backdrop-blur-xl
   border border-solid dark:border-zinc-900 border-gray-300 text-[15px];
+}
+
+.activity.offline {
+  @apply flex items-start gap-1;
 }
 </style>

@@ -186,6 +186,6 @@ watch(pageTitle, (newTitle) => {
 }
 
 .project-info h1 {
-  @apply text-[18px] md:text-[20px] font-semibold mb-3 before:content-['#'] before:mr-2;
+  @apply text-[18px] font-semibold mb-3;
 }
 </style>
