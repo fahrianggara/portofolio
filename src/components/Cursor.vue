@@ -33,7 +33,7 @@ const animateClick = () => {
 };
 
 const attachEventListeners = () => {
-  document.querySelectorAll("[href], img, button, [data-gallery]").forEach((el) => {
+  document.querySelectorAll("[href], img, button, [data-gallery], g").forEach((el) => {
     el.addEventListener("mouseover", animateMouseOver);
     el.addEventListener("mouseleave", animateMouseLeave);
     el.addEventListener("click", animateClick);
