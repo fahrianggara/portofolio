@@ -80,7 +80,7 @@ onMounted(() => {
 </script> 
 
 <template>
-  <Cursor />
+  <Cursor v-if="!isMobile()" />
 
   <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark" @toggleDark="toggleDark" />
   
