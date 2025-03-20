@@ -4,19 +4,19 @@
 
 <template>
   <div class="partials-wrapper">
-    <div class="circle-wrapper -top-10 -left-40">
-      <div class="circle w-[350px] h-[350px]"></div>
-      <div class="inner-circle w-[100px] h-[100px]"></div>
+    <div class="circle-wrapper flex -top-20 -left-20">
+      <div class="circle w-[350px] h-[350px] md:opacity-60 lg:opacity-100"></div>
+      <div class="inner-circle w-[40px] h-[40px] md:w-[100px] md:h-[100px]"></div>
     </div>
-    <div class="circle-wrapper -top-50 left-[50%] transform translate-x-[-50%]">
-      <div class="circle w-[350px] h-[350px]"></div>
+    <div class="circle-wrapper lg:flex hidden md:-top-[30%] md:left-[70%] transform -top-50 lg:left-[60%] translate-x-[-50%]">
+      <div class="circle xl:w-[350px] xl:h-[350px] w-[300px] h-[300px]"></div>
       <div class="inner-circle w-[120px] h-[120px]"></div>
     </div>
-    <div class="circle-wrapper bottom-1 -right-40">
-      <div class="circle w-[500px] h-[500px]"></div>
-      <div class="inner-circle w-[150px] h-[150px]"></div>
+    <div class="circle-wrapper flex -bottom-20 -right-15 md:-bottom-40 md:-right-40 lg:-bottom-20 lg:-right-40">
+      <div class="circle w-[300px] h-[300px] md:w-[500px] md:h-[500px] md:opacity-60 lg:opacity-100"></div>
+      <div class="inner-circle md:w-[100px] md:h-[100px]"></div>
     </div>
-    <div class="circle-wrapper -bottom-60 left-[10%]">
+    <div class="circle-wrapper lg:flex hidden xl:-bottom-60 xl:left-[10%] lg:left-[5%] lg:-bottom-70 md:-bottom-60 md:left-20">
       <div class="circle w-[400px] h-[400px]"></div>
       <div class="inner-circle w-[120px] h-[120px]"></div>
     </div>
@@ -38,7 +38,7 @@
 }
 
 .circle-wrapper {
-  @apply absolute flex items-center justify-center;
+  @apply absolute items-center justify-center;
 }
 
 .circle {
