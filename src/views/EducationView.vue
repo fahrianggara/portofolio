@@ -94,7 +94,7 @@ onMounted(() => {
 }
 
 .edu.not-loading > li {
-  @apply ms-7;
+  @apply ms-6;
 }
 
 .edu > li {
@@ -109,7 +109,7 @@ time {
 }
 
 .bullet {
-  @apply absolute w-3 h-3 rounded-full mt-1.5 -start-[35px] border border-primary bg-primary;
+  @apply absolute w-3 h-3 rounded-full mt-1.5 -start-[31px] border border-primary bg-primary;
 }
 
 .achievement {
