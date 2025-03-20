@@ -4,9 +4,9 @@ import Footer from './components/Footer.vue';
 import { useRoute } from 'vue-router';
 import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { useToggle } from '@vueuse/shared';
-import Parallax from './components/Parallax.vue';
+import Partials from './components/Partials.vue';
 import { useDark } from '@vueuse/core';
-import GlowCursor from "./components/GlowCursor.vue";
+import Cursor from "./components/Cursor.vue";
 import ToastContainer from './components/ToastContainer.vue';
 
 const route = useRoute(); // Vue Router's route
@@ -54,7 +54,7 @@ onMounted(() => {
     'before:content-[""]',
     'before:absolute',
     'before:inset-0',
-    'before:backdrop-blur-2xl',
+    'before:backdrop-blur-3xl',
     'before:z-[1]',
   ];
   document.body.classList.add(...bodyClasses);
@@ -80,7 +80,7 @@ onMounted(() => {
 </script> 
 
 <template>
-  <GlowCursor />
+  <Cursor />
 
   <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark" @toggleDark="toggleDark" />
   
@@ -89,7 +89,7 @@ onMounted(() => {
     <Footer v-if="route.meta.showNavbarAndFooter" />
   </main>
 
-  <!-- <Parallax /> -->
+  <Partials />
 
   <ToastContainer />
 </template>
