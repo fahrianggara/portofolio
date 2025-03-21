@@ -52,7 +52,12 @@ app.use('*', async (req, res) => {
     
     const html = await transformHtmlTemplate(
       rendered.head,
-      template.replace(`<!--app-html-->`, rendered.html ?? '')
+      template.replace(`<!--app-html-->`, `
+        ${rendered.html ?? ''}
+        <script>
+          window.__PINIA_STATE__ = ${JSON.stringify(rendered.state || {})};
+        </script>
+      `)
     )
     
     res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
