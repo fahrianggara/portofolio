@@ -1,4 +1,4 @@
-import './style.css';
+import '@/assets/style.css';
 import { createApp } from './main';
 import { createHead } from '@unhead/vue/client';
 
