@@ -4,12 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "cross-env NODE_ENV=development nodemon server.js",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.5.13"
+    "cross-env": "^7.0.3",
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9",
+    "vite-plugin-ssr": "^0.4.142",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
