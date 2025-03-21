@@ -9,8 +9,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 
 // Load environment variables
-const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
-dotenv.config({ path: path.resolve(__dirname, envFile) });
+dotenv.config({ path: path.resolve(__dirname, `.env.${process.env.NODE_ENV || 'development'}`) });
 
 // CORS Configuration
 app.use(cors({
