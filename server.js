@@ -11,11 +11,11 @@ let template, render, port
 // Production Mode dengan SSR
 if (isProd) {
   port = 5174
-  template = fs.readFileSync(path.resolve('./dist/client/index.html'), 'utf-8')
+  template = fs.readFileSync(path.resolve('./dist/index.html'), 'utf-8')
   render = (await import('./dist/server/entry-server.js')).render
 
   // Pastikan file statis bisa diakses
-  app.use('/assets', express.static(path.resolve('./dist/client/assets'), {
+  app.use('/assets', express.static(path.resolve('./dist/assets'), {
     setHeaders: (res, filePath) => {
       if (filePath.endsWith('.css')) {
         res.setHeader('Content-Type', 'text/css') // ✅ Set content-type untuk CSS
@@ -24,7 +24,7 @@ if (isProd) {
   }))
 
   // Middleware untuk menyajikan file statis lainnya
-  app.use(express.static(path.resolve('dist/client'), { index: false }))
+  app.use(express.static(path.resolve('dist'), { index: false }))
 }
 
 // Development Mode dengan Vite
