@@ -47,27 +47,31 @@ else {
 // SSR Middleware
 app.use('*', async (req, res) => {
   try {
-    const url = req.originalUrl || req.url
-    const rendered = await render(url)
-    
+    const url = req.originalUrl || req.url;
+    const rendered = await render(url);
+
+    console.log("[Server] Sending SSR state:", rendered.state);
+
+    const state = JSON.stringify(rendered.state || {});
+
     const html = await transformHtmlTemplate(
       rendered.head,
       template.replace(`<!--app-html-->`, `
         ${rendered.html ?? ''}
         <script>
-          window.__PINIA_STATE__ = ${JSON.stringify(rendered.state || {})};
+          console.log("[Client] Injected SSR state:", ${state});
+          window.__PINIA_STATE__ = ${state};
         </script>
       `)
-    )
-    
-    res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
-  } 
-  
-  catch (err) {
-    console.error(err)
-    res.status(500).end('Internal Server Error')
+    );
+
+    res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
+  } catch (err) {
+    console.error(err);
+    res.status(500).end('Internal Server Error');
   }
 })
+
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`)

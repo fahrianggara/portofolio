@@ -1,11 +1,6 @@
 <script setup>
 import { useGreetingStore } from '../stores/greeting';
-import { onMounted } from 'vue';
-
 const store = useGreetingStore();
-onMounted(() => {
-  store.fetchData();
-});
 </script>
 
 <template>
