@@ -1,10 +1,12 @@
-import { createHead } from '@unhead/vue/server'
 import { renderToString } from 'vue/server-renderer'
 import { createApp } from './main'
 import { createPinia } from 'pinia'
+import { createHead } from '@unhead/vue/server'
 
-export async function render(url) {
+export async function render(url) 
+{
   const { app, router } = createApp()
+  const pinia = createPinia()
   const head = createHead({
     init: [
       {
@@ -14,19 +16,19 @@ export async function render(url) {
       }
     ]
   })
-  const pinia = createPinia()
 
-  app.use(head)
-  app.use(pinia)
 
   await router.push(url)
   await router.isReady()
+
+  app.use(pinia)
+  app.use(head)
 
   const ctx = {}
   const html = await renderToString(app, ctx)
 
   return { 
-    html, 
-    head,
+    html,
+    head
   }
 }

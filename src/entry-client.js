@@ -3,10 +3,13 @@ import { createApp } from './main'
 import { createHead } from '@unhead/vue/client'
 import { createPinia } from 'pinia'
 
-const { app } = createApp()
-const head = createHead()
+const { app, router } = createApp()
 const pinia = createPinia()
+const head = createHead()
 
-app.use(head)
 app.use(pinia)
-app.mount('#app')
+app.use(head)
+
+router.isReady().then(() => {
+  app.mount('#app')
+})

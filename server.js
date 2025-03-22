@@ -1,71 +1,81 @@
-import fs from 'fs'
-import path from 'path'
-import express from 'express'
-import { transformHtmlTemplate } from '@unhead/vue/server'
+import fs from 'node:fs/promises';
+import express from 'express';
+import { transformHtmlTemplate } from '@unhead/vue/server';
 
-const isProd = process.env.NODE_ENV === 'production'
-const app = express()
+// Constants
+const isProduction = process.env.NODE_ENV === 'production';
+const base = process.env.BASE || '/';
 
-console.log(`Server running in ${isProd ? 'production' : 'development'} mode`)
+// Cached production assets
+const templateHtml = isProduction
+  ? await fs.readFile('./dist/index.html', 'utf-8')
+  : '';
 
-let template, render, port
+// Create HTTP server
+const app = express();
 
-// Production Mode dengan SSR
-if (isProd) {
-  port = 5174
-  template = fs.readFileSync(path.resolve('./dist/index.html'), 'utf-8')
-  render = (await import('./dist/server/entry-server.js')).render
+let vite, port;
 
-  // Pastikan file statis bisa diakses
-  app.use('/assets', express.static(path.resolve('./dist/assets'), {
-    setHeaders: (res, filePath) => {
-      if (filePath.endsWith('.css')) {
-        res.setHeader('Content-Type', 'text/css') // ✅ Set content-type untuk CSS
-      }
-    }
-  }))
+if (!isProduction) {
+  const { createServer } = await import('vite');
 
-  // Middleware untuk menyajikan file statis lainnya
-  app.use(express.static(path.resolve('dist'), { index: false }))
+  port = 5173;
+  vite = await createServer({
+    server: { middlewareMode: true },
+    appType: 'custom',
+    base,
+  });
+
+  app.use(vite.middlewares);
 } 
 
 else {
-  port = 5173
-  
-  const { createServer } = await import('vite') // Import createServer dari Vite
-  const vite = await createServer({ // Inisialisasi Vite
-    server: { middlewareMode: true },
-    appType: 'custom',
-    base: '/',
-  })
+  port = 5174;
+  const [compression, sirv] = await Promise.all([
+    import('compression').then(m => m.default),
+    import('sirv').then(m => m.default),
+  ]);
 
-  app.use(vite.middlewares) // Gunakan middleware Vite
-
-  template = fs.readFileSync('index.html', 'utf-8') // Baca template index.html
-  render = (await vite.ssrLoadModule('/src/entry-server.js')).render // Load entry-server.js
+  app.use(compression());
+  app.use(base, sirv('./dist', { extensions: [] }));
 }
 
-// SSR Middleware
+// Serve HTML
 app.use('*', async (req, res) => {
   try {
-    const url = req.originalUrl || req.url;
+    const url = req.originalUrl.replace(base, '');
+
+    let template, render
+
+    if (!isProduction) {
+      template = await fs.readFile('./index.html', 'utf-8');
+      template = await vite.transformIndexHtml(url, template);
+      render = (await vite.ssrLoadModule('/src/entry-server.js')).render;
+    } 
+    
+    else {
+      template = templateHtml;
+      render = (await import('./dist/server/entry-server.js')).render;
+    }
+
     const rendered = await render(url);
 
     const html = await transformHtmlTemplate(
       rendered.head,
-      template.replace(`<!--app-html-->`, `
-        ${rendered.html ?? ''}
-      `)
+      template.replace('<!--app-html-->', rendered.html ?? '')
     );
 
     res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
-  } catch (err) {
-    console.error(err);
-    res.status(500).end('Internal Server Error');
+  } 
+  
+  catch (e) {
+    console.error(e.stack);
+    if (!isProduction) vite?.ssrFixStacktrace(e);
+    res.status(500).end(e.stack);
   }
-})
+});
 
-
+// Start HTTP server
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`)
-})
+  console.log(`Server started at http://localhost:${port}`);
+});
