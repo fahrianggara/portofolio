@@ -1,6 +1,7 @@
 <script setup>
-import { onMounted } from 'vue';
 import { useGreetingStore } from '../stores/greeting';
+import ListSocial from '../components/ListSocial.vue';
+import ListMenu from '../components/ListMenu.vue';
 
 const greeting = useGreetingStore();
 </script>
@@ -37,7 +38,7 @@ const greeting = useGreetingStore();
             </div>
           </div>
 
-          <div v-else>
+          <template v-else>
             <h1 class="text-[26px] md:text-[40px] sm:text-[33px] leading-10 
               md:leading-13 sm:leading-12 font-bold dark:text-white mb-3">
               {{ greeting.data.title }}
@@ -47,14 +48,14 @@ const greeting = useGreetingStore();
               {{ greeting.data.subtitle }}
             </p>
 
-            <!-- <div class="social-links">
+            <div class="social-links">
               <ListSocial :socials="greeting.data.socials" />
             </div>
 
             <div class="home-menu">
               <ListMenu :show-icon="false" />
-            </div> -->
-          </div>
+            </div>
+          </template>
         </div>
       </div>
     </div>
