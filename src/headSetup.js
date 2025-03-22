@@ -1,4 +1,5 @@
 import { createHead } from '@unhead/vue/server'
+import { useColorMode } from '@vueuse/core'
 
 export function setupHead() {
   return createHead({
@@ -6,6 +7,9 @@ export function setupHead() {
       {
         bodyAttrs: {
           class: 'dark:bg-dark-background bg-background relative before:content-[""] before:absolute before:inset-0 before:backdrop-blur-3xl before:z-[1]'
+        },
+        htmlAttrs: {
+          'data-theme':  useColorMode().value
         },
         link: [
           {

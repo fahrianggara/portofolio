@@ -8,7 +8,7 @@ export function useDarkMode() {
     valueLight: 'light',
   });
 
-  const toggleDark = useToggle(isDark);
+  const toggle = useToggle(isDark);
 
-  return { isDark, toggleDark };
+  return { isDark, toggle };
 }

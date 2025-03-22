@@ -1,10 +1,9 @@
 <script setup>
-import { isActiveRoute } from "../composables/helpers";
-import { useResize } from "../composables/screen";
+import { useIsMobile } from "../composables/screen";
 import { computed } from "vue";
+import { useRoute } from "vue-router";
 
-const isActive = isActiveRoute();
-const resizeScreen = useResize();
+const route = useRoute();
 
 const props = defineProps({
   extraClass: {
@@ -23,7 +22,10 @@ const props = defineProps({
 });
 
 const showResume = computed(() => {
-  return route.path !== "/" && !props.hideResume ? resizeScreen.value : false;
+  if (route.path !== "/") {
+    return props.hideResume ? false : useIsMobile();
+  }
+  return false;
 });
 </script>
 
@@ -36,10 +38,16 @@ const showResume = computed(() => {
       </router-link>
     </li>
     <li>
-      <router-link :to="{ name: 'about' }" exact-active-class="active">
+      <router-link :to="{ name: 'about' }" exact-active-class="active" @click="$emit('close-menu')">
         <i class="fi fi-rr-user" v-if="showIcon"></i>
         <span>About</span>
       </router-link>
+    </li>
+    <li v-if="showResume">
+      <a href="javascript:void(0)" @click="downloadCV">
+        <i class="fi fi-rr-file" v-if="showIcon"></i>
+        <span>Download CV</span>
+      </a>
     </li>
   </ul>
 </template>
