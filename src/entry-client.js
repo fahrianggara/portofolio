@@ -7,10 +7,6 @@ const { app, router } = createApp()
 const pinia = piniaSetup()
 const head = createHead()
 
-if (window.__PINIA_STATE__) {
-  pinia.state.value = window.__PINIA_STATE__;
-}
-
 app.use(pinia)
 app.use(head)
 
