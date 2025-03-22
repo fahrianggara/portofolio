@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import Sun from './icon/Sun.vue';
 import Moon from './icon/Moon.vue';
 import ListMenu from './ListMenu.vue';
-import { useIsMobile, useResize } from '../composables/screen';
+import { useIsMobile } from '../composables/screen';
 
 defineProps({
   isDark: Boolean
