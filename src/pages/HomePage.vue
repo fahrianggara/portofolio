@@ -3,10 +3,6 @@ import { onMounted } from 'vue';
 import { useGreetingStore } from '../stores/greeting';
 
 const greeting = useGreetingStore();
-
-onMounted(() => {
-  greeting.fetchData();
-});
 </script>
 
 <template>

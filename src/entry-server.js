@@ -1,12 +1,13 @@
 import { renderToString } from 'vue/server-renderer'
 import { createApp } from './main'
-import { createPinia } from 'pinia'
 import { createHead } from '@unhead/vue/server'
+import { piniaSetup } from '@/stores/piniaSetup'
+import { piniaFetch } from '@/stores/piniaFetch'
 
 export async function render(url) 
 {
   const { app, router } = createApp()
-  const pinia = createPinia()
+  const pinia = piniaSetup()
   const head = createHead({
     init: [
       {
@@ -17,9 +18,9 @@ export async function render(url)
     ]
   })
 
-
   await router.push(url)
   await router.isReady()
+  await piniaFetch(pinia)
 
   app.use(pinia)
   app.use(head)
@@ -29,6 +30,7 @@ export async function render(url)
 
   return { 
     html,
-    head
+    head,
+    state: pinia.state.value
   }
 }

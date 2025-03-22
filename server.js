@@ -59,10 +59,13 @@ app.use('*', async (req, res) => {
     }
 
     const rendered = await render(url);
-
+    const piniaState = JSON.stringify(rendered.state || {});
+    
     const html = await transformHtmlTemplate(
       rendered.head,
-      template.replace('<!--app-html-->', rendered.html ?? '')
+      template
+        .replace('<!--app-html-->', rendered.html ?? '')
+        .replace('<!--pinia-state-->', `<script>window.__PINIA_STATE__ = ${piniaState}</script>`)
     );
 
     res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
