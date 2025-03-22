@@ -1,11 +1,14 @@
 import { setActivePinia } from "pinia";
-import { useGreetingStore } from "@/stores/greeting";
+import { useGreetingStore } from "./greeting";
+import { useAboutStore } from "./about";
 
 export async function piniaFetch(pinia) {
   setActivePinia(pinia);
 
-  const storeInstances = [ // If has more stores, add them here of course with fetchData method
-    useGreetingStore()
+  // If has more stores, add them here of course with fetchData method
+  const storeInstances = [
+    useGreetingStore(),
+    useAboutStore()
   ];
 
   const fetchPromises = storeInstances.map(store => {
