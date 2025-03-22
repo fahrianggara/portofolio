@@ -1,6 +1,12 @@
 <script setup>
+import { onMounted } from 'vue';
 import { useGreetingStore } from '../stores/greeting';
-const store = useGreetingStore();
+
+const greeting = useGreetingStore();
+
+onMounted(() => {
+  greeting.fetchData();
+});
 </script>
 
 <template>
@@ -8,11 +14,11 @@ const store = useGreetingStore();
     <div class="container-center">
       <div class="relative px-2 sm:px-4 lg:px-0">
         <div class="max-w-3xl lg:mx-0 md:mx-auto mx-0 home-box relative">
-          <div class="img-container" :class="{ 'loading': store.loading }">
+          <div class="img-container" :class="{ 'loading': greeting.loading }">
             <img src="/public/android-chrome-512x512.png" alt="logo" />
           </div>
 
-          <div v-if="store.loading">
+          <div v-if="greeting.loading">
             <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-6 w-[100%] rounded-xl"></div>
             <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-2 w-[100%] rounded-xl mt-5"></div>
             <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-2 w-[100%] rounded-xl mt-3"></div>
@@ -38,15 +44,15 @@ const store = useGreetingStore();
           <div v-else>
             <h1 class="text-[26px] md:text-[40px] sm:text-[33px] leading-10 
               md:leading-13 sm:leading-12 font-bold dark:text-white mb-3">
-              {{ store.greeting.title }}
+              {{ greeting.data.title }}
             </h1>
 
             <p class="md:text-base/8 text-base/7 text-[15px] sm:text-[16px] dark:text-gray-300 text-gray-800">
-              {{ store.greeting.subtitle }}
+              {{ greeting.data.subtitle }}
             </p>
 
             <!-- <div class="social-links">
-              <ListSocial :socials="store.greeting.socials" />
+              <ListSocial :socials="greeting.data.socials" />
             </div>
 
             <div class="home-menu">

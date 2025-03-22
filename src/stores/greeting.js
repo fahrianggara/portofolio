@@ -4,12 +4,12 @@ import apiClient from "../composables/axios";
 
 export const useGreetingStore = defineStore('greetingStore', () => {
   const loading = ref(true);
-  const greeting = ref(null);
+  const data = ref(null);
 
   const fetchData = async () => {
     try {
-      const { data } = await apiClient.get(`api/greeting`);
-      greeting.value = data.data;
+      const response = await apiClient.get(`api/greeting`);
+      data.value = response.data.data;
     } catch (error) {
       console.error(error);
     } finally {
@@ -19,7 +19,7 @@ export const useGreetingStore = defineStore('greetingStore', () => {
 
   return {
     loading,
-    greeting,
+    data,
     fetchData
   };
 });

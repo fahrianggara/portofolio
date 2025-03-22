@@ -1,8 +1,7 @@
 import { createHead } from '@unhead/vue/server'
 import { renderToString } from 'vue/server-renderer'
 import { createApp } from './main'
-import { setupPinia } from '@/stores'
-import { fetchStoresData } from '@/stores/ssrPinia' // Import auto-fetch
+import { createPinia } from 'pinia'
 
 export async function render(url) {
   const { app, router } = createApp()
@@ -15,14 +14,13 @@ export async function render(url) {
       }
     ]
   })
-  const pinia = setupPinia()
+  const pinia = createPinia()
 
   app.use(head)
   app.use(pinia)
 
   await router.push(url)
   await router.isReady()
-  await fetchStoresData(pinia);
 
   const ctx = {}
   const html = await renderToString(app, ctx)
@@ -30,6 +28,5 @@ export async function render(url) {
   return { 
     html, 
     head,
-    state: pinia.state.value // State sudah berisi data
   }
 }

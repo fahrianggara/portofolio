@@ -6,6 +6,8 @@ import { transformHtmlTemplate } from '@unhead/vue/server'
 const isProd = process.env.NODE_ENV === 'production'
 const app = express()
 
+console.log(`Server running in ${isProd ? 'production' : 'development'} mode`)
+
 let template, render, port
 
 // Production Mode dengan SSR
@@ -25,9 +27,8 @@ if (isProd) {
 
   // Middleware untuk menyajikan file statis lainnya
   app.use(express.static(path.resolve('dist'), { index: false }))
-}
+} 
 
-// Development Mode dengan Vite
 else {
   port = 5173
   
@@ -50,18 +51,10 @@ app.use('*', async (req, res) => {
     const url = req.originalUrl || req.url;
     const rendered = await render(url);
 
-    console.log("[Server] Sending SSR state:", rendered.state);
-
-    const state = JSON.stringify(rendered.state || {});
-
     const html = await transformHtmlTemplate(
       rendered.head,
       template.replace(`<!--app-html-->`, `
         ${rendered.html ?? ''}
-        <script>
-          console.log("[Client] Injected SSR state:", ${state});
-          window.__PINIA_STATE__ = ${state};
-        </script>
       `)
     );
 
