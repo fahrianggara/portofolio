@@ -1,10 +1,27 @@
 <script setup>
+import Markdown from '../components/Markdown.vue';
 import { useAboutStore } from '../stores/about';
 
+const about = useAboutStore();
 </script>
 
 <template>
-<h1>Hello ini about page</h1>
+  <div v-if="about.loading" class="clearfix relative">
+    <div class="h-38 w-38 animate-pulse bg-gray-400 dark:bg-zinc-800 rounded-2xl float-right ml-4 mb-4"></div>
+  </div>
+
+  <template v-else>
+    <div class="about">
+      <img :src="about.data.photo_link" alt="test" :key="about.data.photo_link"
+        class="float-right sm:w-1/3 w-[145px] ml-4 mb-4 rounded-2xl rotate-0 ease-in-out duration-300 hover:rotate-2" />
+
+      <h1 class="text-[22px] sm:text-[32px] font-bold mb-3 text-wrap leading-8 sm:leading-11">
+        {{ about.data.title }}
+      </h1>
+
+      <Markdown :content="about.data.description" />
+    </div>
+  </template>
 </template>
 
 <style scoped>

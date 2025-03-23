@@ -3,6 +3,7 @@ import { createApp } from './main'
 import { piniaSetup } from '@/stores/piniaSetup'
 import { piniaFetch } from '@/stores/piniaFetch'
 import { setupHead } from './headSetup'
+import { renderMarkdown } from './composables/markdown'
 
 export async function render(url) 
 {
@@ -20,9 +21,11 @@ export async function render(url)
   const ctx = {}
   const html = await renderToString(app, ctx)
 
-  return { 
+  return {
     html,
     head,
     state: pinia.state.value
   }
 }
+
+export { renderMarkdown }
