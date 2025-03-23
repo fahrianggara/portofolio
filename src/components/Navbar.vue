@@ -48,7 +48,7 @@ onUnmounted(() => {
           Menu <i :class="['fi', isMenuOpen ? 'fi-rr-angle-small-up' : 'fi-rr-angle-small-down']"></i>
         </button> 
         <button @click="emit('toggleTheme')" class="btn-theme">
-          <component :is="isDark ? Sun : Moon" class="w-[23px] h-[23px]" />
+          <component :is="isDark ? Sun : Moon" class="w-[23px] h-[23px] hover:fill-primary transition-all duration-200" />
         </button>
       </div>
     </nav>
@@ -95,14 +95,14 @@ onUnmounted(() => {
 
   .btn-cv {
     @apply bg-background dark:bg-dark-surface px-4 py-2 dark:text-white h-[45px] 
-    text-[14px] font-semibold cursor-pointer hover:text-primary ease-in-out duration-75 hidden md:block;
+    text-[14px] font-semibold cursor-pointer hover:text-primary transition-all duration-200 hidden md:block;
     border-top-left-radius: 2rem;
     border-bottom-left-radius: 2rem;
   }
 
   .btn-menu {
     @apply bg-background dark:bg-dark-surface px-4 py-2 dark:text-white h-[45px] text-[14px] 
-    font-semibold cursor-pointer hover:text-primary ease-in-out duration-75 md:hidden flex items-center gap-1;
+    font-semibold cursor-pointer hover:text-primary transition-all duration-200 md:hidden flex items-center gap-1;
     border-top-left-radius: 2rem;
     border-bottom-left-radius: 2rem;
   }
