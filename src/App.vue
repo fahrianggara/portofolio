@@ -7,13 +7,19 @@ import { useRoute } from 'vue-router';
 import { useIsMobile } from './composables/screen';
 import { useSmoothScroll } from './composables/smoothScroll';
 import { useDarkMode } from './composables/theme';
+import { computed, onMounted, ref, watch } from 'vue';
 
 const isMobile = useIsMobile();
 const route = useRoute();
 
 const theme = useDarkMode();
-const isDark = theme.isDark;
+const isDark = ref(false);
 const toggleTheme = theme.toggle;
+
+onMounted(() => {
+  isDark.value = theme.isDark.value;
+  watch(theme.isDark, (value) => isDark.value = value);
+});
 
 // Smooth scroll
 useSmoothScroll();
