@@ -38,7 +38,7 @@ onUnmounted(() => {
   <header id="header">
     <nav :class="{ 'show': isMenuOpen }">
       <router-link to="/" class="nav-brand">
-        <img src="/public/android-chrome-512x512.png" alt="Logo" />
+        <img src="/android-chrome-512x512.png" alt="Logo" />
       </router-link>
       <div class="nav-menu">
         <button class="btn-cv" ref="btnCV">

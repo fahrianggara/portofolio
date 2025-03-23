@@ -12,7 +12,7 @@ const greeting = useGreetingStore();
       <div class="relative px-2 sm:px-4 lg:px-0">
         <div class="max-w-3xl lg:mx-0 md:mx-auto mx-0 home-box relative">
           <div class="img-container" :class="{ 'loading': greeting.loading }">
-            <img src="/public/android-chrome-512x512.png" alt="logo" />
+            <img src="/android-chrome-512x512.png" alt="logo" />
           </div>
 
           <div v-if="greeting.loading">
