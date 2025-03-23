@@ -1,9 +1,7 @@
 import { createHead } from '@unhead/vue/server'
 import { useColorMode } from '@vueuse/core'
 
-
-export function setupHead() 
-{
+export function setupHead() {
   const colorMode = useColorMode()
 
   return createHead({
