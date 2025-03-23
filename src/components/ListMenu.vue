@@ -1,14 +1,15 @@
 <script setup>
-import { useIsMobile } from "../composables/screen";
+import { useIsDesktop } from "../composables/screen";
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
+const isDesktop = useIsDesktop();
 
 const props = defineProps({
   extraClass: {
     type: String,
-    default: 'font-inter',
+    default: "",
   },
   showIcon: {
     type: Boolean,
@@ -22,10 +23,7 @@ const props = defineProps({
 });
 
 const showResume = computed(() => {
-  if (route.path !== "/") {
-    return props.hideResume ? false : useIsMobile();
-  }
-  return false;
+  return route.path !== "/" && !isDesktop.value && !props.hideResume;
 });
 </script>
 

@@ -25,11 +25,10 @@ useSmoothScroll();
 
   <!-- Navbar -->
   <Navbar v-if="route.name !== 'home'" 
-    :isDark="isDark" 
-    @toggleTheme="toggleTheme" />
+    :isDark="isDark" @toggleTheme="toggleTheme" />
 
   <!-- Main content -->
-  <main class="flex flex-col min-h-screen font-inter relative z-9">
+  <main class="flex flex-col min-h-screen relative z-9" :key="$route.fullPath">
     <router-view />
     <Footer v-if="route.name !== 'home'" />
   </main>

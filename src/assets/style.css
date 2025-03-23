@@ -1,11 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Inter:wght@100..900&display=swap");
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Inter:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
+@import "tailwindcss";
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @theme {
 	--font-inter: "Inter", sans-serif;
 	--font-fira: "Fira Code", monospace;
+	--font-rubik: "Rubik", sans-serif;
 	--display-webkit-box: -webkit-box;
 
 	--color-dark-primary: #2a86ff;
@@ -235,6 +236,10 @@ footer {
 .content blockquote {
 	@apply p-4 bg-surface/70 dark:bg-dark-surface/70 rounded-xl border-l-4 border-primary
 	text-gray-900 dark:text-white my-4;
+}
+
+.content a {
+	@apply text-primary hover:underline;
 }
 
 code[class*="language-"],

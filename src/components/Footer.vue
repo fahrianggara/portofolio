@@ -8,7 +8,7 @@ const greeting = useGreetingStore()
 </script>
 
 <template>
-  <footer class="font-inter">
+  <footer>
     <div class="footer-body max-w-5xl mx-auto px-4 pb-12 sm:pb-0 lg:pb-4">
       <div class="footer-box">
         <div class="footer-links">

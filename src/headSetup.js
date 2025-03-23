@@ -6,7 +6,7 @@ export function setupHead() {
     init: [
       {
         bodyAttrs: {
-          class: 'dark:bg-dark-background bg-background relative before:content-[""] before:absolute before:inset-0 before:backdrop-blur-3xl before:z-[1]'
+          class: 'font-inter dark:bg-dark-background bg-background relative before:content-[""] before:absolute before:inset-0 before:backdrop-blur-3xl before:z-[1]'
         },
         htmlAttrs: {
           'data-theme':  useColorMode().value
