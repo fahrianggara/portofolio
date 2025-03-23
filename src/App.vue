@@ -7,7 +7,7 @@ import { useRoute } from 'vue-router';
 import { useIsMobile } from './composables/screen';
 import { useSmoothScroll } from './composables/smoothScroll';
 import { useDarkMode } from './composables/theme';
-import { computed, onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 const isMobile = useIsMobile();
 const route = useRoute();

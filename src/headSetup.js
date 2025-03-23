@@ -1,9 +1,11 @@
 import { createHead } from '@unhead/vue/server'
 import { useColorMode } from '@vueuse/core'
 
-const colorMode = useColorMode()
 
-export function setupHead() {
+export function setupHead() 
+{
+  const colorMode = useColorMode()
+
   return createHead({
     init: [
       {
@@ -25,6 +27,17 @@ export function setupHead() {
           {
             rel: 'icon',
             href: '/favicon.ico',
+          }
+        ],
+        script: [
+          {
+            innerHTML: `
+(function () {
+  let theme = localStorage.getItem('vueuse-color-scheme');
+  if (!theme || theme === 'auto') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', theme);
+})();
+            `
           }
         ]
       }

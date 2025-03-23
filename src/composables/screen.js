@@ -1,5 +1,4 @@
 import { useMediaQuery } from "@vueuse/core";
-import { ref } from "vue";
 
 export function useIsMobile(breakpoint = 768) {
   const isMobile = useMediaQuery(`(max-width: ${breakpoint}px)`);
