@@ -26,6 +26,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
+      allowedHosts: [''],
       proxy: {
         '/wakatime': {
           target: apiUrl,
