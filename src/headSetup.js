@@ -1,8 +1,16 @@
 import { createHead } from '@unhead/vue/server'
 import { useColorMode } from '@vueuse/core'
 
-export function setupHead() {
+export function setupHead()
+{
   const colorMode = useColorMode()
+  const innerHTML = `
+(function () {
+  let theme = localStorage.getItem('vueuse-color-scheme');
+  if (!theme || theme === 'auto') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', theme);
+})();
+  `
 
   return createHead({
     init: [
@@ -24,19 +32,35 @@ export function setupHead() {
           },
           {
             rel: 'icon',
+            type: 'image/x-icon',
             href: '/favicon.ico',
-          }
+          },
+          {
+            rel: 'apple-touch-icon',
+            sizes: '180x180',
+            href: '/apple-touch-icon.png',
+          },
+          {
+            rel: 'icon',
+            type: 'image/png',
+            sizes: '32x32',
+            href: '/favicon-32x32.png',
+          },
+          {
+            rel: 'icon',
+            type: 'image/png',
+            sizes: '16x16',
+            href: '/favicon-16x16.png',
+          },
+          {
+            rel: 'manifest',
+            href: '/site.webmanifest',
+          },
         ],
         script: [
           {
-            innerHTML: `
-(function () {
-  let theme = localStorage.getItem('vueuse-color-scheme');
-  if (!theme || theme === 'auto') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  document.documentElement.setAttribute('data-theme', theme);
-})();
-            `
-          }
+            innerHTML
+          },
         ]
       }
     ]

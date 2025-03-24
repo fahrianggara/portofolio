@@ -2,8 +2,10 @@
 import { useGreetingStore } from '../stores/greeting';
 import ListSocial from '../components/ListSocial.vue';
 import ListMenu from '../components/ListMenu.vue';
+import { useMeta } from '../composables/meta';
 
 const greeting = useGreetingStore();
+useMeta(null, null);
 </script>
 
 <template>

@@ -4,11 +4,14 @@ import { inject } from 'vue';
 import { useAboutStore } from '../stores/about';
 import { useGreetingStore } from '../stores/greeting';
 import { useSkillsStore } from '../stores/skills';
+import { useMeta } from '../composables/meta';
 
 const about = useAboutStore();
 const greeting = useGreetingStore();
 const skills = useSkillsStore();
 const openLightbox = inject('openLightbox');
+
+useMeta('About Me', 'Learn more about me, my skills, and how to connect with me.');
 </script>
 
 <template>
