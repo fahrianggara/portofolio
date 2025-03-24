@@ -1,10 +1,15 @@
-import { createMemoryHistory, createRouter as _createRouter, createWebHistory } from 'vue-router';
+import { createMemoryHistory, createRouter as _createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: () => import('./pages/HomePage.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'notFound',
+    component: () => import('./pages/NotFoundPage.vue'),
   },
   {
     path: '/',
