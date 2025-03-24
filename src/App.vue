@@ -4,6 +4,7 @@ import Footer from './components/Footer.vue';
 import Background from './components/Background.vue';
 import Cursor from './components/Cursor.vue';
 import LightboxImage from './components/LightboxImage.vue';
+import ToastContainer from './components/ToastContainer.vue';
 import { useRoute } from 'vue-router';
 import { useIsMobile } from './composables/screen';
 import { useSmoothScroll } from './composables/smoothScroll';
@@ -46,6 +47,9 @@ const { showLightbox, imagesLightbox, indexLightbox, openLightbox, closeLightbox
 
   <!-- Background -->
   <Background />
+
+  <!-- Toast -->
+  <ToastContainer />
 
   <!-- Lightbox -->
   <LightboxImage

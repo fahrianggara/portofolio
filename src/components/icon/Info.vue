@@ -1,0 +1,3 @@
+<template>
+  <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve"><path d="M11.994 1C4.929 1.044 1 5.027 1 11.982S4.933 22.959 12.006 23c7.162-.042 10.861-3.737 10.994-11.017C22.878 4.946 18.974 1.045 11.994 1ZM12 6.432a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm1.566 10.171a1 1 0 1 1-2 0v-3.432h-.134a1 1 0 0 1 0-2h1.134a1 1 0 0 1 1 1v4.432Z" fill="currentColor"></path></svg>
+</template>
