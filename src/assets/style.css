@@ -220,7 +220,7 @@ footer {
 }
 
 .content pre {
-	@apply p-4 bg-white/70 dark:bg-dark-surface/70 rounded-xl overflow-x-auto backdrop-blur-xl
+	@apply p-4 bg-white/70 dark:bg-dark-surface/70 rounded-xl overflow-x-auto
 	border border-solid border-gray-300 dark:border-zinc-900 my-4 font-fira text-[15px]
 	text-gray-900 dark:text-white;
 }
@@ -280,7 +280,7 @@ pre[class*="language-"]::selection {
 }
 
 .contact-box {
-	@apply dark:bg-dark-surface/60 backdrop-blur-xl
+	@apply dark:bg-dark-surface/60
     border border-solid dark:border-zinc-900 border-gray-300 bg-white/60
     px-5 py-4 rounded-xl;
 }
@@ -327,7 +327,7 @@ pre[class*="language-"]::selection {
 }
 
 .contact-info .contact-box {
-	@apply dark:bg-dark-surface/60 backdrop-blur-xl
+	@apply dark:bg-dark-surface/60
     border border-solid dark:border-zinc-900 border-gray-300 bg-white/60
     px-5 py-3 rounded-xl;
 }
@@ -353,7 +353,7 @@ pre[class*="language-"]::selection {
 @media (max-width: 499.99px) {
 	.contact-form input,
 	.contact-form textarea {
-		@apply dark:bg-dark-surface/50 backdrop-blur-2xl bg-white/70 py-[13px] 
+		@apply dark:bg-dark-surface/50 bg-white/70 py-[13px] 
       placeholder:text-gray-600 dark:placeholder:text-gray-400;
 	}
 

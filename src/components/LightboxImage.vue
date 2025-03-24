@@ -1,6 +1,4 @@
 <script setup>
-import { ref } from 'vue';
-
 // Props untuk menerima data dari parent
 const props = defineProps({
   showLightbox: Boolean, // Status tampilan lightbox
@@ -12,114 +10,105 @@ const props = defineProps({
 const emit = defineEmits(['close', 'next', 'prev']);
 
 // Tutup lightbox
-const closeLightbox = () => {
-  emit('close');
-};
+const closeLightbox = () => emit('close');
 
 // Navigasi ke gambar berikutnya
-const nextImage = () => {
-  emit('next');
-};
+const nextImage = () => emit('next');
 
 // Navigasi ke gambar sebelumnya
-const prevImage = () => {
-  emit('prev');
-};
+const prevImage = () => emit('prev');
 </script>
 
 <template>
-  <transition name="fade">
-    <div v-if="showLightbox" class="lightbox-overlay" @click="closeLightbox">
-      <div class="lightbox-container" @click.stop>
-        <!-- Tombol tutup -->
-        <button class="lightbox-close" @click="closeLightbox">&times;</button>
+  <div v-show="showLightbox" class="lightbox-body">
+    <div class="lightbox-overlay" @click="closeLightbox"></div>
 
-        <!-- Gambar -->
-        <img 
+    <div class="lightbox-container">
+      <button class="lightbox-close" @click="closeLightbox">
+        <i class="fi fi-rr-cross"></i>
+      </button>
+
+      <!-- Tambahkan key agar transisi berjalan dengan baik -->
+      <Transition name="zoom" mode="out-in">
+        <img
+          v-if="showLightbox"
+          :key="indexLightbox"
           :src="imagesLightbox[indexLightbox].src" 
           :alt="imagesLightbox[indexLightbox].title" 
           class="lightbox-image"
         />
+      </Transition>
+      
+      <button class="lightbox-nav lightbox-prev" @click.stop="prevImage" 
+        :disabled="indexLightbox === 0">
+        <i class="fi fi-rr-angle-left"></i>
+      </button>
 
-        <!-- Tombol navigasi -->
-        
-        <button class="lightbox-nav lightbox-prev" @click.stop="prevImage" v-if="indexLightbox > 0">
-          &#10094;
-        </button>
-        <button class="lightbox-nav lightbox-next" @click.stop="nextImage" v-if="indexLightbox < imagesLightbox.length - 1">
-          &#10095;
-        </button>
-      </div>
+      <button class="lightbox-nav lightbox-next" @click.stop="nextImage" 
+        :disabled="indexLightbox === imagesLightbox.length - 1">
+        <i class="fi fi-rr-angle-right"></i>
+      </button>
     </div>
-  </transition>
+  </div>
 </template>
 
 <style scoped>
-/* Animasi fade in dan fade out */
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+@import '@/assets/style.css';
+
+.zoom-enter-active, .zoom-leave-active {
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.fade-enter-from, .fade-leave-to {
+.zoom-enter-from {
   opacity: 0;
-  transform: scale(0.9);
+  transform: scale(0.8);
+}
+
+.zoom-leave-to {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.lightbox-body {
+  @apply fixed top-0 left-0 w-full h-full z-[1200] flex justify-center items-center;
 }
 
 .lightbox-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.80);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1200;
+  @apply absolute top-0 left-0 w-full h-full dark:bg-black bg-white dark:opacity-100 opacity-80;
 }
 
 .lightbox-container {
-  position: relative;
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 8px;
+  @apply relative z-[1300] max-w-full max-h-full rounded-lg;
 }
 
 .lightbox-image {
-  max-width: 100%;
-  max-height: 90vh;
-  display: block;
-  margin: 0 auto;
+  @apply max-w-full max-h-[95vh] block m-auto;
 }
 
 .lightbox-close {
-  position: fixed;
-  top: 10px;
-  right: 20px;
-  background: transparent;
-  border: none;
-  font-size: 30px;
-  cursor: pointer;
-  color: white;
+  @apply fixed top-[16px] right-[20px] bg-transparent border-none dark:text-white 
+  text-[18px] cursor-pointer;
 }
 
 .lightbox-nav {
-  position: fixed;
-  top: 50%;
+  @apply text-[16px] md:text-[24px] p-[10px] cursor-pointer border-none text-white fixed top-1/2;
   transform: translateY(-50%);
   background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  font-size: 24px;
+}
+
+.lightbox-nav i {
+  @apply relative top-[1.5px];
+}
+
+.lightbox-nav:disabled {
+  @apply opacity-[0.1] cursor-default;
 }
 
 .lightbox-prev {
-  left: 10px;
+  @apply left-[10px];
 }
 
 .lightbox-next {
-  right: 10px;
+  @apply right-[10px];
 }
 </style>

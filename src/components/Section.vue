@@ -8,9 +8,9 @@ const isDesktop = useIsDesktop();
 <template>
   <section>
     <div class="container">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-6 relative">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-6">
         <aside class="sidebar-menu" v-if="isDesktop">
-          <ListMenu />
+          <ListMenu class="sticky top-26" />
         </aside>
         <div class="dark:text-white col-span-2 w-full mb-5">
           <router-view />
@@ -19,7 +19,3 @@ const isDesktop = useIsDesktop();
     </div>
   </section>
 </template>
-
-<style scoped>
-
-</style>

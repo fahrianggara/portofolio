@@ -1,12 +1,13 @@
 <script setup>
 import gsap from "gsap";
-import { onMounted, ref, watch } from "vue";
+import { nextTick, onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-const cursorGlowRef = ref(null);
+const cursorGlowRef = ref("");
 
 const animateMouseOver = () => {
+  if (!cursorGlowRef.value) return;
   gsap.to(cursorGlowRef.value, {
     width: 15,
     height: 15,
@@ -16,6 +17,7 @@ const animateMouseOver = () => {
 };
 
 const animateMouseLeave = () => {
+  if (!cursorGlowRef.value) return;
   gsap.to(cursorGlowRef.value, {
     width: 40,
     height: 40,
@@ -25,6 +27,7 @@ const animateMouseLeave = () => {
 };
 
 const animateClick = () => {
+  if (!cursorGlowRef.value) return;
   gsap.fromTo(
     cursorGlowRef.value,
     { scale: 1 },
@@ -50,7 +53,11 @@ const attachEventListeners = () => {
   });
 };
 
-onMounted(() => {
+onMounted(async () => {
+  await nextTick();
+
+  if (!cursorGlowRef.value) return;
+
   document.addEventListener("mousemove", (e) => {
     gsap.to(cursorGlowRef.value, {
       x: e.clientX,
