@@ -2,6 +2,7 @@ import { setActivePinia } from "pinia";
 import { useGreetingStore } from "./greeting";
 import { useAboutStore } from "./about";
 import { useSkillsStore } from "./skills";
+import { useConfigStore } from "./configuration";
 
 export async function piniaFetch(pinia) {
   setActivePinia(pinia);
@@ -11,6 +12,7 @@ export async function piniaFetch(pinia) {
     useGreetingStore(),
     useAboutStore(),
     useSkillsStore(),
+    useConfigStore()
   ];
 
   const fetchPromises = storeInstances.map(store => {

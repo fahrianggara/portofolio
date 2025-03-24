@@ -4,6 +4,10 @@ import Sun from './icon/Sun.vue';
 import Moon from './icon/Moon.vue';
 import ListMenu from './ListMenu.vue';
 import { useIsMobile } from '../composables/screen';
+import { useConfigStore } from '../stores/configuration';
+
+const config = useConfigStore();
+const downloadCV = () => config.downloadCV();
 
 defineProps({
   isDark: Boolean
@@ -41,8 +45,8 @@ onUnmounted(() => {
         <img src="/android-chrome-512x512.png" alt="Logo" />
       </router-link>
       <div class="nav-menu">
-        <button class="btn-cv" ref="btnCV">
-          Download CV
+        <button class="btn-cv" ref="btnCV" @click="downloadCV">
+          Resume
         </button>
         <button @click="toggleMenu" :aria-expanded="isMenuOpen" class="btn-menu">
           Menu <i :class="['fi', isMenuOpen ? 'fi-rr-angle-small-up' : 'fi-rr-angle-small-down']"></i>

@@ -2,9 +2,12 @@
 import { useIsDesktop } from "../composables/screen";
 import { computed } from "vue";
 import { useRoute } from "vue-router";
+import { useConfigStore } from "../stores/configuration";
 
 const route = useRoute();
 const isDesktop = useIsDesktop();
+const config = useConfigStore();
+const downloadCV = () => config.downloadCV();
 
 const props = defineProps({
   extraClass: {
@@ -44,7 +47,7 @@ const showResume = computed(() => {
     <li v-if="showResume">
       <a href="javascript:void(0)" @click="downloadCV">
         <i class="fi fi-rr-file" v-if="showIcon"></i>
-        <span>Download CV</span>
+        <span>Resume</span>
       </a>
     </li>
   </ul>
