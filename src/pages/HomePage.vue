@@ -77,14 +77,14 @@ useMeta(null, null);
   }
 
   .img-container::before {
-    @apply blur-[70px] opacity-[0];
+    @apply blur-[70px] opacity-0;
     content: "";
     position: absolute;
     top: 50%;
     left: 50%;
     width: 190%;
     height: 190%;
-    background-color: #003f91;
+    background-color: #0937be;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     z-index: -1;
