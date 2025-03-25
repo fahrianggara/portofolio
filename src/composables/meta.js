@@ -5,7 +5,7 @@ import { useAboutStore } from "../stores/about";
 import { useConfigStore } from "../stores/configuration";
 import { useRouter } from "vue-router"; // Use useRouter instead of createRouter
 
-export function useMeta(customTitle = null, customDescription = null) 
+export function useMeta(customTitle = null, customDescription = null, customOgImage = null) 
 {
   const greeting = useGreetingStore();
   const about = useAboutStore();
@@ -16,6 +16,7 @@ export function useMeta(customTitle = null, customDescription = null)
   const appName = import.meta.env.VITE_APP_NAME;
   const finalTitle = customTitle ? `${customTitle} - ${appName}` : appName;
   const finalDescription = customDescription || greeting.data.subtitle;
+  const finalOgImage = customOgImage || `${baseUrl}/og.png`;
 
   useSeoMeta({
     title: finalTitle,
@@ -26,7 +27,7 @@ export function useMeta(customTitle = null, customDescription = null)
     ogDescription: finalDescription,
     ogType: "website",
     ogUrl: `${baseUrl}${router.currentRoute.value.path}`,
-    ogImage: `${baseUrl}/og.png`,
+    ogImage: finalOgImage,
     ogImageAlt: `${appName} Logo`,
     ogImageHeight: 630,
     ogImageWidth: 1200,
@@ -35,7 +36,7 @@ export function useMeta(customTitle = null, customDescription = null)
     twitterCard: 'summary_large_image',
     twitterTitle: finalTitle,
     twitterDescription: finalDescription,
-    twitterImage: `${baseUrl}/og.png`,
+    twitterImage: finalOgImage,
     twitterImageAlt: `${appName} Logo`,
     twitterImageHeight: 630,
     twitterImageWidth: 1200,

@@ -11,7 +11,7 @@ const greeting = useGreetingStore();
 const skills = useSkillsStore();
 const openLightbox = inject('openLightbox');
 
-useMeta('About Me', 'Learn more about me, my skills, and how to connect with me.');
+useMeta('About Me', 'Learn more about me, my skills, and how to connect with me.', about.data.photo_link);
 </script>
 
 <template>
