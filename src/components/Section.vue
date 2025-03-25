@@ -12,9 +12,9 @@ const isDesktop = useIsDesktop();
         <aside class="sidebar-menu" v-if="isDesktop">
           <ListMenu class="sticky top-26" />
         </aside>
-        <div class="dark:text-white col-span-2 w-full mb-5">
+        <section class="dark:text-white col-span-2 w-full mb-5">
           <router-view />
-        </div>
+        </section>
       </div>
     </div>
   </section>

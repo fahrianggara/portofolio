@@ -52,9 +52,9 @@ const { showLightbox, imagesLightbox, indexLightbox, openLightbox, closeLightbox
   <ToastContainer />
 
   <!-- Lightbox -->
-  <LightboxImage
-    :showLightbox="showLightbox"
-    :imagesLightbox="imagesLightbox"
+  <LightboxImage 
+    :showLightbox="showLightbox" 
+    :imagesLightbox="imagesLightbox" 
     :indexLightbox="indexLightbox"
     @close="closeLightbox"
     @next="nextImage"

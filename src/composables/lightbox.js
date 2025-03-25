@@ -13,8 +13,18 @@ export function useLightbox()
     imagesLightbox.value = images;
   }
   
-  const nextImage = () => index.value = (index.value + 1) % imagesLightbox.value.length
-  const prevImage = () => index.value = (index.value - 1 + imagesLightbox.value.length) % imagesLightbox.value.length
+  const nextImage = () => {
+    if (imagesLightbox.value.length > 1) {
+      indexLightbox.value = (indexLightbox.value + 1) % imagesLightbox.value.length;
+    }
+  };
+  
+  const prevImage = () => {
+    if (imagesLightbox.value.length > 1) {
+      indexLightbox.value = (indexLightbox.value - 1 + imagesLightbox.value.length) % imagesLightbox.value.length;
+    }
+  };
+  
 
   provide('openLightbox', openLightbox);
 

@@ -41,7 +41,13 @@ const showResume = computed(() => {
     <li>
       <router-link :to="{ name: 'about' }" exact-active-class="active" @click="$emit('close-menu')">
         <i class="fi fi-rr-user" v-if="showIcon"></i>
-        <span>About</span>
+        <span>About Me</span>
+      </router-link>
+    </li>
+    <li>
+      <router-link :to="{ name: 'education' }" exact-active-class="active" @click="$emit('close-menu')">
+        <i class="fi fi-rr-graduation-cap" v-if="showIcon"></i>
+        <span>Education</span>
       </router-link>
     </li>
     <li v-if="showResume">

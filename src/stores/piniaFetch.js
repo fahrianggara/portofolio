@@ -3,16 +3,20 @@ import { useGreetingStore } from "./greeting";
 import { useAboutStore } from "./about";
 import { useSkillsStore } from "./skills";
 import { useConfigStore } from "./configuration";
+import { useEducationStore } from "./educations";
+import { useCertificateStore } from "./certificates";
 
 export async function piniaFetch(pinia) {
   setActivePinia(pinia);
 
-  // If has more stores, add them here of course with fetchData method
+  // Tambahin store yang baru disini buat fetch data di SSR
   const storeInstances = [
     useGreetingStore(),
     useAboutStore(),
     useSkillsStore(),
-    useConfigStore()
+    useConfigStore(),
+    useEducationStore(),
+    useCertificateStore()
   ];
 
   const fetchPromises = storeInstances.map(store => {

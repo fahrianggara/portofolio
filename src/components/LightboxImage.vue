@@ -1,4 +1,6 @@
 <script setup>
+import { onMounted } from 'vue';
+
 // Props untuk menerima data dari parent
 const props = defineProps({
   showLightbox: Boolean, // Status tampilan lightbox
@@ -17,6 +19,15 @@ const nextImage = () => emit('next');
 
 // Navigasi ke gambar sebelumnya
 const prevImage = () => emit('prev');
+
+// keybind untuk navigasi gambar
+onMounted(() => {
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') nextImage();
+    if (e.key === 'ArrowLeft') prevImage();
+    if (e.key === 'Escape') closeLightbox();
+  });
+});
 </script>
 
 <template>
@@ -39,12 +50,12 @@ const prevImage = () => emit('prev');
         />
       </Transition>
       
-      <button class="lightbox-nav lightbox-prev" @click.stop="prevImage" 
+      <button class="lightbox-nav lightbox-prev" @click="prevImage" 
         :disabled="indexLightbox === 0">
         <i class="fi fi-rr-angle-left"></i>
       </button>
 
-      <button class="lightbox-nav lightbox-next" @click.stop="nextImage" 
+      <button class="lightbox-nav lightbox-next" @click="nextImage" 
         :disabled="indexLightbox === imagesLightbox.length - 1">
         <i class="fi fi-rr-angle-right"></i>
       </button>
@@ -74,7 +85,7 @@ const prevImage = () => emit('prev');
 }
 
 .lightbox-overlay {
-  @apply absolute top-0 left-0 w-full h-full dark:bg-black bg-white dark:opacity-100 opacity-80;
+  @apply absolute top-0 left-0 w-full h-full bg-black opacity-100;
 }
 
 .lightbox-container {
@@ -86,7 +97,7 @@ const prevImage = () => emit('prev');
 }
 
 .lightbox-close {
-  @apply fixed top-[16px] right-[20px] bg-transparent border-none dark:text-white 
+  @apply fixed top-[16px] right-[20px] bg-transparent border-none text-white 
   text-[18px] cursor-pointer;
 }
 
@@ -101,7 +112,7 @@ const prevImage = () => emit('prev');
 }
 
 .lightbox-nav:disabled {
-  @apply opacity-[0.1] cursor-default;
+  @apply opacity-[0] cursor-default;
 }
 
 .lightbox-prev {
