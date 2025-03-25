@@ -6,6 +6,8 @@ import { useConfigStore } from "./configuration";
 import { useEducationStore } from "./educations";
 import { useCertificateStore } from "./certificates";
 import { useExperienceStore } from "./experiences";
+import { useProjectStore } from "./projects";
+import { useRepoStore } from "./repositories";
 
 export async function piniaFetch(pinia) {
   setActivePinia(pinia);
@@ -18,7 +20,9 @@ export async function piniaFetch(pinia) {
     useConfigStore(),
     useEducationStore(),
     useCertificateStore(),
-    useExperienceStore()
+    useExperienceStore(),
+    useProjectStore(),
+    useRepoStore(),
   ];
 
   const fetchPromises = storeInstances.map(store => {

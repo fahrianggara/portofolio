@@ -56,6 +56,12 @@ const showResume = computed(() => {
         <span>Experience</span>
       </router-link>
     </li>
+    <li>
+      <router-link :to="{ name: 'project' }" exact-active-class="active" @click="$emit('close-menu')">
+        <i class="fi fi-rr-flask-potion" v-if="showIcon"></i>
+        <span>Project</span>
+      </router-link>
+    </li>
     <li v-if="showResume">
       <a href="javascript:void(0)" @click="downloadCV">
         <i class="fi fi-rr-file" v-if="showIcon"></i>
