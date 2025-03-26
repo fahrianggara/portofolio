@@ -139,8 +139,7 @@ footer {
 }
 
 .sidebar-menu li a:not(.active):hover {
-	@apply hover:bg-bg-primary hover:text-primary border-bg-primary 
-	dark:hover:bg-dark-bg-primary dark:hover:text-dark-primary dark:border-dark-bg-primary;
+	@apply text-primary hover:bg-surface dark:hover:bg-dark-surface/80;
 }
 
 .sidebar-menu li i {
@@ -148,7 +147,7 @@ footer {
 }
 
 .sidebar-menu .active {
-	@apply bg-primary dark:bg-dark-primary text-white;
+	@apply text-primary border-l-1 border-l-primary bg-surface dark:bg-dark-surface/80;
 }
 
 /* Mobile Menu */

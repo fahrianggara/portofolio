@@ -39,6 +39,11 @@ const routes = [
         path: '/projects/:slug',
         name: 'project',
         component: () => import('./pages/ProjectPage.vue'),
+      },
+      {
+        path: '/contact',
+        name: 'contact',
+        component: () => import('./pages/ContactPage.vue'),
       }
     ],
   }
