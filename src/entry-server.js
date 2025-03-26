@@ -1,7 +1,7 @@
 import { renderToString } from 'vue/server-renderer'
 import { createApp } from './main'
-import { piniaSetup } from '@/stores/piniaSetup'
-import { piniaFetch } from '@/stores/piniaFetch'
+import { piniaSetup } from './stores/piniaSetup'
+import { piniaFetch } from './stores/piniaFetch'
 import { setupHead } from './headSetup'
 import { renderMarkdown } from './composables/markdown'
 
