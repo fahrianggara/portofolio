@@ -2,7 +2,7 @@
 import { useIsDesktop } from '../composables/screen';
 import ListMenu from './ListMenu.vue';
 
-const isDesktop = useIsDesktop();
+const isDesktop = useIsDesktop(768);
 </script>
 
 <template>

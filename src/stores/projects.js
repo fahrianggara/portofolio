@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import apiClient from "../composables/axios";
+import { useRouter } from "vue-router";
 
 export const useProjectStore = defineStore('projectStore', () => {
   const loading = ref(true);
@@ -21,11 +22,19 @@ export const useProjectStore = defineStore('projectStore', () => {
     }
   };
 
+  const getDataWithSlug = computed(() => (slug) => {
+    if (!data.value.data || !Array.isArray(data.value.data)) return null; // Cek jika data kosong
+  
+    return data.value.data.find((project) => project.slug === slug) || null;
+  });
+  
+
   return {
     loading,
     data,
     currentPage,
     lastPage,
-    fetchData
+    fetchData,
+    getDataWithSlug,
   };
 });

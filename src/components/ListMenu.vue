@@ -5,7 +5,7 @@ import { useRoute } from "vue-router";
 import { useConfigStore } from "../stores/configuration";
 
 const route = useRoute();
-const isDesktop = useIsDesktop();
+const isDesktop = useIsDesktop(768);
 const config = useConfigStore();
 const downloadCV = () => config.downloadCV();
 
@@ -24,6 +24,10 @@ const props = defineProps({
   },
   downloadCV: Function,
 });
+
+const isActiveMenu = (routePath) => {
+  return route.path.startsWith(routePath);
+};
 
 const showResume = computed(() => {
   return route.path !== "/" && !isDesktop.value && !props.hideResume;
@@ -57,9 +61,9 @@ const showResume = computed(() => {
       </router-link>
     </li>
     <li>
-      <router-link :to="{ name: 'project' }" exact-active-class="active" @click="$emit('close-menu')">
+      <router-link :to="{ name: 'projects' }" :class="{ active: isActiveMenu('/projects') }" @click="$emit('close-menu')">
         <i class="fi fi-rr-flask-potion" v-if="showIcon"></i>
-        <span>Project</span>
+        <span>Projects</span>
       </router-link>
     </li>
     <li v-if="showResume">

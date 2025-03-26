@@ -31,10 +31,15 @@ const routes = [
         component: () => import('./pages/ExperiencePage.vue'),
       },
       {
-        path: '/project',
+        path: '/projects',
+        name: 'projects',
+        component: () => import('./pages/ProjectsPage.vue'),
+      },
+      {
+        path: '/projects/:slug',
         name: 'project',
         component: () => import('./pages/ProjectPage.vue'),
-      },
+      }
     ],
   }
 ]

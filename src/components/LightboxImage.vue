@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 
 // Props untuk menerima data dari parent
 const props = defineProps({
@@ -15,26 +15,45 @@ const emit = defineEmits(['close', 'next', 'prev']);
 const closeLightbox = () => emit('close');
 
 // Navigasi ke gambar berikutnya
-const nextImage = () => emit('next');
+const nextImage = () => {
+  if (props.indexLightbox < props.imagesLightbox.length - 1) {
+    emit('next');
+  }
+};
 
 // Navigasi ke gambar sebelumnya
-const prevImage = () => emit('prev');
+const prevImage = () => {
+  if (props.indexLightbox > 0) {
+    emit('prev');
+  }
+};
 
 // keybind untuk navigasi gambar
+const handleKeydown = (e) => {
+  if (e.key === 'ArrowRight') nextImage();
+  if (e.key === 'ArrowLeft') prevImage();
+  if (e.key === 'Escape') closeLightbox();
+};
+
 onMounted(() => {
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') nextImage();
-    if (e.key === 'ArrowLeft') prevImage();
-    if (e.key === 'Escape') closeLightbox();
-  });
+  window.addEventListener('keydown', handleKeydown);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown);
 });
 </script>
+
 
 <template>
   <div v-show="showLightbox" class="lightbox-body">
     <div class="lightbox-overlay" @click="closeLightbox"></div>
 
     <div class="lightbox-container">
+      <div class="lightbox-counter">
+        {{ indexLightbox + 1 }} / {{ imagesLightbox.length }}
+      </div>
+
       <button class="lightbox-close" @click="closeLightbox">
         <i class="fi fi-rr-cross"></i>
       </button>
@@ -85,7 +104,7 @@ onMounted(() => {
 }
 
 .lightbox-overlay {
-  @apply absolute top-0 left-0 w-full h-full bg-black opacity-100;
+  @apply absolute top-0 left-0 w-full h-full bg-black opacity-95;
 }
 
 .lightbox-container {
@@ -99,6 +118,10 @@ onMounted(() => {
 .lightbox-close {
   @apply fixed top-[16px] right-[20px] bg-transparent border-none text-white 
   text-[18px] cursor-pointer;
+}
+
+.lightbox-counter {
+  @apply text-white fixed top-2 left-2 text-sm bg-black/50 p-2 rounded-lg;
 }
 
 .lightbox-nav {
