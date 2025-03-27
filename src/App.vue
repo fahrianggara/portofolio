@@ -40,7 +40,7 @@ const { showLightbox, imagesLightbox, indexLightbox, openLightbox, closeLightbox
     :isDark="isDark" @toggleTheme="toggleTheme" />
 
   <!-- Main content -->
-  <main class="flex flex-col min-h-screen relative z-9" :key="$route.fullPath">
+  <main class="flex flex-col min-h-screen relative z-9">
     <router-view :key="$route.fullPath" />
     <Footer v-if="route.name !== 'home' && route.name !== 'notFound'" />
   </main>

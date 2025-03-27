@@ -15,7 +15,7 @@ const noPadding = ref(false);
           <ListMenu class="sticky top-26" />
         </aside>
         <section class="dark:text-white col-span-2 w-full mb-5">
-          <router-view @no-padding="noPadding = $event" />
+          <router-view :key="$route.fullPath" @no-padding="noPadding = $event" />
         </section>
       </div>
     </div>

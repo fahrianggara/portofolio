@@ -75,6 +75,7 @@ footer {
 	pt-[6.5rem] h-fit;
 }
 
+/* If mobile no padding */
 .container.no-padding {
 	@apply px-0 hp:px-2 md:px-0 w-full hp:w-[calc(100%-20px)] md:w-[calc(100%-30px)];
 }
