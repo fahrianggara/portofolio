@@ -17,6 +17,7 @@ export function useMeta(customTitle = null, customDescription = null, customOgIm
   const finalTitle = customTitle ? `${customTitle} - ${appName}` : appName;
   const finalDescription = customDescription || greeting.data.subtitle;
   const finalOgImage = customOgImage || `${baseUrl}/og.png`;
+  const socials = greeting.data.socials.filter(social => !social.link.includes("@"));
 
   useSeoMeta({
     title: finalTitle,
@@ -57,11 +58,7 @@ export function useMeta(customTitle = null, customDescription = null, customOgIm
           "email": `mailto:${config.data.email}`,
           "image": about.data.photo_link,
           "url": baseUrl,
-          "sameAs": [
-            "https://github.com/fahrianggara",
-            "https://www.linkedin.com/in/fahrianggara",
-            "https://www.instagram.com/fahrianqqara",
-          ]
+          "sameAs": socials.map(social => social.link),
         })
       }
     ]
