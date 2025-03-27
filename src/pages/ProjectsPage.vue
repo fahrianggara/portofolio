@@ -98,7 +98,7 @@ useMeta("Projects", "Let's take a look at some of the projects that I have worke
 }
 
 .repositories ol {
-  @apply grid sm:grid-cols-2 grid-cols-1 gap-4;
+  @apply grid hp:grid-cols-2 grid-cols-1 gap-4;
 }
 
 .repositories li {

@@ -79,10 +79,10 @@ watchEffect(() => {
 @import "@/assets/style.css";
 
 .back {
-  @apply dark:bg-dark-bg-primary/70 bg-bg-primary/90
+  @apply dark:bg-dark-surface/70 bg-white/90
   inline-flex items-center px-4 py-3 pr-5 rounded-full text-sm font-medium cursor-pointer
   text-primary hover:bg-primary/80 hover:text-white ease-in-out duration-300
-  border border-solid border-primary;
+  border dark:border-zinc-900 border-gray-300;
 }
 
 .back i {

@@ -58,7 +58,7 @@ useMeta("Education", "Discover my educational background and learning journey.")
       Whoops, I haven't added any certificates yet.
     </div>
 
-    <div v-else class="grid grid-cols-2 md:grid-cols-3 gap-4">
+    <div v-else class="grid grid-cols-2 hp:grid-cols-3 gap-4">
       <img v-for="(certificate, i) in certificates.data" :key="certificate.id" :src="certificate.image_link" 
         @click="openLightbox(i, certificates.data.map(c => ({ src: c.image_link })))">
     </div>
