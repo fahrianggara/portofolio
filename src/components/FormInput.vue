@@ -19,7 +19,7 @@ const errorMessage = computed(() => (props.error?.[0] ? props.error[0] : ''));
 const charCount = computed(() => props.modelValue?.length || 0);
 const textareaRef = ref(null);
 
-const defaultHeight = '40px'; 
+const defaultHeight = '48px'; 
 const maxHeight = '200px'; 
 
 const truncateValue = (value) => {

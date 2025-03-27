@@ -44,6 +44,11 @@ const routes = [
         path: '/contact',
         name: 'contact',
         component: () => import('./pages/ContactPage.vue'),
+      },
+      {
+        path: '/activity',
+        name: 'activity',
+        component: () => import('./pages/ActivityPage.vue'),
       }
     ],
   }

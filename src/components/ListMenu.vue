@@ -67,9 +67,15 @@ const showResume = computed(() => {
       </router-link>
     </li>
     <li>
-      <router-link to="/contact" exact-active-class="active" @click="$emit('close-menu')">
+      <router-link :to="{ name: 'contact' }" exact-active-class="active" @click="$emit('close-menu')">
         <i class="fi fi-rr-envelope" v-if="showIcon"></i>
         <span>Contact</span>
+      </router-link>
+    </li>
+    <li>
+      <router-link :to="{ name: 'activity' }" exact-active-class="active" @click="$emit('close-menu')">
+        <i class="fi fi-rr-time-fast" v-if="showIcon"></i>
+        <span>Activity</span>
       </router-link>
     </li>
     <li v-if="showResume">
