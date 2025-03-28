@@ -2,6 +2,7 @@
 import { onMounted, onUnmounted } from 'vue';
 import { useMeta } from '../composables/meta';
 import ActivityCurrent from '../components/ActivityCurrent.vue';
+import ActivityCoding from '../components/ActivityCoding.vue';
 
 const emit = defineEmits(["no-padding"]);
 onMounted(() => { emit("no-padding", true) });
@@ -12,4 +13,5 @@ useMeta("Activity", "Explore the activities I have done in the past and the ones
 
 <template>
   <ActivityCurrent />
+  <ActivityCoding />
 </template>

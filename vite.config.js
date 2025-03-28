@@ -3,6 +3,7 @@ import { fileURLToPath, URL } from 'node:url';
 import vue from '@vitejs/plugin-vue';
 import tailwindcss from '@tailwindcss/vite';
 import dotenv from 'dotenv';
+import commonjs from 'vite-plugin-commonjs'
 
 export default defineConfig(({ mode }) => {
   // Load environment variables based on mode
@@ -16,7 +17,14 @@ export default defineConfig(({ mode }) => {
     plugins: [
       vue(),
       tailwindcss(),
+      commonjs()
     ],
+    optimizeDeps: {
+      include: ["vue3-calendar-heatmap"]
+    },
+    ssr: {
+      noExternal: ["vue3-calendar-heatmap"]
+    },
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),

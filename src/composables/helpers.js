@@ -21,8 +21,8 @@ export const formatDate = (isoDate) => {
   const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60)); // Sisa menit
 
   return {
-      formattedDate,
-      diffHours,
-      diffMinutes
+    formattedDate,
+    diffHours,
+    diffMinutes
   };
 }

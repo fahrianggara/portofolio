@@ -144,7 +144,9 @@ onUnmounted(() => {
 
     <li class="activity" v-else v-for="(activity, index) in currActivities" :key="index">
       <div v-if="activity.flags">
-        <p class="font-medium text-primary mb-3.5">Listening to Spotify</p>
+        <p class="font-medium dark:text-gray-300 text-gray-700 mb-3.5 text-[14px]">
+          Listening to Spotify
+        </p>
 
         <div class="flex items-start md:gap-2 gap-4">
           <div class="relative inline-block">
@@ -171,7 +173,7 @@ onUnmounted(() => {
       </div>
 
       <div v-else-if="activity.name === 'Visual Studio Code'">
-        <p class="text-primary font-medium mb-3.5">
+        <p class="dark:text-gray-300 text-gray-700 font-medium mb-3.5 text-[14px]">
           Developing Code
         </p>
 
@@ -203,7 +205,7 @@ onUnmounted(() => {
       </div>
 
       <div v-else>
-        <p class="text-primary font-medium mb-3.5">
+        <p class="dark:text-gray-300 text-gray-700 font-medium mb-3.5 text-[14px]">
           Playing Game
         </p>
 

@@ -8,6 +8,9 @@ import { useCertificateStore } from "./certificates";
 import { useExperienceStore } from "./experiences";
 import { useProjectStore } from "./projects";
 import { useRepoStore } from "./repositories";
+import { useContributionStore } from "./contributions";
+import { useGithubStore } from "./github";
+import { useWakatimeStore } from "./wakatime";
 
 export async function piniaFetch(pinia) {
   setActivePinia(pinia);
@@ -23,6 +26,9 @@ export async function piniaFetch(pinia) {
     useExperienceStore(),
     useProjectStore(),
     useRepoStore(),
+    useContributionStore(),
+    useGithubStore(),
+    useWakatimeStore()
   ];
 
   const fetchPromises = storeInstances.map(store => {
