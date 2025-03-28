@@ -1,49 +1,82 @@
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
+import { useIsMobile } from '../composables/screen'; // Import useIsMobile
 
-// Props untuk menerima data dari parent
+// Props dari parent
 const props = defineProps({
-  showLightbox: Boolean, // Status tampilan lightbox
-  imagesLightbox: Array,  // Daftar gambar
-  indexLightbox: Number,  // Indeks gambar aktif
+  showLightbox: Boolean,
+  imagesLightbox: Array,
+  indexLightbox: Number,
 });
 
-// Emit events untuk komunikasi dengan parent
+// Emit events ke parent
 const emit = defineEmits(['close', 'next', 'prev']);
+
+// Gunakan useIsMobile untuk deteksi mobile
+const isMobile = useIsMobile();
+
+// Variables untuk swipe gesture
+const touchStartX = ref(0);
+const touchEndX = ref(0);
 
 // Tutup lightbox
 const closeLightbox = () => emit('close');
 
-// Navigasi ke gambar berikutnya
+// Navigasi gambar
 const nextImage = () => {
   if (props.indexLightbox < props.imagesLightbox.length - 1) {
     emit('next');
   }
 };
 
-// Navigasi ke gambar sebelumnya
 const prevImage = () => {
   if (props.indexLightbox > 0) {
     emit('prev');
   }
 };
 
-// keybind untuk navigasi gambar
+// Simpan posisi awal touch
+const handleTouchStart = (e) => {
+  touchStartX.value = e.touches[0].clientX;
+};
+
+// Simpan posisi akhir touch dan tentukan arah swipe
+const handleTouchEnd = (e) => {
+  touchEndX.value = e.changedTouches[0].clientX;
+  const diffX = touchStartX.value - touchEndX.value;
+
+  if (diffX > 50) {
+    nextImage(); // Swipe kiri -> kanan (next)
+  } else if (diffX < -50) {
+    prevImage(); // Swipe kanan -> kiri (prev)
+  }
+};
+
+// Keybind untuk navigasi gambar
 const handleKeydown = (e) => {
   if (e.key === 'ArrowRight') nextImage();
   if (e.key === 'ArrowLeft') prevImage();
   if (e.key === 'Escape') closeLightbox();
 };
 
+// Tambahkan event listener di mobile dan keybind di desktop
 onMounted(() => {
+  if (isMobile.value) {
+    document.addEventListener('touchstart', handleTouchStart);
+    document.addEventListener('touchend', handleTouchEnd);
+  }
   window.addEventListener('keydown', handleKeydown);
 });
 
+// Hapus event listener saat unmount
 onUnmounted(() => {
+  if (isMobile.value) {
+    document.removeEventListener('touchstart', handleTouchStart);
+    document.removeEventListener('touchend', handleTouchEnd);
+  }
   window.removeEventListener('keydown', handleKeydown);
 });
 </script>
-
 
 <template>
   <div v-show="showLightbox" class="lightbox-body">
@@ -59,22 +92,23 @@ onUnmounted(() => {
       </button>
 
       <!-- Tambahkan key agar transisi berjalan dengan baik -->
-      <Transition name="zoom" mode="out-in">
+      <Transition name="fade" mode="out-in">
         <img
           v-if="showLightbox"
           :key="indexLightbox"
-          :src="imagesLightbox[indexLightbox].src" 
-          :alt="imagesLightbox[indexLightbox].title" 
+          :src="imagesLightbox[indexLightbox].src"
+          :alt="imagesLightbox[indexLightbox].title"
           class="lightbox-image"
         />
       </Transition>
-      
-      <button class="lightbox-nav lightbox-prev" @click="prevImage" 
+
+      <!-- Tampilkan tombol prev & next hanya di desktop -->
+      <button v-if="!isMobile" class="lightbox-nav lightbox-prev" @click="prevImage" 
         :disabled="indexLightbox === 0">
         <i class="fi fi-rr-angle-left"></i>
       </button>
 
-      <button class="lightbox-nav lightbox-next" @click="nextImage" 
+      <button v-if="!isMobile" class="lightbox-nav lightbox-next" @click="nextImage" 
         :disabled="indexLightbox === imagesLightbox.length - 1">
         <i class="fi fi-rr-angle-right"></i>
       </button>
@@ -85,18 +119,12 @@ onUnmounted(() => {
 <style scoped>
 @import '@/assets/style.css';
 
-.zoom-enter-active, .zoom-leave-active {
-  transition: transform 0.3s ease, opacity 0.3s ease;
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.2s ease;
 }
 
-.zoom-enter-from {
+.fade-enter-from, .fade-leave-to {
   opacity: 0;
-  transform: scale(0.8);
-}
-
-.zoom-leave-to {
-  opacity: 0;
-  transform: scale(0.8);
 }
 
 .lightbox-body {
@@ -124,6 +152,7 @@ onUnmounted(() => {
   @apply text-white fixed top-2 left-2 text-sm bg-black/50 p-2 rounded-lg;
 }
 
+/* Tombol navigasi hanya untuk desktop */
 .lightbox-nav {
   @apply text-[16px] md:text-[24px] p-[10px] cursor-pointer border-none text-white fixed top-1/2;
   transform: translateY(-50%);

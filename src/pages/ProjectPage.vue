@@ -102,7 +102,7 @@ watchEffect(() => {
 }
 
 .content {
-  @apply mt-2 text-[15px] text-gray-700 dark:text-gray-400 leading-6
+  @apply mt-2 text-[15px] text-gray-800 dark:text-gray-300 leading-6
   md:leading-7 md:text-[16px];
 }
 

@@ -32,6 +32,7 @@ export async function piniaFetch(pinia) {
   ];
 
   const fetchPromises = storeInstances.map(store => {
+    console.info(`Fetching data for ${store.$id}`);
     return typeof store.fetchData === "function" ? store.fetchData() : null;
   });
 

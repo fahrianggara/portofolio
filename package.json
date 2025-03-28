@@ -47,6 +47,7 @@
     "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@vitejs/plugin-vue": "^5.2.1",
     "vite": "^6.2.0",
-    "vite-plugin-commonjs": "^0.10.4"
+    "vite-plugin-commonjs": "^0.10.4",
+    "vite-plugin-pages": "^0.32.5"
   }
 }

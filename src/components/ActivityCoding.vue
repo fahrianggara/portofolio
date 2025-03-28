@@ -6,7 +6,6 @@ import { useWakatimeStore } from "../stores/wakatime";
 import { useDark } from "@vueuse/core";
 import { CalendarHeatmap } from "vue3-calendar-heatmap";
 import { formatDate } from "../composables/helpers";
-import { useIsMobile } from "../composables/screen";
 import StatsChart from "./ActivityCodingStats.vue";
 import "vue3-calendar-heatmap/dist/style.css";
 
@@ -15,7 +14,6 @@ const user = useGithubStore();
 const wakatime = useWakatimeStore();
 const isDarkMode = useDark();
 const heatmapContainer = ref(null);
-const isMobile = useIsMobile(); // Deteksi perangkat mobile
 
 const scrollToRight = () => {
   if (heatmapContainer.value) {
@@ -62,26 +60,6 @@ const formattedRange = computed(() => {
     </p>
   </div>
 
-  <div class="card mt-4">
-    <h1 class="font-medium">
-      Contributions <span class="text-[14px] dark:text-gray-400 text-gray-700 font-normal">(GitHub)</span>
-    </h1>
-
-    <p class="my-4 mt-1 text-[15px] dark:text-gray-400 text-gray-600">
-      {{ contributions.total }} contributions in the last year.
-    </p>
-
-    <div ref="heatmapContainer" class="heatmap-container">
-      <CalendarHeatmap 
-        :values="contributions.data" 
-        :end-date="new Date()" 
-        :dark-mode="isDarkMode" 
-        :round="2"
-        class="w-[670px] lg:w-full"
-      />
-    </div>
-  </div>
-
   <div class="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
     <div class="card">
       <h1 class="font-medium mb-1.5">
@@ -109,6 +87,26 @@ const formattedRange = computed(() => {
           ({{ wakatime.data.human_readable_total }})
         </span>
       </div>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <h1 class="font-medium">
+      Contributions <span class="text-[14px] dark:text-gray-400 text-gray-700 font-normal">(GitHub)</span>
+    </h1>
+
+    <p class="my-4 mt-1 text-[15px] dark:text-gray-400 text-gray-600">
+      {{ contributions.total }} contributions in the last year.
+    </p>
+
+    <div ref="heatmapContainer" class="heatmap-container">
+      <CalendarHeatmap 
+        :values="contributions.data" 
+        :end-date="new Date()" 
+        :dark-mode="isDarkMode" 
+        :round="2"
+        class="w-[670px] lg:w-full"
+      />
     </div>
   </div>
 
