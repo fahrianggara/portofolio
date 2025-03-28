@@ -27,7 +27,7 @@ const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
     `).join('')}
   </urlset>`;
 
-const outputPath = path.join(__dirname, 'dist', 'sitemap.xml');
+const outputPath = path.join(__dirname, 'public', 'sitemap.xml');
 await fs.writeFile(outputPath, sitemapContent);
 console.log(`Sitemap generated at ${outputPath}`);
 
@@ -37,6 +37,6 @@ Allow: /
 Sitemap: ${baseUrl}/sitemap.xml
 `;
 
-const robotsPath = path.join(__dirname, 'dist', 'robots.txt');
+const robotsPath = path.join(__dirname, 'public', 'robots.txt');
 await fs.writeFile(robotsPath, robotsContent);
 console.log(`Robots.txt generated at ${robotsPath}`);
