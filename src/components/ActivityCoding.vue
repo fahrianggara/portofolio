@@ -1,11 +1,13 @@
 <script setup>
-import { onMounted, computed, defineComponent, ref, watch, onUnmounted } from "vue";
+import { onMounted, computed, ref, watch, onUnmounted } from "vue";
 import { useContributionStore } from "../stores/contributions";
 import { useGithubStore } from "../stores/github";
 import { useWakatimeStore } from "../stores/wakatime";
 import { useDark } from "@vueuse/core";
 import { CalendarHeatmap } from "vue3-calendar-heatmap";
 import { formatDate } from "../composables/helpers";
+import { useIsMobile } from "../composables/screen";
+import StatsChart from "./ActivityCodingStats.vue";
 import "vue3-calendar-heatmap/dist/style.css";
 
 const contributions = useContributionStore();
@@ -13,6 +15,7 @@ const user = useGithubStore();
 const wakatime = useWakatimeStore();
 const isDarkMode = useDark();
 const heatmapContainer = ref(null);
+const isMobile = useIsMobile(); // Deteksi perangkat mobile
 
 const scrollToRight = () => {
   if (heatmapContainer.value) {
@@ -22,9 +25,22 @@ const scrollToRight = () => {
 
 watch(() => contributions.data, (newContributions) => {
   if (newContributions.length > 0) {
-    setTimeout(scrollToRight, 100); // Delay agar data benar-benar muncul
+    setTimeout(scrollToRight, 100);
   }
 }, { immediate: true });
+
+onMounted(() => {
+  if (typeof window !== "undefined") {
+    scrollToRight(); // Jalankan saat halaman dimuat
+    window.addEventListener("resize", scrollToRight);
+  }
+});
+
+onUnmounted(() => {
+  if (typeof window !== "undefined") {
+    window.removeEventListener("resize", scrollToRight);
+  }
+});
 
 const githubJoinDate = computed(() => {
   if (!user.data || !user.data.created_at) return null;
@@ -35,6 +51,7 @@ const formattedRange = computed(() => {
   return wakatime.data.human_readable_range?.replace(/since\s+/i, '') || '';
 });
 </script>
+
 
 <template>
   <div class="hp:px-0 px-5 mt-6">
@@ -67,7 +84,7 @@ const formattedRange = computed(() => {
 
   <div class="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
     <div class="card">
-      <h1 class="font-semibold mb-1.5">
+      <h1 class="font-medium mb-1.5">
         Since <span class="text-[14px] dark:text-gray-400 text-gray-700 font-normal">(GitHub)</span>
       </h1>
 
@@ -81,7 +98,7 @@ const formattedRange = computed(() => {
     </div>
 
     <div class="card">
-      <h1 class="font-semibold mb-1.5">
+      <h1 class="font-medium mb-1.5">
         Since <span class="text-[14px] dark:text-gray-400 text-gray-700 font-normal">(WakaTime)</span>
       </h1>
 
@@ -95,14 +112,24 @@ const formattedRange = computed(() => {
     </div>
   </div>
 
+  <div class="card mt-4">
+    <h1 class="font-medium mb-1.5">
+      Top Languages <span class="text-[14px] dark:text-gray-400 text-gray-700 font-normal">(WakaTime)</span>
+    </h1>
+
+    <p class="my-4 mt-1 text-[15px] dark:text-gray-400 text-gray-600">
+      This is my top 10 languages based on coding time.
+    </p>
+
+    <StatsChart v-if="!wakatime.loading && wakatime.data" 
+      :codingStats="wakatime.data" 
+      :key="wakatime.data" />
+  </div>
+
 </template>
 
 <style scoped>
 @import '@/assets/style.css';
-
-.card p {
-  @apply text-[15px];
-}
 
 .heatmap-container {
   @apply overflow-auto;
