@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy-client:
-    name: deploy client project
+    name: Deploy Client Project
     runs-on: ubuntu-latest
 
     steps:
@@ -28,16 +28,7 @@ jobs:
     - name: Build Project
       run: npm run build
 
-    - name: Upload the Project Client
-      uses: SamKirkland/FTP-Deploy-Action@4.3.1
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: dist/
-        server-dir: ${{ secrets.FTP_DIR_CLIENT }}
-
-    - name: Upload the Project Client
+    - name: Upload Project Files (dist/, package.json, server.js)
       uses: SamKirkland/FTP-Deploy-Action@4.3.1
       with:
         server: ${{ secrets.FTP_SERVER }}
@@ -47,6 +38,7 @@ jobs:
         server-dir: ${{ secrets.FTP_DIR_CLIENT }}
         exclude: |
           **/*
+          !dist/
           !package.json
           !server.js
 
