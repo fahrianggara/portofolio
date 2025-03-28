@@ -1,33 +1,28 @@
 <script setup>
-  import ListSocial from './ListSocial.vue';
-  import ListMenu from './ListMenu.vue';
-  import { useHomeStore } from '@/stores/home';
-  import { onMounted } from 'vue';
+import ListSocial from './ListSocial.vue'
+import ListMenu from './ListMenu.vue'
+import { useGreetingStore } from '../stores/greeting'
 
-  const year = new Date().getFullYear();
-  const social = useHomeStore();
-
-  onMounted(() => {
-    social.getGreeting();
-  });
+const year = new Date().getFullYear()
+const greeting = useGreetingStore()
 </script>
 
 <template>
-  <footer class="font-inter">
+  <footer>
     <div class="footer-body max-w-5xl mx-auto px-4 pb-12 sm:pb-0 lg:pb-4">
       <div class="footer-box">
         <div class="footer-links">
           <ListMenu :showIcon="false" :hideResume="true" />
         </div>
         <div class="footer-bottom">
-          <div v-if="social.loading" class="flex flex-wrap gap-2 mb-4">
+          <div v-if="greeting.loading" class="flex flex-wrap gap-2 mb-4">
             <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-7 w-7 rounded-full"></div>
             <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-7 w-7 rounded-full"></div>
             <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-7 w-7 rounded-full"></div>
             <div class="animate-pulse bg-gray-300 dark:bg-gray-700 h-7 w-7 rounded-full"></div>
           </div>
 
-          <ListSocial v-else :socials="social.greeting.socials" />
+          <ListSocial v-else :socials="greeting.data.socials" />
           
           <p class="copyright">
             &copy; {{ year }} Fahri Anggara. Made with ❤️
@@ -40,7 +35,7 @@
 
 <style>
   @reference "tailwindcss";
-  @import "@/assets/main.css";
+  @import "@/assets/style.css";
 
   footer {
     @apply w-full relative z-10 h-auto block mt-auto;
@@ -48,7 +43,7 @@
 
   .footer-body {
     @apply bg-surface/50 dark:bg-dark-surface/60 dark:text-white border-gray-300 
-    dark:border-zinc-900 border-solid border-t lg:border rounded-t-none lg:rounded-t-4xl backdrop-blur-lg;
+    dark:border-zinc-900 border-solid border-t lg:border rounded-t-none lg:rounded-t-4xl;
   }
 
   .footer-box {
@@ -63,7 +58,7 @@
   }
 
   .footer-links ul a {
-    @apply text-[15px] hover:underline text-gray-600 dark:text-gray-400 ease-in hover:text-primary hover:underline;
+    @apply text-[15px] hover:underline text-gray-600 dark:text-gray-400 ease-in hover:text-primary;
   }
 
   .footer-links ul a.active {

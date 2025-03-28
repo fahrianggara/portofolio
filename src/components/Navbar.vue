@@ -1,52 +1,39 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import { useCvStore } from '@/stores/cv';
-import SunIcon from './icon/SunIcon.vue';
-import MoonIcon from './icon/MoonIcon.vue';
+import Sun from './icon/Sun.vue';
+import Moon from './icon/Moon.vue';
 import ListMenu from './ListMenu.vue';
+import { useIsMobile } from '../composables/screen';
+import { useConfigStore } from '../stores/configuration';
 
-// Props
-defineProps({ isDark: Boolean });
-const emit = defineEmits(['toggleDark']);
+const config = useConfigStore();
+const downloadCV = () => config.downloadCV();
 
-// Store
-const cvStore = useCvStore();
+defineProps({
+  isDark: Boolean
+})
+const emit = defineEmits(['toggleTheme']);
 
-// Fetch CV config
-onMounted(() => {
-  cvStore.fetchConfig();
-});
-
-// State for menu visibility
 const isMenuOpen = ref(false);
-
 const toggleMenu = () => isMenuOpen.value = !isMenuOpen.value;
 const closeMenu = () => isMenuOpen.value = false;
 
-const handleOutsideInteraction = (event) => {
+const handleResize = () => { if (useIsMobile) closeMenu() }
+const handleClickOutside = (e) => {
   const clickedOutside = 
-    !event.target.closest('.mobile-menu') && 
-    !event.target.closest('.btn-menu');
+    !e.target.closest('.mobile-menu') && 
+    !e.target.closest('.btn-menu');
     
   if (clickedOutside) closeMenu();
 };
 
-const handleResize = () => { 
-  if (window.innerWidth >= 768) closeMenu();
-};
-
-// Download CV
-const downloadCV = () => {
-  cvStore.downloadCV();
-};
-
 onMounted(() => {
-  document.addEventListener('click', handleOutsideInteraction);
+  window.addEventListener('click', handleClickOutside);
   window.addEventListener('resize', handleResize);
 });
 
 onUnmounted(() => {
-  document.removeEventListener('click', handleOutsideInteraction);
+  window.removeEventListener('click', handleClickOutside);
   window.removeEventListener('resize', handleResize);
 });
 </script>
@@ -55,34 +42,31 @@ onUnmounted(() => {
   <header id="header">
     <nav :class="{ 'show': isMenuOpen }">
       <router-link to="/" class="nav-brand">
-        <img src="/public/android-chrome-512x512.png" alt="Logo" />
+        <img src="/android-chrome-512x512.png" alt="Logo" />
       </router-link>
       <div class="nav-menu">
         <button class="btn-cv" ref="btnCV" @click="downloadCV">
-          Download CV
+          Resume
         </button>
-
         <button @click="toggleMenu" :aria-expanded="isMenuOpen" class="btn-menu">
           Menu <i :class="['fi', isMenuOpen ? 'fi-rr-angle-small-up' : 'fi-rr-angle-small-down']"></i>
         </button> 
-
-        <button @click="emit('toggleDark')" class="btn-theme">
-          <component :is="isDark ? SunIcon : MoonIcon" class="w-[23px] h-[23px]" />
+        <button @click="emit('toggleTheme')" class="btn-theme">
+          <component :is="isDark ? Sun : Moon" class="w-[23px] h-[23px] hover:fill-primary transition-all duration-200" />
         </button>
       </div>
     </nav>
   </header>
 
-  <!-- Transition effect for mobile menu -->
   <Transition name="fade-bottom">
     <div v-if="isMenuOpen" class="mobile-menu" :class="{ 'show': isMenuOpen }" data-lenis-prevent>
-      <ListMenu @close-menu="closeMenu" :downloadCV="downloadCV" />
+      <ListMenu @close-menu="closeMenu" />
     </div>
   </Transition>
 </template>
 
 <style scoped>
-  @import "@/assets/main.css";
+  @import "@/assets/style.css";
 
   header {
     @apply fixed top-0 left-0 right-0 w-[calc(100%-30px)] max-w-5xl z-[1000] mt-4 mx-auto;
@@ -115,14 +99,14 @@ onUnmounted(() => {
 
   .btn-cv {
     @apply bg-background dark:bg-dark-surface px-4 py-2 dark:text-white h-[45px] 
-    text-[14px] font-semibold cursor-pointer hover:text-primary ease-in-out duration-75 hidden md:block;
+    text-[14px] font-semibold cursor-pointer hover:text-primary transition-all duration-200 hidden md:block;
     border-top-left-radius: 2rem;
     border-bottom-left-radius: 2rem;
   }
 
   .btn-menu {
     @apply bg-background dark:bg-dark-surface px-4 py-2 dark:text-white h-[45px] text-[14px] 
-    font-semibold cursor-pointer hover:text-primary ease-in-out duration-75 md:hidden flex items-center gap-1;
+    font-semibold cursor-pointer hover:text-primary transition-all duration-200 md:hidden flex items-center gap-1;
     border-top-left-radius: 2rem;
     border-bottom-left-radius: 2rem;
   }

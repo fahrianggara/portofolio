@@ -1,6 +1,4 @@
 <script setup>
-  import { onMounted } from 'vue';
-  
   defineProps({
     socials: {
       type: Array,

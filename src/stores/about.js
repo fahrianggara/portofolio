@@ -1,41 +1,25 @@
-import apiClient from "@/utils/axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import apiClient from "../composables/axios";
 
-export const useAboutStore = defineStore("aboutStore", () => {
-  const about = ref(null);
+export const useAboutStore = defineStore('aboutStore', () => {
   const loading = ref(true);
-  const skills = ref([]);
-  const greeting = ref(null);
+  const data = ref(null);
 
-  const getAbout = async () => {
+  const fetchData = async () => {
     try {
-      const { data } = await apiClient.get(`api/about`);
-      about.value = data.data;
+      const response = await apiClient.get(`api/about`);
+      data.value = response.data.data;
     } catch (error) {
-      // error
+      console.error(error);
     } finally {
       loading.value = false;
     }
   };
 
-  const getSkills = async () => {
-    try {
-      const { data } = await apiClient.get(`api/skills`);
-      skills.value = data.data;
-    } catch (error) {
-      // error
-    }
+  return {
+    loading,
+    data,
+    fetchData
   };
-
-  const getGreeting = async () => {
-    try {
-      const { data } = await apiClient.get(`api/greeting`);
-      greeting.value = data.data;
-    } catch (error) {
-      // error
-    }
-  };
-
-  return { about, loading, getAbout, getGreeting, greeting, getSkills, skills };
-})
+});

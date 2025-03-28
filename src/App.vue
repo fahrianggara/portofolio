@@ -1,99 +1,63 @@
 <script setup>
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
-import { useRoute } from 'vue-router';
-import { computed, onMounted, ref, watch, watchEffect } from 'vue';
-import { useToggle } from '@vueuse/shared';
-import Partials from './components/Partials.vue';
-import { useDark } from '@vueuse/core';
-import Cursor from "./components/Cursor.vue";
+import Background from './components/Background.vue';
+import Cursor from './components/Cursor.vue';
+import LightboxImage from './components/LightboxImage.vue';
 import ToastContainer from './components/ToastContainer.vue';
+import { useRoute } from 'vue-router';
+import { useIsMobile } from './composables/screen';
+import { useSmoothScroll } from './composables/smoothScroll';
+import { useDarkMode } from './composables/theme';
+import { useLightbox } from './composables/lightbox';
+import { onMounted, ref, watch } from 'vue';
 
-const route = useRoute(); // Vue Router's route
+const isMobile = useIsMobile();
+const route = useRoute();
 
-// Ambil title dari meta
-const title = computed(() => route.meta.title);
-
-// Pantau perubahan title dan perbarui document.title
-watch(title, (newTitle) => {
-  const appName = import.meta.env.VITE_APP_NAME;
-  document.title = newTitle ? `${newTitle} - ${appName}` : appName;
-}, { immediate: true });
-
-// Dark Mode
-const isDark = useDark({
-  selector: 'html',
-  attribute: 'data-theme',
-  valueDark: 'dark',
-  valueLight: 'light',
-});
-
-// Dark Mode Toggle
-const toggleDark = useToggle(isDark);
-
-// Function to check if the device is mobile
-const isMobile = () => window.innerWidth <= 768 || /Mobi|Android/i.test(navigator.userAgent);
-
-// Update saat ukuran layar berubah
-const updateIsMobile = () => {
-  isMobile.value = window.innerWidth <= 768 || /Mobi|Android/i.test(navigator.userAgent);
-};
-
-// Pantau perubahan ukuran layar
-watchEffect(() => {
-  window.addEventListener('resize', updateIsMobile);
-  return () => window.removeEventListener('resize', updateIsMobile);
-});
+const theme = useDarkMode();
+const isDark = ref(false);
+const toggleTheme = theme.toggle;
 
 onMounted(() => {
-  // Add dark:bg-dark-background when first loaded
-  const bodyClasses = [
-    'dark:bg-dark-background',
-    'bg-background',
-    'relative',
-    'before:content-[""]',
-    'before:absolute',
-    'before:inset-0',
-    'before:backdrop-blur-3xl',
-    'before:z-[1]',
-  ];
-  document.body.classList.add(...bodyClasses);
-
-  // Smooth Scroll with Lenis (only if not mobile)
-  if (!isMobile()) {
-    import("lenis").then(({ default: Lenis }) => {
-      const lenis = new Lenis();
-
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-
-      // Scroll to top when route changes
-      watch(route, () => {
-        lenis.scrollTo(0, { behavior: "smooth" });
-      });
-    });
-  }
+  isDark.value = theme.isDark.value;
+  watch(theme.isDark, (value) => isDark.value = value);
 });
-</script> 
+
+// Smooth scroll
+useSmoothScroll();
+
+// Lightbox
+const { showLightbox, imagesLightbox, indexLightbox, openLightbox, closeLightbox, nextImage, prevImage } = useLightbox();
+</script>
 
 <template>
-  <Cursor v-if="!isMobile()" />
+  <!-- Cursor -->
+  <Cursor v-if="!isMobile" />
 
-  <Navbar v-if="route.meta.showNavbarAndFooter" :isDark="isDark" @toggleDark="toggleDark" />
-  
-  <main class="flex flex-col min-h-screen font-inter relative z-9">
+  <!-- Navbar -->
+  <Navbar v-if="route.name !== 'home' && route.name !== 'notFound'" 
+    :isDark="isDark" @toggleTheme="toggleTheme" />
+
+  <!-- Main content -->
+  <main class="flex flex-col min-h-screen relative z-9">
     <router-view :key="$route.fullPath" />
-    <Footer v-if="route.meta.showNavbarAndFooter" />
+    <Footer v-if="route.name !== 'home' && route.name !== 'notFound'" />
   </main>
 
-  <Partials />
+  <!-- Background -->
+  <Background />
 
+  <!-- Toast -->
   <ToastContainer />
+
+  <!-- Lightbox -->
+  <LightboxImage 
+    :showLightbox="showLightbox" 
+    :imagesLightbox="imagesLightbox" 
+    :indexLightbox="indexLightbox"
+    @close="closeLightbox"
+    @next="nextImage"
+    @prev="prevImage"
+  />
 </template>
-
-<style scoped>
-
-</style>

@@ -1,43 +1,45 @@
 import { defineStore } from "pinia";
-import apiClient from "@/utils/axios";
+import { ref } from "vue";
+import apiClient from "../composables/axios";
 
-export const useRepoStore = defineStore("repo", {
-  state: () => ({
-    repos: [],
-    loading: true,
-    error: null,
-  }),
+export const useRepoStore = defineStore('repoStore', () => {
+  const loading = ref(true);
+  const data = ref([]);
 
-  actions: {
-    async getPinnedRepos() {
-      const query = `
-        query {
-          viewer {
-            pinnedItems(first: 6, types: REPOSITORY) {
-              nodes {
-                ... on Repository {
+  const fetchData = async () => {
+    const query = `
+      query {
+        viewer {
+          pinnedItems(first: 6, types: REPOSITORY) {
+            nodes {
+              ... on Repository {
+                name
+                description
+                url
+                primaryLanguage {
                   name
-                  description
-                  url
-                  primaryLanguage {
-                    name
-                    color
-                  }
+                  color
                 }
               }
             }
           }
         }
-      `;
-
-      try {
-        const response = await apiClient.post(`github/graphql`, {query});
-        this.repos = response.data.data.viewer.pinnedItems.nodes;
-      } catch (error) {
-        // 
-      } finally {
-        this.loading = false;
       }
-    },
-  },
+    `;
+    
+    try {
+      const response = await apiClient.post('github/graphql', { query });
+      data.value = response.data.data.viewer.pinnedItems.nodes;
+    } catch (error) {
+      console.error(error);
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  return {
+    loading,
+    data,
+    fetchData
+  };
 });

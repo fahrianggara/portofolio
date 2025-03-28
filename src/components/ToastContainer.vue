@@ -1,18 +1,14 @@
-<!-- ToastContainer.vue -->
 <script setup>
-import { useToast } from '@/utils/useToast';
-import ToastComponent from '@/components/Toast.vue';
+import Toast from './Toast.vue';
+import { useToast } from '../composables/toast';
 
 const { toasts, remove } = useToast();
-
-const handleClose = (id) => {
-  remove(id);
-};
+const handleClose = (id) => remove(id);
 </script>
 
 <template>
   <div class="toast-container">
-    <ToastComponent
+    <Toast
       v-for="toast in toasts"
       :key="toast.id"
       :type="toast.type"
@@ -25,14 +21,14 @@ const handleClose = (id) => {
 </template>
 
 <style scoped>
-@reference 'tailwindcss';
+@import '@/assets/style.css';
 
 .toast-container {
   @apply fixed bottom-0 right-4 z-[10000] flex flex-col items-end;
-  pointer-events: none; /* Nonaktifkan pointer events untuk toast */
+  pointer-events: none;
 }
 
 .toast-container > * {
-  pointer-events: auto; /* Aktifkan kembali pointer events untuk toast */
+  pointer-events: auto;
 }
 </style>

@@ -1,6 +1,5 @@
-<!-- ToastComponent.vue -->
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import CheckIcon from './icon/Check.vue';
 import CloseIcon from './icon/Close.vue';
 import ErrorIcon from './icon/Error.vue';
@@ -32,7 +31,6 @@ const emit = defineEmits(['close']);
 const isVisible = ref(true);
 const isLeaving = ref(false);
 let timer = null;
-let autoCloseTimer = null;
 
 const getIcon = () => {
   switch (props.type) {
@@ -71,13 +69,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="isVisible" 
-    :class="['toast', props.type, isLeaving ? 'toast-leaving' : '']" 
-    role="alert">
+  <div v-if="isVisible" :class="['toast', props.type, isLeaving ? 'toast-leaving' : '']" role="alert">
     <div class="icon">
       <component :is="getIcon()" />
     </div>
+
     <div class="text">{{ props.message }}</div>
+
     <button type="button" aria-label="Close" @click="close">
       <span class="sr-only">Close</span>
       <CloseIcon />
@@ -86,8 +84,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-@reference 'tailwindcss';
-@import '@/assets/main.css';
+@import '@/assets/style.css';
 
 .toast {
   @apply flex items-start w-full max-w-[330px] p-4 mb-4 rounded-xl text-gray-600 dark:text-gray-400 
