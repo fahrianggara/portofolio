@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "build-client": "vite build --outDir dist/client",
     "build-server": "vite build --outDir dist/server --ssr src/entry-server.js",
-    "build": "node sitemap.js && npm run build-client && npm run build-server"
+    "build": "npm run build-client && npm run build-server && node --env-file=.env.production sitemap.js"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.15",

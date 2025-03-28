@@ -6,6 +6,7 @@ import { createRouter } from './src/router.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const baseUrl = process.env.VITE_BASE_URL;
+
 const router = createRouter();
 const routes = router.getRoutes()
   .filter(route => !route.path.includes(':') && route.path !== '/*') // Hapus wildcard
@@ -27,16 +28,24 @@ const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
     `).join('')}
   </urlset>`;
 
-const outputPath = path.join(__dirname, 'public', 'sitemap.xml');
-await fs.writeFile(outputPath, sitemapContent);
-console.log(`Sitemap generated at ${outputPath}`);
-
 // Generate robots.txt
 const robotsContent = `User-agent: *
 Allow: /
 Sitemap: ${baseUrl}/sitemap.xml
 `;
 
-const robotsPath = path.join(__dirname, 'public', 'robots.txt');
-await fs.writeFile(robotsPath, robotsContent);
-console.log(`Robots.txt generated at ${robotsPath}`);
+// Function to save files in multiple locations
+async function saveFile(fileName, content) {
+  const locations = ['dist/client', 'dist/server'];
+  
+  for (const location of locations) {
+    const outputPath = path.join(__dirname, location, fileName);
+    await fs.mkdir(path.dirname(outputPath), { recursive: true }); // Buat folder jika belum ada
+    await fs.writeFile(outputPath, content);
+    console.log(`${fileName} generated at ${outputPath}`);
+  }
+}
+
+// Save files to both locations
+await saveFile('sitemap.xml', sitemapContent);
+await saveFile('robots.txt', robotsContent);
