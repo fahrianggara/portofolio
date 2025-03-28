@@ -6,14 +6,13 @@ import Background from './components/Background.vue';
 import Cursor from './components/Cursor.vue';
 import LightboxImage from './components/LightboxImage.vue';
 import ToastContainer from './components/ToastContainer.vue';
-import { useRoute } from 'vue-router';
+import { RouterView, useRoute } from 'vue-router';
 import { useIsMobile } from './composables/screen';
 import { useSmoothScroll } from './composables/smoothScroll';
 import { useDarkMode } from './composables/theme';
 import { useLightbox } from './composables/lightbox';
 
 const isMobile = useIsMobile();
-const route = useRoute();
 const hydrated = ref(false); // Tambahkan ini
 
 const theme = useDarkMode();
@@ -23,7 +22,7 @@ const toggleTheme = theme.toggle;
 onMounted(() => {
   isDark.value = theme.isDark.value;
   watch(theme.isDark, (value) => isDark.value = value);
-  hydrated.value = true; // Client siap, baru render konten
+  // hydrated.value = true;
 });
 
 // Smooth scroll
@@ -35,27 +34,26 @@ const { showLightbox, imagesLightbox, indexLightbox, openLightbox, closeLightbox
 
 <template>
   <!-- Cursor -->
-  <Cursor v-if="hydrated && !isMobile" />
+  <Cursor v-if="!isMobile" />
 
   <!-- Navbar -->
-  <Navbar v-if="hydrated && route.name !== 'home' && route.name !== 'notFound'" 
+  <Navbar v-if="$route.meta.showNav" 
     :isDark="isDark" @toggleTheme="toggleTheme" />
 
   <!-- Main content -->
-  <main v-if="hydrated" class="flex flex-col min-h-screen relative z-9">
-    <router-view :key="$route.fullPath" />
-    <Footer v-if="route.name !== 'home' && route.name !== 'notFound'" />
+  <main class="flex flex-col min-h-screen relative z-9" :key="$route.fullPath">
+    <RouterView />
+    <Footer v-if="$route.meta.showNav" />
   </main>
 
   <!-- Background -->
-  <Background v-if="hydrated" />
+  <Background />
 
   <!-- Toast -->
-  <ToastContainer v-if="hydrated" />
+  <ToastContainer />
 
   <!-- Lightbox -->
   <LightboxImage 
-    v-if="hydrated"
     :showLightbox="showLightbox" 
     :imagesLightbox="imagesLightbox" 
     :indexLightbox="indexLightbox"

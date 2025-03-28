@@ -11,5 +11,5 @@ app.use(pinia)
 app.use(head)
 
 router.isReady().then(() => {
-  app.mount('#app', true)
+  app.mount('#app')
 })
