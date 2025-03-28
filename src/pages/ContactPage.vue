@@ -93,12 +93,12 @@ useMeta("Contact Me", description);
 
       <div class="contact-box">
         <h1 class="mb-1">Social Media</h1>
-        <template class="links">
+        <div class="links">
           <a v-for="(social, i) in socials" :key="i" class="text-primary"
             :href="social.link" target="_blank" rel="noopener noreferrer">
             {{ social.platform }}
           </a>
-        </template>
+        </div>
       </div>
     </div>
 
