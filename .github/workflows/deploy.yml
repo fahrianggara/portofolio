@@ -28,17 +28,24 @@ jobs:
     - name: Build Project
       run: npm run build
 
-    - name: Upload Project Files (dist/, package.json, server.js)
+    - name: Upload the DIST Folder
       uses: SamKirkland/FTP-Deploy-Action@4.3.1
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./
+        local-dir: dist/
+        server-dir: ${{ secrets.FTP_DIR_CLIENT }}
+
+    - name: Upload the package.json & server.js
+      uses: SamKirkland/FTP-Deploy-Action@4.3.1
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
         server-dir: ${{ secrets.FTP_DIR_CLIENT }}
         exclude: |
           **/*
-          !dist/
           !package.json
           !server.js
 
