@@ -7,9 +7,9 @@
     "dev": "cross-env NODE_ENV=development nodemon server.js",
     "prod": "cross-env NODE_ENV=production nodemon server.js",
     "preview": "vite preview",
-    "build-client": "vite build",
+    "build-client": "vite build --outDir dist/client",
     "build-server": "vite build --outDir dist/server --ssr src/entry-server.js",
-    "build": "npm run build-client && npm run build-server && node sitemap.js"
+    "build": "npm run build-client && npm run build-server && node --env-file=.env.production sitemap.js"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.15",

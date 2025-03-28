@@ -1,0 +1,33 @@
+name: Deploy portfolio project to Hosting
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-api:
+    name: Deploy API Project
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        cd api
+        npm install
+
+    - name: Upload the Project API
+      uses: SamKirkland/FTP-Deploy-Action@4.3.1
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: api/
+        server-dir: ${{ secrets.FTP_DIR_API }}
+        exclude: |
+          **/node_modules/**
+          **/README.md
+          **/.env*
