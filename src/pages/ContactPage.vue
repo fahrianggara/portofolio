@@ -129,7 +129,7 @@ useMeta("Contact Me", description);
 .contact-form input,
 .contact-form textarea {
 	@apply w-full px-4 py-2.5 border border-solid dark:border-zinc-900 border-gray-300 rounded-lg
-  text-[15px] dark:text-white text-gray-900 dark:bg-dark-surface/90 backdrop-blur-2xl bg-white
+  text-[15px] dark:text-white text-gray-900 dark:bg-dark-surface/90 bg-white
   focus:outline-none focus:border-primary focus:ring-3 focus:ring-primary/30 focus:shadow-md placeholder:text-[14px] 
   placeholder:font-normal placeholder:text-gray-600 dark:placeholder-gray-400;
 }

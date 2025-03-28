@@ -20,43 +20,43 @@ const routes = [
     component: () => import('./components/Section.vue'),
     children: [
       {
-        path: '/about',
+        path: 'about',
         name: 'about',
         component: () => import('./pages/AboutPage.vue'),
         meta: { priority: 0.8 },
       },
       {
-        path: '/education',
+        path: 'education',
         name: 'education',
         component: () => import('./pages/EducationPage.vue'),
         meta: { priority: 0.7 },
       },
       {
-        path: '/experience',
+        path: 'experience',
         name: 'experience',
         component: () => import('./pages/ExperiencePage.vue'),
         meta: { priority: 0.7 },
       },
       {
-        path: '/projects',
+        path: 'projects',
         name: 'projects',
         component: () => import('./pages/ProjectsPage.vue'),
         meta: { priority: 0.8 },
       },
       {
-        path: '/projects/:slug',
+        path: 'projects/:slug',
         name: 'project',
         component: () => import('./pages/ProjectPage.vue'),
         meta: { priority: 0.5 },
       },
       {
-        path: '/contact',
+        path: 'contact',
         name: 'contact',
         component: () => import('./pages/ContactPage.vue'),
         meta: { priority: 0.6 },
       },
       {
-        path: '/activity',
+        path: 'activity',
         name: 'activity',
         component: () => import('./pages/ActivityPage.vue'),
         meta: { priority: 0.6 },
@@ -69,5 +69,12 @@ export function createRouter() {
   return _createRouter({
     history: isSSR ? createMemoryHistory() : createWebHistory(),
     routes,
+    scrollBehavior(to, from, savedPosition) {
+      if (savedPosition) {
+        return savedPosition;
+      } else {
+        return { top: 0, behavior: 'smooth' };
+      }
+    }
   });
 }
