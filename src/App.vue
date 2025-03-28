@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted, ref, watch } from 'vue';
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
 import Background from './components/Background.vue';
@@ -10,10 +11,10 @@ import { useIsMobile } from './composables/screen';
 import { useSmoothScroll } from './composables/smoothScroll';
 import { useDarkMode } from './composables/theme';
 import { useLightbox } from './composables/lightbox';
-import { onMounted, ref, watch } from 'vue';
 
 const isMobile = useIsMobile();
 const route = useRoute();
+const hydrated = ref(false); // Tambahkan ini
 
 const theme = useDarkMode();
 const isDark = ref(false);
@@ -22,6 +23,7 @@ const toggleTheme = theme.toggle;
 onMounted(() => {
   isDark.value = theme.isDark.value;
   watch(theme.isDark, (value) => isDark.value = value);
+  hydrated.value = true; // Client siap, baru render konten
 });
 
 // Smooth scroll
@@ -33,26 +35,27 @@ const { showLightbox, imagesLightbox, indexLightbox, openLightbox, closeLightbox
 
 <template>
   <!-- Cursor -->
-  <Cursor v-if="!isMobile" />
+  <Cursor v-if="hydrated && !isMobile" />
 
   <!-- Navbar -->
-  <Navbar v-if="route.name !== 'home' && route.name !== 'notFound'" 
+  <Navbar v-if="hydrated && route.name !== 'home' && route.name !== 'notFound'" 
     :isDark="isDark" @toggleTheme="toggleTheme" />
 
   <!-- Main content -->
-  <main class="flex flex-col min-h-screen relative z-9">
+  <main v-if="hydrated" class="flex flex-col min-h-screen relative z-9">
     <router-view :key="$route.fullPath" />
     <Footer v-if="route.name !== 'home' && route.name !== 'notFound'" />
   </main>
 
   <!-- Background -->
-  <Background />
+  <Background v-if="hydrated" />
 
   <!-- Toast -->
-  <ToastContainer />
+  <ToastContainer v-if="hydrated" />
 
   <!-- Lightbox -->
   <LightboxImage 
+    v-if="hydrated"
     :showLightbox="showLightbox" 
     :imagesLightbox="imagesLightbox" 
     :indexLightbox="indexLightbox"
