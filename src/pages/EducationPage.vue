@@ -60,6 +60,8 @@ useMeta("Education", "Discover my educational background and learning journey.")
 
     <div v-else class="grid grid-cols-2 hp:grid-cols-3 gap-4">
       <img v-for="(certificate, i) in certificates.data" :key="certificate.id" :src="certificate.image_link" 
+        class="h-auto max-w-full rounded-xl cursor-pointer transform ease-in-out duration-300 
+        translate-y-0 hover:-translate-y-1 border-2 border-solid dark:border-zinc-900 border-gray-300"
         @click="openLightbox(i, certificates.data.map(c => ({ src: c.image_link })))">
     </div>
   </div>
@@ -67,11 +69,6 @@ useMeta("Education", "Discover my educational background and learning journey.")
 
 <style scoped>
 @import '@/assets/style.css';
-
-.glightbox img {
-  @apply h-auto max-w-full rounded-lg cursor-pointer transform ease-in-out duration-300 
-  translate-y-0 hover:-translate-y-1;
-}
 
 .title {
   @apply text-lg font-semibold text-gray-900 dark:text-white;
@@ -91,11 +88,11 @@ useMeta("Education", "Discover my educational background and learning journey.")
   border border-solid dark:border-zinc-900 border-gray-300;
 }
 
-time {
+.edu time {
   @apply mb-1 text-sm font-normal leading-none text-gray-700 dark:text-gray-400;
 }
 
-.bullet {
+.edu .bullet {
   @apply absolute w-3 h-3 rounded-full mt-1.5 -start-[31px] border border-primary bg-primary;
 }
 
@@ -109,10 +106,5 @@ time {
 
 .achievement li:not(:last-child) {
   @apply mb-3.5;
-}
-
-.certificates img {
-  @apply h-auto max-w-full rounded-xl cursor-pointer transform ease-in-out duration-300 
-  translate-y-0 hover:-translate-y-1 border-2 border-solid dark:border-zinc-900 border-gray-300; 
 }
 </style>
