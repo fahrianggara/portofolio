@@ -19,6 +19,10 @@ const submitForm = async () => {
   loading.value = true;
 
   try {
+    const trackUser = await apiClient.post('/track-user');
+    contact.value.ip_address = trackUser.data.ip;
+    contact.value.user_agent = trackUser.data.userAgent;
+
     const res = await apiClient.post(`api/contact`, contact.value);
     toast.success(res.data.message);
     contact.value.reset();

@@ -90,6 +90,16 @@ app.use('/github', async (req, res) => {
   }
 });
 
+app.post('/track-user', (req, res) => {
+  const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  const userAgent = req.headers['user-agent'];
+
+  res.json({
+    ip: ipAddress,
+    user_agent: userAgent
+  })
+})
+
 // Redirect to frontend URL if route not found
 app.use((req, res) => {
   res.redirect(process.env.FRONTEND_URL);
