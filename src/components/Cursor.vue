@@ -74,21 +74,6 @@ watch(route, () => attachEventListeners());
 </script>
 
 <template>
-  <div class="cursor-circle" ref="cursorGlowRef"></div>
+  <div class="cursor-circle border-primary border-1 border-solid fixed w-[40px] h-[40px] rounded-[50%]
+    pointer-events-none transform translate-x-[-50%] translate-y-[-50%] z-9999 hidden lg:block" ref="cursorGlowRef"></div>
 </template>
-
-<style scoped>
-@reference 'tailwindcss';
-@import '@/assets/style.css';
-
-.cursor-circle {
-  @apply border-primary border-1 border-solid;
-  position: fixed;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-}
-</style>

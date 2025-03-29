@@ -34,7 +34,7 @@ const { showLightbox, imagesLightbox, indexLightbox, openLightbox, closeLightbox
 
 <template>
   <!-- Cursor -->
-  <Cursor v-if="!isMobile" />
+  <Cursor />
 
   <!-- Navbar -->
   <Navbar v-if="$route.meta.showNav" 
