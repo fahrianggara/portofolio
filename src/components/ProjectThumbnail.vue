@@ -34,19 +34,23 @@ defineExpose({
 </script>
 
 <template>
-  <div class="thumbnail-wrapper" :class="{
+  <div class="flex flex-col md:flex-row md:items-stretch gap-2 mt-5 md:h-[320px] sm:h-fit" :class="{
       'w-full': !filteredThumbnails.length,
       'md:w-[calc(100%-7rem)]': filteredThumbnails.length,
     }">
     
-    <img :src="currentThumbnail" class="thumbnail" @click="openImageLightbox(0)"/>
+    <img :src="currentThumbnail" class="w-full object-cover rounded-xl border border-solid 
+      border-gray-300 dark:border-zinc-900 cursor-pointer " @click="openImageLightbox(0)"/>
 
-    <ul v-if="filteredThumbnails.length" class="thumbnails" data-lenis-prevent>
+    <ul v-if="filteredThumbnails.length" data-lenis-prevent
+      class="thumbnails flex flex-row md:flex-col gap-2 flex-shrink-0 overflow-x-auto md:overflow-y-auto 
+      md:overflow-x-hidden md:max-h-[370px] mr-auto">
       <li v-for="(thumbnail, i) in filteredThumbnails" :key="i" class="thumbnail-item">
         <img 
           :src="thumbnail" 
           alt="Project Thumbnail" 
-          class="thumbnail" 
+          class="thumbnail w-[100px] h-[75px] object-cover rounded-lg cursor-pointer border 
+          border-solid border-gray-300 dark:border-zinc-800" 
           @click="openImageLightbox(i + 1)"
         />
       </li>
@@ -57,29 +61,9 @@ defineExpose({
 </template>
 
 <style scoped>
-@import "@/assets/style.css";
-
-.thumbnail-wrapper {
-  @apply flex flex-col md:flex-row md:items-stretch gap-2 mt-5 md:h-[320px] sm:h-fit;
-}
-
-.thumbnail {
-  @apply w-full object-cover rounded-xl border border-solid 
-  border-gray-300 dark:border-zinc-900 cursor-pointer;
-}
-
-.thumbnails {
-  @apply flex flex-row md:flex-col gap-2 flex-shrink-0 
-  overflow-x-auto md:overflow-y-auto md:overflow-x-hidden 
-  md:max-h-[370px] mr-auto;
-}
+@import "../assets/style.css";
 
 .thumbnails::-webkit-scrollbar {
   @apply w-1;
-}
-
-.thumbnail-item img {
-  @apply w-[100px] h-[75px] object-cover rounded-lg cursor-pointer border 
-  border-solid border-gray-300 dark:border-zinc-800;
 }
 </style>

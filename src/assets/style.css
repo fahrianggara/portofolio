@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Inter:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Inter:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 
 @import "tailwindcss";
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
@@ -58,9 +58,45 @@
 	}
 }
 
-/* Home Section */
+@keyframes pulse {
+	0%,
+	100% {
+		transform: translate(-50%, -50%) scale(1);
+	}
+	50% {
+		transform: translate(-50%, -50%) scale(1.8);
+	}
+}
+
+/* ========================================================== */
+/* ================== Home Section ========================= */
+/* ========================================================== */
+
 .home {
 	@apply min-h-screen flex flex-col justify-center pt-[20px];
+}
+
+.img-home {
+	@apply mb-[25px] relative inline-block z-10;
+}
+
+.img-home::before {
+	@apply blur-[70px] opacity-0;
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 190%;
+	height: 190%;
+	background-color: #0937be;
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+	z-index: -1;
+	transition: 0.3s ease-in-out;
+}
+
+.img-home.loading::before {
+	animation: pulse 1.8s infinite;
 }
 
 section,
@@ -282,4 +318,162 @@ pre[class*="language-"]::selection {
 	text-shadow: none;
 	background: theme("colors.blue.500") !important;
 	color: theme("colors.white") !important;
+}
+
+/* =============================================== */
+/* ================== About Section ============== */
+/* =============================================== */
+.about .links {
+	@apply flex flex-wrap gap-x-0 gap-y-0 lg:gap-y-2 lg:gap-x-2;
+}
+
+.about .links.only-img span,
+.about .links.only-img i {
+	@apply md:block hidden;
+}
+
+.about .links.grid {
+	@apply grid grid-cols-2 gap-2.5 w-full;
+}
+
+.about .links .link {
+	@apply flex items-center justify-between gap-2.5 bg-surface/60 dark:bg-dark-surface/50 
+    border-gray-300 dark:border-zinc-900 border py-3 px-3 font-medium
+    rounded-xl overflow-hidden text-[14.5px];
+}
+.about .links .link i {
+	@apply text-lg sm:text-xl translate-x-10 translate-y-[1.5px]
+    transition-transform ease-in-out duration-200;
+}
+
+.about .links .link:hover i {
+	@apply -translate-x-1;
+}
+
+@media (max-width: 499.99px) {
+	.about .items .links,
+	.about .load {
+		@apply grid-cols-1 gap-3.5;
+	}
+}
+
+/* ============================================================ */
+/* ================== Contact Section ========================= */
+/* ============================================================ */
+.contact-box {
+	@apply dark:bg-dark-surface/60
+  border border-solid dark:border-zinc-900 border-gray-300 bg-white/60
+  px-5 py-4 hp:rounded-xl rounded-none;
+}
+
+.contact-box > h1 {
+	@apply md:text-[18px] text-[15px] dark:text-white text-gray-900 font-semibold mt-1;
+}
+
+.contact-box > p {
+	@apply text-[15px] leading-6 dark:text-gray-400 text-gray-700 mt-1.5;
+}
+
+.contact-form {
+	@apply mt-4 mb-2;
+}
+
+.contact-form input,
+.contact-form textarea {
+	@apply w-full px-4 py-2.5 border border-solid dark:border-zinc-900 border-gray-300 rounded-lg
+  text-[15px] dark:text-white text-gray-900 dark:bg-dark-surface/90 bg-white
+  focus:outline-none focus:border-primary focus:ring-3 focus:ring-primary/30 focus:shadow-md placeholder:text-[14px] 
+  placeholder:font-normal placeholder:text-gray-600 dark:placeholder-gray-400;
+}
+
+.contact-form input.is-invalid,
+.contact-form textarea.is-invalid {
+	@apply border-red-500 ring-0 ring-red-500/50 dark:placeholder-gray-400 
+placeholder:text-gray-600 focus:border-red-500 focus:ring-3;
+}
+
+.contact-form button {
+	@apply w-full px-4 py-3 
+dark:bg-dark-bg-primary text-primary bg-bg-primary 
+  rounded-lg text-[14px] font-medium cursor-pointer ease-in-out transition-all duration-300
+hover:bg-primary hover:text-bg-primary;
+}
+
+.contact-form button:disabled {
+	@apply text-white cursor-not-allowed bg-primary;
+}
+
+.contact-info .contact-box {
+	@apply dark:bg-dark-surface/60
+  border border-solid dark:border-zinc-900 border-gray-300 bg-white/60
+  px-5 py-3 hp:rounded-xl rounded-none h-auto w-auto;
+}
+
+.contact-info .contact-box h1 {
+	@apply text-[15px] dark:text-white text-gray-900 font-semibold mt-1;
+}
+
+.contact-info .contact-box p,
+.contact-info .contact-box a {
+	@apply text-[15px] leading-6 dark:text-gray-500 text-gray-600 mt-0.5 mb-1
+  md:text-[13px];
+}
+
+.contact-info .contact-box a {
+	@apply text-primary hover:underline p-0 m-0 break-all;
+}
+
+.contact-info .contact-box .links {
+	@apply flex flex-row flex-wrap gap-x-1 gap-y-0 mt-1;
+}
+
+@media (max-width: 500px) {
+	.contact-form input,
+	.contact-form textarea {
+		@apply dark:bg-dark-surface/50 bg-white/70 py-[13px] 
+		placeholder:text-gray-600 dark:placeholder:text-gray-400;
+	}
+
+	.contact-form [type="submit"] {
+		@apply py-[15px] text-[13px];
+	}
+
+	.contact-info {
+		@apply gap-4 overflow-hidden;
+	}
+
+	.contact-info .contact-box .links {
+		@apply gap-x-4;
+	}
+}
+
+/* ============================================ */
+/* ================== projects ================== */
+/* ============================================ */
+
+.projects ol {
+	@apply flex flex-col gap-4;
+}
+
+.projects ol li a {
+	@apply relative p-4 rounded-2xl bg-white/70 dark:bg-dark-surface/60 border border-solid dark:border-zinc-900 border-gray-300 ease-in-out duration-300 transform hover:-translate-y-[2px]
+	dark:hover:bg-dark-surface/80 hover:bg-white/70;
+}
+
+.repositories ol {
+	@apply grid hp:grid-cols-2 grid-cols-1 gap-4;
+}
+
+.repositories li {
+	@apply relative p-4 rounded-2xl bg-white/70 dark:bg-dark-surface/60 
+	border border-solid dark:border-zinc-900 border-gray-300 ease-in-out duration-300 
+	transform hover:-translate-y-[2px] dark:hover:bg-dark-surface/80 hover:bg-white/70;
+}
+
+.repositories li a {
+	@apply flex flex-col items-start h-full;
+}
+
+.repositories .content {
+	@apply mb-4;
 }
