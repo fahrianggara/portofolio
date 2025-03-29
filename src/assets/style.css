@@ -151,7 +151,7 @@ footer {
 
 /* Sidebar Menu */
 .sidebar-menu {
-	@apply dark:text-white relative hidden lg:block;
+	@apply dark:text-white relative hidden md:block;
 }
 
 .sidebar-menu ul {
