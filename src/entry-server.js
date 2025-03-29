@@ -2,7 +2,7 @@ import { renderToString } from 'vue/server-renderer'
 import { createApp } from './main'
 import { piniaSetup } from './stores/piniaSetup'
 import { piniaFetch } from './stores/piniaFetch'
-import { setupHead } from './headSetup'
+import { setupHead } from './head-setup'
 import { renderMarkdown } from './composables/markdown'
 
 export async function render(url) 

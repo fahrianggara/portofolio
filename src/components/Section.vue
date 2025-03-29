@@ -11,7 +11,7 @@ const noPadding = ref(false);
   <section>
     <div class="container" :class="{ 'no-padding': noPadding }">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-6">
-        <aside class="sidebar-menu" v-if="isDesktop">
+        <aside class="sidebar-menu">
           <ListMenu class="sticky top-26" />
         </aside>
         <section class="dark:text-white col-span-2 w-full mb-5">
