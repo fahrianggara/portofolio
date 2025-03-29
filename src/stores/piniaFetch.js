@@ -15,7 +15,7 @@ import { useWakatimeStore } from "./wakatime";
 export async function piniaFetch(pinia) {
   setActivePinia(pinia);
 
-  // Tambahin store yang baru disini buat fetch data di SSR
+  // Store yang akan di-fetch
   const storeInstances = [
     useGreetingStore(),
     useAboutStore(),
@@ -28,13 +28,20 @@ export async function piniaFetch(pinia) {
     useRepoStore(),
     useContributionStore(),
     useGithubStore(),
-    useWakatimeStore()
+    useWakatimeStore(),
   ];
 
-  const fetchPromises = storeInstances.map(store => {
-    console.info(`Fetching data for ${store.$id}`);
-    return typeof store.fetchData === "function" ? store.fetchData() : null;
+  console.time("Total Fetch Time");
+
+  const fetchPromises = storeInstances.map(async (store) => {
+    if (typeof store.fetchData === "function") {
+      console.time(`Fetch Time: ${store.$id}`);
+      await store.fetchData();
+      console.timeEnd(`Fetch Time: ${store.$id}`);
+    }
   });
 
   await Promise.all(fetchPromises);
+
+  console.timeEnd("Total Fetch Time");
 }
