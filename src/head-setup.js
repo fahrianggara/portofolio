@@ -4,7 +4,7 @@ import { useColorMode } from '@vueuse/core'
 export function setupHead()
 {
   const colorMode = useColorMode()
-  const innerHTML = `
+  const darkmode = `
 (function () {
   let theme = localStorage.getItem('vueuse-color-scheme');
   if (!theme || theme === 'auto') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -59,8 +59,18 @@ export function setupHead()
         ],
         script: [
           {
-            innerHTML
+            innerHTML: darkmode
           },
+        ],
+        style: [
+          {
+            textContent: `
+              section.home .img-container img {
+                width: 85px;
+                height: 85px;
+              }
+            `
+          }
         ]
       }
     ]
