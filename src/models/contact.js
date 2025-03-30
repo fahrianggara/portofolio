@@ -5,6 +5,8 @@ export default class Contact
     this.email = email;
     this.subject = subject;
     this.message = message;
+    this.ip_address = "";
+    this.user_agent = "";
     this.errors = {}; // contains error messages for each field
   }
 
@@ -17,6 +19,8 @@ export default class Contact
     this.email = "";
     this.subject = "";
     this.message = "";
+    this.ip_address = "";
+    this.user_agent = "";
     this.errors = {};
   }
 }
