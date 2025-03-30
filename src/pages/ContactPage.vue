@@ -28,10 +28,13 @@ const submitForm = async () => {
     contact.value.reset();
   } catch (err) {
     const res = err.response;
+
     if (res.status === 401) {
       toast.error(res.data.message);
     } else if (res.status === 422) {
       contact.value.setErrors(res.data.data);
+    } else if (res.status === 429) {
+      toast.error(err.response.data.message);
     } else {
       toast.error("An error occurred. Please try again later.");
     }
