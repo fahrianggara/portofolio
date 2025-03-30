@@ -29,9 +29,10 @@ const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
   </urlset>`;
 
 // Generate robots.txt
+const sitemapName = 'mysites.xml';
 const robotsContent = `User-agent: *
 Allow: /
-Sitemap: ${baseUrl}/sitemap.xml
+Sitemap: ${baseUrl}/${sitemapName}
 `;
 
 // Function to save files in multiple locations
@@ -47,5 +48,5 @@ async function saveFile(fileName, content) {
 }
 
 // Save files to both locations
-await saveFile('sitemap.xml', sitemapContent);
+await saveFile(sitemapName, sitemapContent);
 await saveFile('robots.txt', robotsContent);
