@@ -169,7 +169,7 @@ footer {
 }
 
 .sidebar-menu li a {
-	@apply flex items-center px-[15px] py-[10px] lg:py-[12px] gap-4 bg-surface/50 dark:bg-dark-surface/60 
+	@apply flex items-center px-[15px] py-[10px] lg:py-[12px] gap-4 bg-surface/60 dark:bg-dark-surface/80 
 	rounded-[0px] border border-t border-gray-300 dark:border-zinc-900 font-[14px] 
 	lg:font-medium text-[14px] md:text-[15px] transition-all duration-200;
 }
@@ -196,7 +196,7 @@ footer {
 }
 
 .sidebar-menu .active {
-	@apply text-primary border-l-1 border-l-primary bg-surface dark:bg-dark-surface/80;
+	@apply text-primary border-l-1 border-l-primary bg-surface dark:bg-dark-surface/60;
 }
 
 /* Mobile Menu */

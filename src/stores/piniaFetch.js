@@ -12,10 +12,14 @@ import { useRepoStore } from "./repositories.js";
 import { useContributionStore } from "./contributions.js";
 import { useGithubStore } from "./github.js";
 import { useWakatimeStore } from "./wakatime.js";
+import { useProgressStore } from "./progress.js";
 
 export async function piniaFetch(pinia, route) {
   setActivePinia(pinia);
+
   const globalStore = useGlobalStore();
+  const progressStore = useProgressStore();
+  progressStore.startLoading();
 
   const fetchMap = {
     home: [],
@@ -54,4 +58,6 @@ export async function piniaFetch(pinia, route) {
   );
 
   console.timeEnd(`Fetching data for ${route.name}`);
+
+  progressStore.stopLoading();
 }
