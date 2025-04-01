@@ -14,7 +14,7 @@ useMeta(null, null);
       <div class="relative px-2 sm:px-4 lg:px-0">
         <div class="max-w-3xl lg:mx-0 md:mx-auto mx-0 home-box relative">
           <div class="img-home" :class="{ 'loading': greeting.loading }">
-            <img class="w-[85px] h-[85px]" src="/android-chrome-512x512.png" alt="logo" />
+            <img class="w-[85px] h-[85px]" src="/logo.png" alt="logo" />
           </div>
 
           <div>
