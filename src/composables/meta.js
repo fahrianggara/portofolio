@@ -41,6 +41,7 @@ export function useMeta(customTitle = null, customDescription = null, customOgIm
     twitterImageAlt: `${appName} Logo`,
     twitterImageHeight: 630,
     twitterImageWidth: 1200,
+    keywords: 'fahri anggara, anggara, angga, fahri, indonesia, web developer, web, developer'
   });
 
   useHead({

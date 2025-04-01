@@ -11,6 +11,7 @@ import { useIsMobile } from './composables/screen';
 import { useSmoothScroll } from './composables/smoothScroll';
 import { useDarkMode } from './composables/theme';
 import { useLightbox } from './composables/lightbox';
+import ProgressBar from './components/ProgressBar.vue';
 
 const isMobile = useIsMobile();
 const hydrated = ref(false); // Tambahkan ini
@@ -35,6 +36,8 @@ const { showLightbox, imagesLightbox, indexLightbox, openLightbox, closeLightbox
 <template>
   <!-- Cursor -->
   <Cursor />
+
+  <ProgressBar />
 
   <!-- Navbar -->
   <Navbar v-if="$route.name !== 'home' && $route.name !== 'notFound'" 
