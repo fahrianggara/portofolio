@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="max-w-2xl mx-auto">
     <div class="flex flex-col gap-3 items-center justify-center h-screen px-4">
