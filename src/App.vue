@@ -37,13 +37,13 @@ const { showLightbox, imagesLightbox, indexLightbox, openLightbox, closeLightbox
   <Cursor />
 
   <!-- Navbar -->
-  <Navbar v-if="$route.meta.showNav" 
+  <Navbar v-if="$route.name !== 'home' && $route.name !== 'notFound'" 
     :isDark="isDark" @toggleTheme="toggleTheme" />
 
   <!-- Main content -->
   <main class="flex flex-col min-h-screen relative z-9" :key="$route.fullPath">
     <RouterView />
-    <Footer v-if="$route.meta.showNav" />
+    <Footer v-if="$route.name !== 'home' && $route.name !== 'notFound'" />
   </main>
 
   <!-- Background -->

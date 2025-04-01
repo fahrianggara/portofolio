@@ -13,7 +13,7 @@ export async function render(url)
 
   await router.push(url)
   await router.isReady()
-  await piniaFetch(pinia)
+  await piniaFetch(pinia, router.currentRoute.value)
 
   app.use(pinia)
   app.use(head)

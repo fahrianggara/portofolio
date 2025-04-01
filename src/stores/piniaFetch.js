@@ -1,4 +1,5 @@
 import { setActivePinia } from "pinia";
+import { useGlobalStore } from "./piniaGlobal";
 import { useGreetingStore } from "./greeting";
 import { useAboutStore } from "./about";
 import { useSkillsStore } from "./skills";
@@ -12,36 +13,45 @@ import { useContributionStore } from "./contributions";
 import { useGithubStore } from "./github";
 import { useWakatimeStore } from "./wakatime";
 
-export async function piniaFetch(pinia) {
+export async function piniaFetch(pinia, route) {
   setActivePinia(pinia);
+  const globalStore = useGlobalStore();
 
-  // Store yang akan di-fetch
-  const storeInstances = [
-    useGreetingStore(),
-    useAboutStore(),
-    useSkillsStore(),
-    useConfigStore(),
-    useEducationStore(),
-    useCertificateStore(),
-    useExperienceStore(),
-    useProjectStore(),
-    useRepoStore(),
-    useContributionStore(),
-    useGithubStore(),
-    useWakatimeStore(),
-  ];
+  const fetchMap = {
+    home: [],
+    about: [useSkillsStore, useAboutStore],
+    education: [useEducationStore, useCertificateStore],
+    experience: [useExperienceStore],
+    projects: [useProjectStore, useRepoStore],
+    project: [], // Untuk detail project
+    activity: [useContributionStore, useGithubStore, useWakatimeStore],
+  };
 
-  console.time("Total Fetch Time");
+  const defaultStores = [useGreetingStore, useConfigStore, useAboutStore];
+  const matchedStores = [...new Set([...(fetchMap[route.name] || []), ...defaultStores])];
 
-  const fetchPromises = storeInstances.map(async (store) => {
-    if (typeof store.fetchData === "function") {
-      console.time(`Fetch Time: ${store.$id}`);
-      await store.fetchData();
-      console.timeEnd(`Fetch Time: ${store.$id}`);
-    }
-  });
+  console.log(`Route:`, route.name);
 
-  await Promise.all(fetchPromises);
+  console.time(`Fetching data for ${route.name}`);
 
-  console.timeEnd("Total Fetch Time");
+  await Promise.all(
+    matchedStores.map(async (useStore) => {
+      const store = useStore();
+      console.log(`Checking store:`, store.$id);
+
+      if (!globalStore.data[store.$id]) {
+        if (typeof store.fetchData === "function") {
+          console.log(`Fetching store:`, store.$id);
+          await store.fetchData();
+          globalStore.mergeData(store.$id, store.$state);
+        } else {
+          console.warn(`Store ${store.$id} tidak memiliki fetchData()`);
+        }
+      } else {
+        console.log(`Skipping fetch for ${store.$id}, already stored in global.`);
+      }
+    })
+  );
+
+  console.timeEnd(`Fetching data for ${route.name}`);
 }
