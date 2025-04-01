@@ -1,17 +1,17 @@
 import { setActivePinia } from "pinia";
-import { useGlobalStore } from "./piniaGlobal";
-import { useGreetingStore } from "./greeting";
-import { useAboutStore } from "./about";
-import { useSkillsStore } from "./skills";
-import { useConfigStore } from "./configuration";
-import { useEducationStore } from "./educations";
-import { useCertificateStore } from "./certificates";
-import { useExperienceStore } from "./experiences";
-import { useProjectStore } from "./projects";
-import { useRepoStore } from "./repositories";
-import { useContributionStore } from "./contributions";
-import { useGithubStore } from "./github";
-import { useWakatimeStore } from "./wakatime";
+import { useGlobalStore } from "./piniaGlobal.js";
+import { useGreetingStore } from "./greeting.js";
+import { useAboutStore } from "./about.js";
+import { useSkillsStore } from "./skills.js";
+import { useConfigStore } from "./configuration.js";
+import { useEducationStore } from "./educations.js";
+import { useCertificateStore } from "./certificates.js";
+import { useExperienceStore } from "./experiences.js";
+import { useProjectStore } from "./projects.js";
+import { useRepoStore } from "./repositories.js";
+import { useContributionStore } from "./contributions.js";
+import { useGithubStore } from "./github.js";
+import { useWakatimeStore } from "./wakatime.js";
 
 export async function piniaFetch(pinia, route) {
   setActivePinia(pinia);

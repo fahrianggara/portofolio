@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import apiClient from "../composables/axios";
+import apiClient from "../composables/axios.js";
 
 export const useExperienceStore = defineStore('experienceStore', () => {
   const loading = ref(true);

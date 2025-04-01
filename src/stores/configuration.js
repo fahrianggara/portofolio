@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import apiClient from "../composables/axios";
-import { useToast } from "../composables/toast";
+import apiClient from "../composables/axios.js";
+import { useToast } from "../composables/toast.js";
 
 export const useConfigStore = defineStore('configurationStore', () => {
   const loading = ref(true);

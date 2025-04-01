@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import apiClient from "../composables/axios";
+import apiClient from "../composables/axios.js";
 
 export const useEducationStore = defineStore('educationStore', () => {
   const loading = ref(true);

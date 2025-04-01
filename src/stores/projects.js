@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
-import apiClient from "../composables/axios";
-import { useRouter } from "vue-router";
+import apiClient from "../composables/axios.js";
 
 export const useProjectStore = defineStore('projectStore', () => {
   const loading = ref(true);

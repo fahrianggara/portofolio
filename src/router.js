@@ -1,6 +1,6 @@
 import { createMemoryHistory, createRouter as _createRouter, createWebHistory } from 'vue-router'
-import { piniaSetup } from './stores/piniaSetup';
-import { piniaFetch } from './stores/piniaFetch';
+import { piniaSetup } from './stores/piniaSetup.js';
+import { piniaFetch } from './stores/piniaFetch.js';
 
 const isSSR = import.meta.env?.SSR ?? process.env.VITE_SSR === 'true';
 
