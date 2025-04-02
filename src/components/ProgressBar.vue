@@ -47,7 +47,7 @@ function completeProgress() {
 @import "@/assets/style.css";
 
 .progress-container {
-  @apply fixed top-0 left-0 w-full h-[3px] rounded-full z-9999 bg-surface dark:bg-dark-surface;
+  @apply fixed top-0 left-0 w-full h-[2px] rounded-full z-9999 bg-surface dark:bg-dark-surface;
 }
 
 .progress-bar {

@@ -14,7 +14,7 @@ const project = ref(null);
 watchEffect(() => {
   const foundProject = projects.getDataWithSlug(route.params.slug);
   
-  if (!foundProject) {
+  if (!foundProject || !foundProject.title) {
     router.replace({ name: "notFound" });
   } else {
     project.value = foundProject;
@@ -28,10 +28,12 @@ watchEffect(() => {
     <i class="fi fi-rr-angle-small-left"></i> Back to Projects
   </router-link>
 
-  <ProjectThumbnail :project="project" />
+  <!-- Only render ProjectThumbnail when project is not null -->
+  <ProjectThumbnail v-if="project" :project="project" />
 
-  <div class="content-wrapper">
-    <h1>{{ project.title }}</h1>
+  <div v-if="project" class="content-wrapper">
+    <!-- Check if project exists before accessing its title -->
+    <h1>{{ project.title || 'Project Not Found' }}</h1>
 
     <Markdown :content="project.description" class="content" />
 
@@ -74,6 +76,7 @@ watchEffect(() => {
     </div>
   </div>
 </template>
+
 
 <style scoped>
 @import "@/assets/style.css";
