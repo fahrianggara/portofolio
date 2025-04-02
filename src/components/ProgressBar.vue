@@ -1,13 +1,7 @@
-<template>
-  <div v-if="progress > 0" class="progress-bar" :style="{ width: progress + '%' }"></div>
-</template>
-
 <script setup>
 import { ref, watch } from "vue";
-import { useRouter } from "vue-router";
 import { useProgressStore } from "../stores/progress.js"; // Import store progress
 
-const router = useRouter();
 const progress = ref(0);
 const progressStore = useProgressStore();
 
@@ -41,15 +35,25 @@ function completeProgress() {
 }
 </script>
 
+<template>
+  <!-- Container for the progress bar (gray track) -->
+  <div v-if="progress > 0" class="progress-container">
+    <!-- Blue progress bar -->
+    <div class="progress-bar" :style="{ width: progress + '%' }"></div>
+  </div>
+</template>
+
 <style scoped>
+@import "@/assets/style.css";
+
+.progress-container {
+  @apply fixed top-0 left-0 w-full h-[3px] rounded-full z-9999 bg-surface dark:bg-dark-surface;
+}
+
 .progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 2px;
-  border-radius: 50px;
+  height: 100%;
   background: linear-gradient(to right, #2a86ff, #39a6ff);
+  border-radius: 50px;
   transition: width 0.3s ease-in-out;
-  z-index: 9999;
 }
 </style>
