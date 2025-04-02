@@ -46,7 +46,8 @@ function completeProgress() {
   position: fixed;
   top: 0;
   left: 0;
-  height: 4px;
+  height: 2px;
+  border-radius: 50px;
   background: linear-gradient(to right, #2a86ff, #39a6ff);
   transition: width 0.3s ease-in-out;
   z-index: 9999;
