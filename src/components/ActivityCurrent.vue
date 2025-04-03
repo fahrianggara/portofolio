@@ -9,9 +9,8 @@ import {
   calculateSongProgress
 } from "../composables/activity";
 
-const userId = import.meta.env.VITE_DISCORD_USER_ID;
-
 // State
+const userId = import.meta.env.VITE_DISCORD_USER_ID;
 const discordData = ref(null);
 const loading = ref(true);
 const elapsedTimeCode = ref("00:00:00");
@@ -107,7 +106,6 @@ onUnmounted(() => {
   lanyardSocket.disconnect();
   clearActivityTimers();
 });
-
 </script>
 
 <template>
@@ -211,10 +209,13 @@ onUnmounted(() => {
 
         <div class="flex items-start md:gap-2 gap-4">
           <div class="relative inline-block">
-            <img
+            <img v-if="activity.application_id == 'undefined'" 
               :src="`https://dcdn.dstn.to/app-icons/${activity.application_id}.webp?size=512`"
               alt="Large Image" class="w-20 h-20 rounded-lg mr-3 object-cover"
             />
+
+            <img v-else src="/unknown.png"
+              alt="Large Image" class="w-20 h-20 rounded-lg mr-3 object-cover">
           </div>
 
           <div class="flex flex-col w-[calc(100%-5rem)]">
