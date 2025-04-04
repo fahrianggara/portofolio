@@ -105,6 +105,7 @@ useMeta("Contact Me", description);
           placeholder="What's your name?" 
           v-model="contact.name" 
           :maxlength="50"
+          :minlength="3"
           :error="contact.errors.name" />
 
         <FormInput 
