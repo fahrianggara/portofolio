@@ -3,11 +3,11 @@ import { useMeta } from '../composables/meta';
 import { useToast } from '../composables/toast';
 import { useGreetingStore } from '../stores/greeting';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { replaceText } from '../composables/helpers';
 import FormInput from '../components/FormInput.vue';
 import Contact from '../models/contact';
 import apiClient from '../composables/axios';
 import Loading from '../components/icon/Loading.vue';
-import { replaceText } from '../composables/helpers';
 
 const toast = useToast();
 const greeting = useGreetingStore();

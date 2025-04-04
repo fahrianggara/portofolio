@@ -30,8 +30,8 @@ export function useMeta(customTitle = null, customDescription = null, customOgIm
     ogUrl: `${baseUrl}${router.currentRoute.value.path}`,
     ogImage: finalOgImage,
     ogImageAlt: `${appName} Logo`,
-    ogImageHeight: 630,
-    ogImageWidth: 1200,
+    // ogImageHeight: 630,
+    // ogImageWidth: 1200,
     ogImageType: 'image/png',
     ogSiteName: appName,
     twitterCard: 'summary_large_image',
@@ -39,8 +39,8 @@ export function useMeta(customTitle = null, customDescription = null, customOgIm
     twitterDescription: finalDescription,
     twitterImage: finalOgImage,
     twitterImageAlt: `${appName} Logo`,
-    twitterImageHeight: 630,
-    twitterImageWidth: 1200,
+    // twitterImageHeight: 630,
+    // twitterImageWidth: 1200,
     keywords: 'fahri anggara, anggara, angga, fahri, indonesia, web developer, web, developer'
   });
 
