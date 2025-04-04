@@ -28,6 +28,8 @@ export default class Contact {
 
     if (!this.name.trim()) {
       this.errors.name = ["Name is required"];
+    } else if (this.name.trim().length < 3) {
+      this.errors.name = ["Name must be at least 3 characters"];
     }
 
     if (!this.email.trim()) {
@@ -42,7 +44,7 @@ export default class Contact {
 
     if (!this.message.trim()) {
       this.errors.message = ["Message is required"];
-    } else if (this.message.length < 10) {
+    } else if (this.message.trim().length < 10) {
       this.errors.message = ["Message must be at least 10 characters"];
     }
 
