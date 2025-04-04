@@ -62,16 +62,6 @@ export function setupHead()
             innerHTML: darkmode
           },
         ],
-        // style: [
-        //   {
-        //     textContent: `
-        //       section.home .img-container img {
-        //         width: 85px;
-        //         height: 85px;
-        //       }
-        //     `
-        //   }
-        // ]
       }
     ]
   })
