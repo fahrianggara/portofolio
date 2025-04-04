@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Variables for routes API
-const apiUrl = 'https://be.fahrianggara.my.id/api';
+const apiUrl = process.env.API_URL;
 const wakatimeApiUrl = 'https://wakatime.com/api/v1/users/current/stats';
 const githubApiUrl = 'https://api.github.com';
 

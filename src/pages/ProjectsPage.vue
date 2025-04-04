@@ -17,7 +17,7 @@ useMeta("Projects", "Let's take a look at some of the projects that I have worke
       These are some of my projects that I've worked on.
     </p>
 
-    <div v-if="!projects.length" class="card">
+    <div v-if="!projects || !projects.length" class="card">
       Hmm.. I haven't added any projects yet.
     </div>
 

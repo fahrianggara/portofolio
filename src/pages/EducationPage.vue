@@ -19,7 +19,7 @@ useMeta("Education", "Discover my educational background and learning journey.")
       These are the educations that I have taken so far.
     </p>
 
-    <div v-if="!educations.data.length" class="card">
+    <div v-if="!educations || !educations.data.length" class="card">
       Whoops, I haven't added any work experience yet.
     </div>
 

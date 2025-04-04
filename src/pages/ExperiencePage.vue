@@ -17,7 +17,7 @@ useMeta("Experience", "Discover my professional experience and work history.");
     These are some of the work experiences that I've had.
   </p>
 
-  <div v-if="!experiences.data.length" class="card">
+  <div v-if="!experiences || !experiences.data.length" class="card">
     Whoops, I haven't added any work experience yet.
   </div>
 
