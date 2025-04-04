@@ -63,8 +63,8 @@
 	}
 
 	.alert.danger {
-		@apply dark:bg-[#500000] bg-red-100 text-red-900 dark:text-[#ffdddd]
-		border border-solid dark:border-[#b10303] border-red-300;
+		@apply dark:bg-[#271313] bg-red-100 text-red-900 dark:text-[#ff5f5f]
+		border border-solid dark:border-red-500 border-red-300;
 	}
 }
 
