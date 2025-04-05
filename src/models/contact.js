@@ -40,6 +40,8 @@ export default class Contact {
 
     if (!this.subject.trim()) {
       this.errors.subject = ["Subject is required"];
+    } else if (this.subject.trim().length < 3) {
+      this.errors.subject = ["Subject must be at least 3 characters"];
     }
 
     if (!this.message.trim()) {
