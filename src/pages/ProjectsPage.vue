@@ -18,7 +18,7 @@ useMeta("Projects", "Let's take a look at some of the projects that I have worke
     </p>
 
     <div v-if="!projects || !projects.length" class="card">
-      Hmm.. I haven't added any projects yet.
+      Still dreaming them up... stay tuned!
     </div>
 
     <template v-else>
