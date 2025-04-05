@@ -119,7 +119,8 @@ useMeta("Contact Me", description);
           type="text" 
           placeholder="What's the subject?" 
           v-model="contact.subject" 
-          :maxlength="100" 
+          :maxlength="100"
+          :minlength="3"
           :error="contact.errors.subject" />
         
         <FormInput 
