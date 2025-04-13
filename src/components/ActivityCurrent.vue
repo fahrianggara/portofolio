@@ -151,9 +151,9 @@ onUnmounted(() => {
             <img :src="spotifyData.album_art_url" alt="Album Cover" class="w-20 h-20 rounded-lg mr-4 object-cover"/>
           </div>
           <div class="flex flex-col w-[calc(100%-5rem)]">
-            <h2 class="text-[15.5px] leading-6 font-semibold">{{ spotifyData.song }} - {{ spotifyData.artist }}</h2>
+            <h2 class="text-[15.5px] leading-6 font-semibold">{{ spotifyData.song }}</h2>
             <p class="dark:text-gray-300 text-gray-700 text-sm">
-              {{ spotifyData.album }}
+              {{ spotifyData.artist }}
             </p>
             
             <!-- Progress Bar -->
