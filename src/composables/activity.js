@@ -61,7 +61,7 @@ export function createLanyardWebSocket(userId, onDataUpdate) {
     reconnectAttempts++;
     const delay = Math.min(5000 * reconnectAttempts, 30000); // Maksimal 30 detik
 
-    console.log(`🔄 Reconnecting in ${delay / 1000} seconds...`);
+    console.log(`Reconnecting in ${delay / 1000} seconds...`);
     reconnectTimeout = setTimeout(connect, delay);
   }
 
