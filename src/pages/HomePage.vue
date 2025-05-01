@@ -31,9 +31,9 @@ useMeta(null, null);
               <ListSocial :socials="greeting.data.socials" />
             </div>
 
-            <div class="home-menu">
+            <nav class="home-menu">
               <ListMenu :show-icon="false" />
-            </div>
+            </nav>
           </div>
         </div>
       </div>
