@@ -182,11 +182,17 @@ onUnmounted(() => {
               :src="`${DISCORD_CDN_URL}/${activity.application_id}/${activity.assets.large_image}.png`"
               alt="Large Image" class="w-20 h-20 rounded-lg mr-3 object-cover"
             />
+            <img v-else
+              :src="`https://dcdn.dstn.to/app-icons/${activity.application_id}.webp?size=512`"
+              alt="Large Image" class="w-20 h-20 rounded-lg mr-3 object-cover"
+            />
+            
             <img
-              v-if="activity.assets?.small_image"
+              v-if="activity.assets?.small_image && activity.assets?.large_image"
               :src="`${DISCORD_CDN_URL}/${activity.application_id}/${activity.assets.small_image}.png`"
               alt="Small Image" class="absolute w-8 h-8 rounded-full right-1 -bottom-2 object-cover"
             />
+            
           </div>
 
           <div class="flex flex-col w-[calc(100%-5rem)]">

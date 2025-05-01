@@ -29,7 +29,7 @@ const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
   </urlset>`;
 
 // Generate robots.txt
-const sitemapName = 'mysites.xml';
+const sitemapName = 'sitemap.xml';
 const robotsContent = `User-agent: *
 Allow: /
 Sitemap: ${baseUrl}/${sitemapName}

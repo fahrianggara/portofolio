@@ -93,3 +93,5 @@ export function createRouter() {
 
   return router;
 }
+
+export { routes };

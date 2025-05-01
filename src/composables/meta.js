@@ -1,12 +1,10 @@
-import { useSeoMeta } from "@unhead/vue";
-import { useHead } from "@unhead/vue";
+import { useSeoMeta, useHead } from "@unhead/vue";
 import { useGreetingStore } from "../stores/greeting";
 import { useAboutStore } from "../stores/about";
 import { useConfigStore } from "../stores/configuration";
-import { useRouter } from "vue-router"; // Use useRouter instead of createRouter
+import { useRouter } from "vue-router";
 
-export function useMeta(customTitle = null, customDescription = null, customOgImage = null) 
-{
+export function useMeta(customTitle = null, customDescription = null, customOgImage = null) {
   const greeting = useGreetingStore();
   const about = useAboutStore();
   const config = useConfigStore();
@@ -19,6 +17,23 @@ export function useMeta(customTitle = null, customDescription = null, customOgIm
   const finalOgImage = customOgImage || `${baseUrl}/og.png`;
   const socials = greeting.data.socials.filter(social => !social.link.includes("@"));
 
+  const navigationSchema = router.options.routes
+    .flatMap(route => {
+      if (route.path === '/:pathMatch(.*)*' || route.name === 'notFound' || route.name === 'home') return [];
+      if (route.children) {
+        return route.children.map(child => ({
+          "@type": "SiteNavigationElement",
+          name: child.name,
+          url: `${baseUrl}/${child.path}`
+        }));
+      }
+      return {
+        "@type": "SiteNavigationElement",
+        name: route.name,
+        url: `${baseUrl}${route.path}`
+      };
+    });
+
   useSeoMeta({
     title: finalTitle,
     description: finalDescription,
@@ -30,8 +45,6 @@ export function useMeta(customTitle = null, customDescription = null, customOgIm
     ogUrl: `${baseUrl}${router.currentRoute.value.path}`,
     ogImage: finalOgImage,
     ogImageAlt: `${appName} Logo`,
-    // ogImageHeight: 630,
-    // ogImageWidth: 1200,
     ogImageType: 'image/png',
     ogSiteName: appName,
     twitterCard: 'summary_large_image',
@@ -39,8 +52,6 @@ export function useMeta(customTitle = null, customDescription = null, customOgIm
     twitterDescription: finalDescription,
     twitterImage: finalOgImage,
     twitterImageAlt: `${appName} Logo`,
-    // twitterImageHeight: 630,
-    // twitterImageWidth: 1200,
     keywords: 'fahri anggara, anggara, angga, fahri, indonesia, web developer, web, developer'
   });
 
@@ -60,6 +71,16 @@ export function useMeta(customTitle = null, customDescription = null, customOgIm
           "image": about.data.photo_link,
           "url": baseUrl,
           "sameAs": socials.map(social => social.link),
+        })
+      },
+      {
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            ...navigationSchema,
+          ]
+          
         })
       }
     ]
