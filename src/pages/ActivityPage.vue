@@ -8,7 +8,11 @@ const emit = defineEmits(["no-padding"]);
 onMounted(() => { emit("no-padding", true) });
 onUnmounted(() => { emit("no-padding", false) });
 
-useMeta("Activity", "Explore the activities I have done in the past and the ones I am currently doing.");
+useMeta({
+  title: 'Activity',
+  description: 'Explore the activities I have done in the past and the ones I am currently doing.',
+  keywords: "fahri anggara, angga, current activity, Discord status, Wakatime, coding hours, productivity, developer activity, programming tracking, coding stats, work in progress, software development, developer time tracking"
+})
 </script>
 
 <template>
