@@ -9,7 +9,11 @@ const educations = useEducationStore();
 const certificates = useCertificateStore();
 const openLightbox = inject('openLightbox');
 
-useMeta("Education", "Discover my educational background and learning journey.");
+useMeta({
+  title: 'Education',
+  description: 'Discover my educational background and learning journey.',
+  keywords: "education, pendidikan, fahri anggara, angga, pendidikan fahri anggara, education fahri anggara, SMK Yadika 12, Universitas Bina Sarana Informatika, lulusan terbaik, siswa berprestasi, indonesia, jakarta, sekolah vokasi, gelar sarjana, prestasi akademik, developer frontend, pengembangan web, pendidikan pemrograman, coding, pendidikan web developer"
+});
 </script>
 
 <template>

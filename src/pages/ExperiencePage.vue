@@ -5,7 +5,11 @@ import Markdown from '../components/Markdown.vue';
 
 const experiences = useExperienceStore();
 
-useMeta("Experience", "Discover my professional experience and work history.");
+useMeta({
+  title: 'Experience',
+  description: 'Discover my professional experience and work history.',
+  keywords: "fahri anggara, angga, pengalaman kerja, web developer, pengembang aplikasi, front-end developer, back-end developer, freelance developer, pengalaman profesional, pekerjaan pengembangan web, pengalaman pemrograman, aplikasi web, pengalaman teknis, pengembangan software, pekerjaan IT, pengalaman developer di jakarta"
+})
 </script>
 
 <template>

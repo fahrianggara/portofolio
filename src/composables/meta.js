@@ -4,7 +4,12 @@ import { useAboutStore } from "../stores/about";
 import { useConfigStore } from "../stores/configuration";
 import { useRouter } from "vue-router";
 
-export function useMeta(customTitle = null, customDescription = null, customOgImage = null) {
+export function useMeta({
+  title = null,
+  description = null,
+  ogImage = null,
+  keywords = null
+} = {}) {
   const greeting = useGreetingStore();
   const about = useAboutStore();
   const config = useConfigStore();
@@ -12,27 +17,30 @@ export function useMeta(customTitle = null, customDescription = null, customOgIm
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const appName = import.meta.env.VITE_APP_NAME;
-  const finalTitle = customTitle ? `${customTitle} - ${appName}` : appName;
-  const finalDescription = customDescription || greeting.data.subtitle;
-  const finalOgImage = customOgImage || `${baseUrl}/og.png`;
+
+  const finalTitle = title ? `${title} - ${appName}` : appName;
+  const finalDescription = description || greeting.data.subtitle;
+  const finalOgImage = ogImage || `${baseUrl}/og.png`;
+  const finalKeywords = keywords 
+    || 'fahri anggara, angga, fahrianggara, web developer, html programmer, developer jakarta';
+
   const socials = greeting.data.socials.filter(social => !social.link.includes("@"));
 
-  const navigationSchema = router.options.routes
-    .flatMap(route => {
-      if (route.path === '/:pathMatch(.*)*' || route.name === 'notFound' || route.name === 'home') return [];
-      if (route.children) {
-        return route.children.map(child => ({
-          "@type": "SiteNavigationElement",
-          name: child.name,
-          url: `${baseUrl}/${child.path}`
-        }));
-      }
-      return {
+  const navigationSchema = router.options.routes.flatMap(route => {
+    if (route.path === '/:pathMatch(.*)*' || route.name === 'notFound' || route.name === 'home') return [];
+    if (route.children) {
+      return route.children.map(child => ({
         "@type": "SiteNavigationElement",
-        name: route.name,
-        url: `${baseUrl}${route.path}`
-      };
-    });
+        name: child.name,
+        url: `${baseUrl}/${child.path}`
+      }));
+    }
+    return {
+      "@type": "SiteNavigationElement",
+      name: route.name,
+      url: `${baseUrl}${route.path}`
+    };
+  });
 
   useSeoMeta({
     title: finalTitle,
@@ -52,7 +60,7 @@ export function useMeta(customTitle = null, customDescription = null, customOgIm
     twitterDescription: finalDescription,
     twitterImage: finalOgImage,
     twitterImageAlt: `${appName} Logo`,
-    keywords: 'fahri anggara, anggara, angga, fahri, indonesia, web developer, web, developer'
+    keywords: finalKeywords
   });
 
   useHead({
@@ -79,8 +87,12 @@ export function useMeta(customTitle = null, customDescription = null, customOgIm
           "@context": "https://schema.org",
           "@graph": [
             ...navigationSchema,
+            {
+              "@type": "SiteNavigationElement",
+              name: "Resume",
+              url: config.data.resume_link,
+            }
           ]
-          
         })
       }
     ]

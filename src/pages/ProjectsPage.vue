@@ -7,7 +7,11 @@ const repositories = useRepoStore();
 const projectStore = useProjectStore();
 const projects = projectStore.data.data;
 
-useMeta("Projects", "Let's take a look at some of the projects that I have worked on.");
+useMeta({
+  title: 'Projects',
+  description: "Let's take a look at some of the projects that I have worked on.",
+  keywords: "fahri anggara, angga, projects, project, fahri anggara projects, fahri anggara project, project fahri anggara, project portfolio, web developer projects, mobile app developer projects, frontend developer projects, coding projects, programming projects, software development projects, projek web, pengembangan aplikasi, front-end development, back-end development, Vue.js, Laravel, React, pengembangan mobile, desain UI/UX, aplikasi web, proyek coding, proyek teknologi, pengalaman proyek, project development, aplikasi berbasis web, pengembangan software, repository github, open source"
+}); 
 </script>
 
 <template>

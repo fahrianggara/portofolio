@@ -18,7 +18,11 @@ watchEffect(() => {
     router.replace({ name: "notFound" });
   } else {
     project.value = foundProject;
-    useMeta(`Project - ${project.value.title}`, project.value.body, project.value.image_link);
+    useMeta({
+      title: `Project - ${project.value.title}`,
+      description: project.value.body,
+      ogImage: project.value.image_link,
+    });
   }
 });
 </script>

@@ -81,7 +81,16 @@ onUnmounted(() => {
   clearInterval(intervalId);
 });
 
-useMeta("Contact Me", description);
+const dynamicKeywords = [
+  email.value ? email.value.link.replace("mailto:", "") : "", 
+  ...socials.value.map(social => social.platform)
+].join(", ");
+
+useMeta({
+  title: 'Contact Me',
+  description,
+  keywords: `fahri anggara, angga, ${dynamicKeywords}, kontak saya, sosial media, email, komunikasi profesional, kontak fahri anggara, contact fahri anggara`
+});
 </script>
 
 <template>

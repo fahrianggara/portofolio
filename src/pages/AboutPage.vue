@@ -11,7 +11,12 @@ const greeting = useGreetingStore();
 const skills = useSkillsStore();
 const openLightbox = inject('openLightbox');
 
-useMeta('About Me', 'Learn more about me, my skills, and how to connect with me.', about.data.photo_link);
+useMeta({
+  title: 'About Me',
+  description: 'Learn more about me, my skills, and how to connect with me.',
+  ogImage: about.data.photo_link,
+  keywords: "fahri anggara, angga, about fahri anggara, tentang fahri anggara, about me fahri anggara, web developer indonesia, mobile app developer, frontend developer, html programmer, programmer muda, developer jakarta, personal profile developer, junior developer, belajar coding, passionate developer",
+})
 </script>
 
 <template>

@@ -5,7 +5,7 @@ import ListSocial from '../components/ListSocial.vue';
 import ListMenu from '../components/ListMenu.vue';
 
 const greeting = useGreetingStore();
-useMeta(null, null);
+useMeta();
 </script>
 
 <template>
