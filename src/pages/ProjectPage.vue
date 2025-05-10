@@ -37,12 +37,12 @@ watchEffect(() => {
 
   <div v-if="project" class="content-wrapper">
     <!-- Check if project exists before accessing its title -->
-    <h1>{{ project.title || 'Project Not Found' }}</h1>
+    <h2>{{ project.title || 'Project Not Found' }}</h2>
 
     <Markdown :content="project.description" class="content" />
 
     <div class="project-info">
-      <h1>Project Information</h1>
+      <h3>Project Information</h3>
       <div class="relative overflow-x-auto">
         <table class="w-full text-sm text-left rounded-2xl overflow-hidden border-collapse">
           <tbody>

@@ -110,7 +110,7 @@ onUnmounted(() => {
 
 <template>
   <div class="hp:px-0 px-5">
-    <h1 class="font-semibold md:text-[18px]">Current Activity</h1>
+    <h2 class="font-semibold md:text-[18px]">Current Activity</h2>
     <p class="dark:text-gray-300 text-gray-700 mt-1.5 text-[15px]">
       This is my current activity on Discord. Btw I'm using 
       <a href="https://github.com/Phineas/lanyard" target="_blank" class="text-primary">Lanyard API</a> 

@@ -26,9 +26,9 @@ useMeta({
       @click="openLightbox(0, [{ src: about.data.photo_link, title: 'About Photo' }])"
     />
 
-    <h1 class="text-[22px] sm:text-[32px] font-bold mb-3 text-wrap leading-8 sm:leading-11">
+    <h2 class="text-[22px] sm:text-[32px] font-bold mb-3 text-wrap leading-8 sm:leading-11">
       {{ about.data.title }}
-    </h1>
+    </h2>
 
     <Markdown :content="about.data.description" />
 
