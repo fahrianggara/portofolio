@@ -16,7 +16,7 @@ useMeta({
 
 <template>
   <div class="projects">
-    <h1 class="text-lg font-medium mb-1">My Projects</h1>
+    <h2 class="text-lg font-medium mb-1">My Projects</h2>
     <p class="text-gray-700 dark:text-gray-400 mb-5 text-[15px] md:text-[16px]">
       These are some of my projects that I've worked on.
     </p>
@@ -54,7 +54,7 @@ useMeta({
   </div>
 
   <div class="repositories">
-    <h1 class="text-lg font-medium mb-1 mt-8">My Repositories</h1>
+    <h2 class="text-lg font-medium mb-1 mt-8">My Repositories</h2>
     <p class="text-gray-700 dark:text-gray-400 mb-5 text-[15px] md:text-[16px]">
       These are some of my pinned repositories on GitHub.
     </p>

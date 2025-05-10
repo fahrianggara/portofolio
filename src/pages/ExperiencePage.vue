@@ -13,9 +13,9 @@ useMeta({
 </script>
 
 <template>
-  <h1 class="mb-1 font-medium text-lg">
+  <h2 class="mb-1 font-medium text-lg">
     Work Experience
-  </h1>
+  </h2>
 
   <p class="mb-5 text-gray-700 dark:text-gray-400 text-[15px] md:text-[16px]">
     These are some of the work experiences that I've had.

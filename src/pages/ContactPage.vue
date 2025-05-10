@@ -96,7 +96,7 @@ useMeta({
 <template>
   <div class="flex flex-col-reverse gap-5 lg:grid lg:grid-cols-3">
     <div class="contact-box lg:col-span-2 md:col-span-3 sm:col-span-2 col-span-1">
-      <h1>Let's Connect!</h1>
+      <h2>Let's Connect!</h2>
       <p>{{ description }}</p>
 
       <!-- Alert throttle -->
@@ -152,14 +152,14 @@ useMeta({
 
     <div class="contact-info lg:flex lg:flex-col hp:grid hp:grid-cols-2 flex flex-col gap-5">
       <div class="contact-box">
-        <h1 class="mb-1">Email</h1>
+        <h3 class="mb-1">Email</h3>
         <a v-if="email" :href="email.link" target="_blank" rel="noopener noreferrer"> 
           {{ replaceText(email.link, "mailto:", "") }}
         </a>
       </div>
 
       <div class="contact-box">
-        <h1 class="mb-1">Social Media</h1>
+        <h3 class="mb-1">Social Media</h3>
         <div class="links">
           <a v-for="(social, i) in socials" :key="i" class="text-primary"
             :href="social.link" target="_blank" rel="noopener noreferrer">

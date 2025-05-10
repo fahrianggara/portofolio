@@ -45,10 +45,6 @@ const githubJoinDate = computed(() => {
   return formatDate(user.data.created_at);
 });
 
-const formattedRange = computed(() => {
-  return wakatime.data.human_readable_range?.replace(/since\s+/i, '') || '';
-});
-
 let rangeColor = ref([]);
 
 watch(isDarkMode, (newVal) => {
@@ -68,7 +64,7 @@ watch(isDarkMode, (newVal) => {
 
 <template>
   <div class="hp:px-0 px-5 mt-6">
-    <h1 class="font-semibold md:text-[18px]">Coding Activity</h1>
+    <h2 class="font-semibold md:text-[18px]">Coding Activity</h2>
     <p class="dark:text-gray-300 text-gray-700 mt-1.5 text-[15px]">
       This is my coding activity on GitHub & 
       <a href="https://wakatime.com/" target="_blank" class="text-primary">WakaTime</a>.
@@ -84,9 +80,6 @@ watch(isDarkMode, (newVal) => {
       <!-- Data setelah selesai loading -->
       <div class="text-[15px] md:text-[13.5px] lg:text-[15px]">
         {{ githubJoinDate.formattedDate }}
-        <span class="dark:text-gray-400 text-gray-600">
-          ({{ githubJoinDate.diffHours }} hrs {{ githubJoinDate.diffMinutes }} mins)
-        </span>
       </div>
     </div>
 
