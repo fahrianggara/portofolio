@@ -22,7 +22,7 @@ export function useMeta({
   const finalDescription = description || greeting.data.subtitle;
   const finalOgImage = ogImage || `${baseUrl}/og.png`;
   const finalKeywords = keywords 
-    || 'fahri anggara, angga, fahrianggara, web developer, html programmer, developer jakarta';
+    || 'fahri anggara, angga, fahrianggara, web developer, html programmer, developer jakarta, UI/UX designer, responsive web design, user interface design, frontend developer, Vue.js, Tailwind CSS, Figma, HTML, CSS, JavaScript, intuitive interfaces, modern web design, web design portfolio';
 
   const socials = greeting.data.socials.filter(social => !social.link.includes("@"));
 

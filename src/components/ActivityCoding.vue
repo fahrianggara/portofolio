@@ -48,6 +48,21 @@ const githubJoinDate = computed(() => {
 const formattedRange = computed(() => {
   return wakatime.data.human_readable_range?.replace(/since\s+/i, '') || '';
 });
+
+let rangeColor = ref([]);
+
+watch(isDarkMode, (newVal) => {
+  if (newVal) {
+    rangeColor.value = [
+      "#1f1f22", "#1f1f22", "#203b53", "#1d5689", "#1d69ac", "#1b95d1"
+    ];
+  } else {
+    rangeColor.value = [
+      "#dae2ef", "#dae2ef", "#8ec7ff", "#3886e1", "#17459e"
+    ];
+  }
+}, { immediate: true });
+
 </script>
 
 
@@ -77,15 +92,12 @@ const formattedRange = computed(() => {
 
     <div class="card">
       <h1 class="font-medium mb-1.5">
-        Since <span class="text-[14px] dark:text-gray-400 text-gray-700 font-normal">(WakaTime)</span>
+        Coding Hours <span class="text-[14px] dark:text-gray-400 text-gray-700 font-normal">(WakaTime)</span>
       </h1>
 
       <!-- Data setelah selesai loading -->
       <div class="text-[15px] md:text-[13.5px] lg:text-[15px]">
-        {{ formattedRange }}
-        <span class="dark:text-gray-400 text-gray-600">
-          ({{ wakatime.data.human_readable_total }})
-        </span>
+        {{ wakatime.data.human_readable_total }}
       </div>
     </div>
   </div>
@@ -106,6 +118,7 @@ const formattedRange = computed(() => {
         :dark-mode="isDarkMode" 
         :round="2"
         class="w-[670px] lg:w-full"
+        :range-color="rangeColor"
       />
     </div>
   </div>
