@@ -24,7 +24,7 @@ let songProgressInterval = null;
 // Computed properties
 const currActivities = computed(() => discordData.value?.activities || null);
 const isListeningToSpotify = computed(() => Boolean(discordData.value?.spotify));
-const spotifyData = computed(() => discordData.value?.spotify);
+const spotifyData = computed(() => discordData.value?.spotify || {});
 const isOffline = computed(() => Boolean(discordData.value?.discord_status === "offline"));
 
 // WebSocket instance
@@ -141,7 +141,7 @@ onUnmounted(() => {
     </li>
 
     <li class="activity" v-else v-for="(activity, index) in currActivities" :key="index">
-      <div v-if="activity.flags">
+      <div v-if="activity.flags && isListeningToSpotify">
         <p class="font-medium dark:text-gray-300 text-gray-700 mb-3.5 text-[14px]">
           Listening to Spotify
         </p>
